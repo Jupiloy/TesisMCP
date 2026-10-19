@@ -296,9 +296,10 @@ Desarrollar progresivamente una plataforma colaborativa basada en MCP que guíe 
 
 El siguiente lienzo resume el modelo de valor del proyecto para el corte de Semana 10:
 
-![Lienzo Lean Canvas TesisMCP](./lean_canvas_tesismcp.png)
+![Lienzo Lean Canvas TesisMCP](./diagramas/02_lean_canvas_tesismcp.png)
 
-*Figura 4.1: Lienzo Lean Canvas del proyecto TesisMCP (Corte Semana 10).*
+*Figura 4.1: Lienzo Lean Canvas del proyecto TesisMCP (Corte Semana 10).*  
+*[Descargar archivo editable (.drawio)](./diagramas/02_lean_canvas_tesismcp.drawio)*
 
 El siguiente cuadro detalla cada bloque del lienzo sin asumir que sus beneficios ya fueron medidos:
 
@@ -426,10 +427,10 @@ Estos instrumentos todavía deben ser revisados y aplicados. Por tanto, este doc
 
 La matriz estratégica resultante se ilustra en la Figura 6.1:
 
-![Matriz FODA del Proyecto TesisMCP](./diagramas/02_foda_diagnostico_estrategico.png)
+![Matriz FODA del Proyecto TesisMCP](./diagramas/03_foda_diagnostico_estrategico.png)
 
 *Figura 6.1: Matriz FODA del Proyecto TesisMCP — Fase 01: Diagnóstico Estratégico.*  
-*[Descargar archivo editable (.drawio)](./diagramas/02_foda_diagnostico_estrategico.drawio)*
+*[Descargar archivo editable (.drawio)](./diagramas/03_foda_diagnostico_estrategico.drawio)*
 
 #### 6.1.2 Causas que se busca atender
 
@@ -477,10 +478,10 @@ Los riesgos principales se presentaron en la sección 4.2.3. Desde el punto de v
 
 Los requerimientos funcionales implementados y los roles involucrados se modelan en el Diagrama de Casos de Uso de la Figura 6.2:
 
-![Diagrama de Casos de Uso del Sistema UML](./diagramas/03_casos_uso_sistema.png)
+![Diagrama de Casos de Uso del Sistema UML](./diagramas/04_casos_uso_sistema.png)
 
 *Figura 6.2: Diagrama de Casos de Uso del Sistema (UML) — Fase 03: Requerimientos Funcionales.*  
-*[Descargar archivo editable (.drawio)](./diagramas/03_casos_uso_sistema.drawio)*
+*[Descargar archivo editable (.drawio)](./diagramas/04_casos_uso_sistema.drawio)*
 
 #### 6.3.2 Requerimientos no funcionales
 
@@ -654,10 +655,10 @@ El esquema se despliega mediante dos migraciones Django: una consolidada inicial
 
 El esquema físico relacional de las 17 tablas se ilustra en la Figura 6.5:
 
-![Diagrama Entidad-Relación Físico de 17 Tablas](./diagramas/04_der_modelo_fisico_17_tablas.png)
+![Diagrama Entidad-Relación Físico de 17 Tablas](./diagramas/07_der_modelo_fisico_17_tablas.png)
 
 *Figura 6.5: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*  
-*[Descargar archivo editable (.drawio)](./diagramas/04_der_modelo_fisico_17_tablas.drawio)*
+*[Descargar archivo editable (.drawio)](./diagramas/07_der_modelo_fisico_17_tablas.drawio)*
 
 No todas las tablas se llenan al crear el proyecto. Los capítulos y avances aparecen conforme el estudiante trabaja. Esto evita generar contenido ficticio o revisiones vacías solo para completar registros.
 
