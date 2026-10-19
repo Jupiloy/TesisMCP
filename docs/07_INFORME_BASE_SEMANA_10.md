@@ -121,8 +121,7 @@ El análisis de causas y efectos que dan origen a esta problemática se sintetiz
 
 ![Diagrama de Causa-Efecto Ishikawa](./diagramas/01_ishikawa_situacion_problematica.png)
 
-*Figura 1.1: Diagrama de Causa-Efecto (Ishikawa) de la situación problemática en la formulación de tesis.*  
-*[Descargar archivo editable (.drawio)](./diagramas/01_ishikawa_situacion_problematica.drawio)*
+*Figura 1.1: Diagrama de Causa-Efecto (Ishikawa) de la situación problemática en la formulación de tesis.*
 
 ### 1.2.1 Cómo se suele trabajar sin el sistema
 
@@ -298,8 +297,7 @@ El siguiente lienzo resume el modelo de valor del proyecto para el corte de Sema
 
 ![Lienzo Lean Canvas TesisMCP](./diagramas/02_lean_canvas_tesismcp.png)
 
-*Figura 4.1: Lienzo Lean Canvas del proyecto TesisMCP (Corte Semana 10).*  
-*[Descargar archivo editable (.drawio)](./diagramas/02_lean_canvas_tesismcp.drawio)*
+*Figura 4.1: Lienzo Lean Canvas del proyecto TesisMCP (Corte Semana 10).*
 
 El siguiente cuadro detalla cada bloque del lienzo sin asumir que sus beneficios ya fueron medidos:
 
@@ -429,8 +427,7 @@ La matriz estratégica resultante se ilustra en la Figura 6.1:
 
 ![Matriz FODA del Proyecto TesisMCP](./diagramas/03_foda_diagnostico_estrategico.png)
 
-*Figura 6.1: Matriz FODA del Proyecto TesisMCP — Fase 01: Diagnóstico Estratégico.*  
-*[Descargar archivo editable (.drawio)](./diagramas/03_foda_diagnostico_estrategico.drawio)*
+*Figura 6.1: Matriz FODA del Proyecto TesisMCP — Fase 01: Diagnóstico Estratégico.*
 
 #### 6.1.2 Causas que se busca atender
 
@@ -480,8 +477,7 @@ Los requerimientos funcionales implementados y los roles involucrados se modelan
 
 ![Diagrama de Casos de Uso del Sistema UML](./diagramas/04_casos_uso_sistema.png)
 
-*Figura 6.2: Diagrama de Casos de Uso del Sistema (UML) — Fase 03: Requerimientos Funcionales.*  
-*[Descargar archivo editable (.drawio)](./diagramas/04_casos_uso_sistema.drawio)*
+*Figura 6.2: Diagrama de Casos de Uso del Sistema (UML) — Fase 03: Requerimientos Funcionales.*
 
 #### 6.3.2 Requerimientos no funcionales
 
@@ -605,8 +601,7 @@ El esquema conceptual del dominio se presenta en la Figura 6.3:
 
 ![Modelo Conceptual Entidad-Relación](./diagramas/05_modelo_conceptual_er.png)
 
-*Figura 6.3: Modelo Conceptual Entidad-Relación (ER) — Dominio Metodológico de TesisMCP.*  
-*[Descargar archivo editable (.drawio)](./diagramas/05_modelo_conceptual_er.drawio)*
+*Figura 6.3: Modelo Conceptual Entidad-Relación (ER) — Dominio Metodológico de TesisMCP.*
 
 #### 6.5.2 Modelo Lógico Relacional (3NF)
 
@@ -616,8 +611,7 @@ La estructura lógica normalizada se ilustra en la Figura 6.4:
 
 ![Modelo Lógico Relacional 3NF](./diagramas/06_modelo_logico_relacional.png)
 
-*Figura 6.4: Modelo Lógico Relacional (3NF) — Normalización y Claves de Entidad.*  
-*[Descargar archivo editable (.drawio)](./diagramas/06_modelo_logico_relacional.drawio)*
+*Figura 6.4: Modelo Lógico Relacional (3NF) — Normalización y Claves de Entidad.*
 
 #### 6.5.3 Modelo Físico en PostgreSQL 16 y Catálogo de Tablas
 
@@ -657,8 +651,7 @@ El esquema físico relacional de las 17 tablas se ilustra en la Figura 6.5:
 
 ![Diagrama Entidad-Relación Físico de 17 Tablas](./diagramas/07_der_modelo_fisico_17_tablas.png)
 
-*Figura 6.5: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*  
-*[Descargar archivo editable (.drawio)](./diagramas/07_der_modelo_fisico_17_tablas.drawio)*
+*Figura 6.5: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*
 
 No todas las tablas se llenan al crear el proyecto. Los capítulos y avances aparecen conforme el estudiante trabaja. Esto evita generar contenido ficticio o revisiones vacías solo para completar registros.
 
