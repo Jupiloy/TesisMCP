@@ -1,94 +1,59 @@
 # 03. Flujo Metodológico Paso a Paso: Capítulos 1 al 3 (`P01` a `P12`)
 
-Este documento explica qué ocurre exactamente dentro del código cuando un estudiante o agente IA completa cada uno de los **12 pasos metodológicos** definidos en [`backend/thesis/step_catalogue.py`](../backend/thesis/step_catalogue.py), qué valida [`step_contracts.py`](../backend/thesis/services/step_contracts.py) y qué tablas actualiza [`consistency.py`](../backend/thesis/services/step_materializers/consistency.py).
+Este documento describe el comportamiento literal de [`step_contracts.py`](../backend/thesis/services/step_contracts.py), [`steps.py`](../backend/thesis/services/steps.py) y los materializadores registrados en [`step_materializers/`](../backend/thesis/services/step_materializers/).
 
----
+## 1. Secuencia interna de `guardar_paso_servicio`
 
-## 1. Secuencia Interna de Guardado (`guardar_envio_paso`)
-
-Cada vez que se invoca `guardar_paso` (vía MCP) o `POST /api/projects/{id}/steps/{step_code}` (vía REST), el código en [`backend/thesis/services/steps.py`](../backend/thesis/services/steps.py) ejecuta esta secuencia determinista:
+La herramienta MCP `guardar_paso` y el endpoint REST `PUT /api/v1/projects/{project_id}/steps/{step_code}` delegan en la misma función.
 
 ```mermaid
 sequenceDiagram
-    participant C as Cliente (MCP / REST)
-    participant S as services/steps.py
-    participant V as step_contracts.py (Pydantic)
-    participant M as step_materializers/consistency.py
-    participant DB as PostgreSQL (tesismcp_reducido_docente)
+    participant C as Cliente MCP o REST
+    participant S as guardar_paso_servicio
+    participant V as Contrato Pydantic
+    participant M as Materializador registrado
+    participant DB as PostgreSQL
 
-    C->>S: guardar_envio_paso(proyecto, usuario, codigo_paso, version_esperada, carga)
-    S->>S: exigir_participante_activo(rol="TESISTA")
-    S->>V: validar_carga_paso(codigo_paso, carga)
-    Note over V: Verifica que codigo_paso esté en P01..P12<br/>y valida SalidaEstricta (extra="forbid")
-    V-->>S: datos_validados (dict limpio)
-    S->>DB: BEGIN TRANSACTION + SELECT Proyecto FOR UPDATE
-    S->>S: Verifica proyecto.lock_version == version_esperada
-    S->>S: Verifica que Capitulo(1..3).status != "APPROVED"
-    S->>DB: Actualiza ProgresoPaso (status="COMPLETED", current_data)
-    S->>M: aplicar_materializaciones_paso(proyecto, perfil, codigo_paso, datos_validados)
-    M->>DB: Normaliza en PerfilInvestigacion / FilaConsistencia / Variables / Indicadores
-    S->>M: renderizar_markdown_capitulo(proyecto, perfil, numero_capitulo)
-    M-->>S: texto Markdown + instantánea JSON
-    S->>DB: INSERT RevisionCapitulo (inmutable, numero_revision + 1)
-    S->>DB: UPDATE Proyecto SET lock_version = lock_version + 1
-    S->>DB: COMMIT TRANSACTION
-    S-->>C: Respuesta con lock_version actualizado y número de revisión
+    C->>S: paso, contenido_md, salida_json, versión, UUID
+    S->>S: Comprueba propietario, P01-P12, UUID y contenido
+    S->>V: CONTRATOS[paso].model_validate(salida_json)
+    V-->>S: Diccionario estricto validado
+    S->>DB: BEGIN + bloqueo de PerfilInvestigacion y Capitulo
+    S->>S: Comprueba idempotencia, lock_version, estado y prerrequisito
+    S->>M: ejecutar_materializador_paso(...)
+    M->>DB: Actualizaciones relacionales específicas del paso
+    S->>DB: INSERT RevisionCapitulo con SHA-256
+    S->>DB: UPSERT ProgresoPaso como COMPLETED
+    S->>DB: Incrementa PerfilInvestigacion.lock_version
+    S->>DB: COMMIT
+    S-->>C: revisión, versión nueva e indicador de idempotencia
 ```
 
----
+El servicio exige orden secuencial: salvo `P01`, cada paso requiere que el anterior esté `COMPLETED`. El contenido Markdown lo entrega el cliente y se guarda tal cual, con límite de 200 000 caracteres y resumen SHA-256; el backend no inventa ni renderiza contenido académico adicional.
 
-## 2. Capítulo 1: Elección del Tema y Alcance (`P01` a `P05`)
+## 2. Contratos reales de los pasos
 
-Todos los pasos del Capítulo 1 alimentan la tabla `tesis_perfil_investigacion` (`PerfilInvestigacion`) y regeneran la revisión del `Capitulo(number=1)`.
+Todos heredan de `SalidaEstricta`, que usa `ConfigDict(extra="forbid", str_strip_whitespace=True)`.
 
-| Paso | Nombre en Catálogo | Esquema Pydantic (`step_contracts.py`) | Reglas de Validación Estricta | Columnas Actualizadas en PostgreSQL |
-| :---: | :--- | :--- | :--- | :--- |
-| **`P01`** | Mapa de Temas y Problema | `SalidaP01` | Exige entre **5 y 10** `temas_propuestos` (`min_length=5, max_length=10`). Un `@model_validator` verifica que `tema_preseleccionado_id` exista dentro de la lista de IDs propuestos. | `PerfilInvestigacion.topic_options` (JSON) y `PerfilInvestigacion.selected_topic` (título del tema elegido). |
-| **`P02`** | Tipo de Investigación | `SalidaP02` | `enfoque` restringido a `CUANTITATIVO \| CUALITATIVO \| MIXTO`; `alcance` a `EXPLORATORIO \| DESCRIPTIVO \| CORRELACIONAL \| EXPLICATIVO`; `diseno_investigacion` ($\ge 3$ caracteres) y `justificacion_eleccion` ($\ge 20$ caracteres). | `PerfilInvestigacion.research_approach`, `research_scope` y `research_design`. |
-| **`P03`** | Población, Muestra y ODS | `SalidaP03` | `tamano_muestra` entero $> 0$; `codigo_meta_ods` validado por expresión regular `^ODS-(0[1-9]\|1[0-7]):[0-9A-Za-z.]+$` (ej. `ODS-04:4.4`). | `PerfilInvestigacion.population_description`, `sample_size` y `sdg_target_code`. |
-| **`P04`** | Título de Investigación | `SalidaP04` | `titulo_propuesto` (15 a 300 caracteres), `variable_independiente`, `variable_dependiente`, `unidad_analisis`, `contexto_espacial` y `periodo_temporal`. | Actualiza `Proyecto.title` con el título oficial de la tesis. |
-| **`P05`** | Alcance de la Investigación | `SalidaP05` | `alcance_definido` y `justificacion_alcance` ($\ge 30$ caracteres), más listas no vacías (`min_length=1`) de `delimitaciones` y `limitaciones`. | Sincroniza `PerfilInvestigacion.research_scope` y se renderiza en la sección *1.5 Alcance y Delimitaciones* del Capítulo 1. |
+| Paso | Cap. | Contrato y validaciones principales | Materialización adicional |
+| :---: | :---: | :--- | :--- |
+| `P01` | 1 | Entre 5 y 10 temas con identificadores únicos; la preselección, si existe, debe pertenecer a la lista. | Se conserva la salida completa en `tesis_progreso_paso.salida_json`. |
+| `P02` | 1 | Matriz de exactamente 3 temas; cada puntaje total debe ser la suma de cuatro criterios y el ganador debe existir y alcanzar el máximo. | Salida JSON y nueva revisión del capítulo 1. |
+| `P03` | 1 | ODS entre 1 y 17, meta específica, argumento de alineación y línea UTP. | Actualiza `PerfilInvestigacion.codigo_ods` con formato `ODS-NN:meta`. |
+| `P04` | 1 | Título de hasta 20 palabras; debe contener variables, unidad de análisis, lugar y periodo declarados. | Actualiza el título del proyecto, unidad de análisis, lugar y periodo. |
+| `P05` | 1 | Markdown de al menos 500 caracteres, 3 párrafos y entre 250 y 1200 palabras; los conteos declarados deben coincidir. | Salida JSON y nueva revisión del capítulo 1. |
+| `P06` | 2 | Problema central, 2 a 5 causas, 2 a 5 efectos, pregunta general con signos `¿?` y 2 a 4 preguntas específicas. | Actualiza el planteamiento y crea las preguntas general (`orden=0`) y específicas en `tesis_fila_consistencia`. |
+| `P07` | 2 | Exactamente cuatro justificaciones: `TEORICA`, `PRACTICA`, `METODOLOGICA` y `SOCIAL`, sin duplicados. | Salida JSON y nueva revisión del capítulo 2. |
+| `P08` | 2 | Brecha detectada, aporte propuesto y estado fijo `PENDING_EVIDENCE`. | Salida JSON y nueva revisión del capítulo 2. |
+| `P09` | 3 | Objetivo general y 2 a 4 objetivos específicos iniciados con verbos de Bloom permitidos. | Completa los objetivos de las filas de consistencia y exige igual cantidad que las preguntas de `P06`. |
+| `P10` | 3 | Pregunta general y 2 a 4 preguntas específicas, todas con signos `¿?`. | Sincroniza las preguntas de la matriz y exige igual cantidad que los objetivos de `P09`. |
+| `P11` | 3 | Tipo de investigación, hipótesis general y específicas, variable independiente y dependiente. | Completa hipótesis, crea dos variables (`INDEPENDENT` y `DEPENDENT`) y las vincula con todas las filas de consistencia. |
+| `P12` | 3 | Matriz con definiciones, dimensiones, indicadores y escala `NOMINAL`, `ORDINAL`, `INTERVALO` o `RAZON`. | Exige coincidencia exacta con las variables de `P11` y materializa dimensiones e indicadores. |
 
----
+## 3. Persistencia y revisión docente
 
-## 3. Capítulo 2: Realidad Problemática y Justificación (`P06` a `P08`)
-
-Los pasos del Capítulo 2 estructuran el diagnóstico científico del problema y generan las revisiones de `Capitulo(number=2)`.
-
-| Paso | Nombre en Catálogo | Esquema Pydantic (`step_contracts.py`) | Reglas de Validación Estricta | Columnas Actualizadas en PostgreSQL |
-| :---: | :--- | :--- | :--- | :--- |
-| **`P06`** | Planteamiento del Problema | `SalidaP06` | Exige los **6 bloques metodológicos obligatorios (`CA-S-P-CO-CC-PC`)**, cada uno con mínimo 20 caracteres: `contexto_antecedentes`, `sintomas`, `problematica_central`, `causas_origen`, `consecuencias_pronostico` y `propuesta_control_pronostico`. | Compila los 6 apartados en formato Markdown estructurado dentro de `PerfilInvestigacion.problem_statement_summary`. |
-| **`P07`** | Formulación del Problema | `SalidaP07` | `pregunta_general` ($\ge 20$ caracteres) y al menos 2 `preguntas_especificas` (`min_length=2`). | Guarda `PerfilInvestigacion.general_question` para conectarlo en el Capítulo 3 con la Matriz de Consistencia. |
-| **`P08`** | Justificación de la Investigación | `SalidaP08` | Exige las 4 dimensiones clásicas de justificación ($\ge 20$ caracteres cada una): `justificacion_teorica`, `justificacion_practica`, `justificacion_metodologica` y `justificacion_social`. | Compila las 4 justificaciones en `PerfilInvestigacion.justification_summary`. |
-
----
-
-## 4. Capítulo 3: Objetivos, Preguntas, Hipótesis y Operacionalización (`P09` a `P12`)
-
-Aquí ocurre la **normalización relacional más profunda** del proyecto (función [`_materializar_capitulo_3()`](../backend/thesis/services/step_materializers/consistency.py)):
-
-### Paso `P09`: Objetivos e Inicio de la Matriz de Consistencia (`SalidaP09`)
-* **Entrada validada:** `objetivo_general` ($\ge 20$ caracteres), `objetivos_especificos` ($\ge 2$) y `resumen_matriz_consistencia`.
-* **Materialización en BD (`tesis_fila_consistencia`):**
-  1. Crea o actualiza la fila maestra `FilaConsistencia(row_type="GENERAL", row_index=0)` uniendo la `pregunta_general` (de `P07`) con el `objetivo_general` (de `P09`).
-  2. Recorre en paralelo las `preguntas_especificas` (de `P07`) y los `objetivos_especificos` (de `P09`) creando las filas `FilaConsistencia(row_type="SPECIFIC", row_index=1..N)` y eliminando filas huérfanas si el número de objetivos disminuyó.
-
-### Paso `P10`: Preguntas Específicas e Hipótesis (`SalidaP10`)
-* **Entrada validada:** `preguntas_especificas` ($\ge 2$), `hipotesis_general` ($\ge 15$ caracteres), `hipotesis_nula` ($\ge 15$ caracteres) e `hipotesis_especificas` ($\ge 2$).
-* **Materialización en BD (`tesis_fila_consistencia`):**
-  1. Completa la fila `GENERAL` (`row_index=0`) inyectando `hypothesis = hipotesis_general` y `null_hypothesis = hipotesis_nula`.
-  2. Completa cada fila `SPECIFIC` (`row_index=1..N`) emparejando cada pregunta específica y objetivo específico con su `hipotesis_especifica` correspondiente.
-
-### Paso `P11`: Definición Conceptual y Operacional de Variables (`SalidaP11`)
-* **Entrada validada:** Objeto `variable_independiente` y objeto `variable_dependiente` (`ItemVariableP11`: `nombre`, `definicion_conceptual` $\ge 15$ caracteres, `definicion_operacional` $\ge 15$ caracteres).
-* **Materialización en BD (`tesis_variable_investigacion` y `tesis_variable_fila_consistencia`):**
-  1. Hace `update_or_create` de la variable con código `"VI"` (`role="INDEPENDENT"`) y de la variable con código `"VD"` (`role="DEPENDENT"`).
-  2. Vincula automáticamente ambas variables (`VI` y `VD`) con todas las filas de la Matriz de Consistencia del proyecto en la tabla intermedia `VariableFilaConsistencia`.
-
-### Paso `P12`: Matriz de Operacionalización (`SalidaP12`)
-* **Entrada validada:** Lista `variables` ($\ge 2$), donde cada variable contiene al menos 1 dimensión (`ItemDimensionP12`), y cada dimensión contiene al menos 1 indicador (`ItemIndicadorP12`: `nombre`, `formula`, `unidad_medida`, `escala_medicion`, `instrumento`).
-* **Materialización en BD (`tesis_dimension_variable` y `tesis_indicador`):**
-  1. Empareja cada variable enviada con su registro en `VariableInvestigacion` (por nombre o por orden `VI`/`VD`).
-  2. Limpia las dimensiones previas de esa variable (`variable.dimensions.all().delete()`) para evitar duplicados y reconstruye limpiamente el árbol jerárquico:
-     * Crea cada `DimensionVariable` con su `display_order` (`1, 2, ...`).
-     * Crea dentro de cada dimensión sus registros `Indicador` con su fórmula matemática, unidad de medida, escala de medición (`Nominal`, `Ordinal`, `Intervalo`, `Razón`) e instrumento de recolección.
+- Cada guardado crea una `RevisionCapitulo` nueva; la clave UUID brinda idempotencia por capítulo.
+- PostgreSQL impide `UPDATE` y `DELETE` sobre revisiones y eventos mediante la función `tesis_rechazar_cambio_historial` y dos triggers.
+- Un capítulo solo puede enviarse cuando todos sus pasos están completados.
+- El asesor no puede aprobar mientras existan observaciones abiertas.
+- Un capítulo aprobado vuelve a `DRAFT` cuando el asesor ejecuta `REOPEN` con un motivo.

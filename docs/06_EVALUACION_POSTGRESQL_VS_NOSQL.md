@@ -36,8 +36,8 @@ El desarrollo de un sistema asistido por Modelos de Lenguaje (LLMs) para la form
 ### Opción A: PostgreSQL (RDBMS Objeto-Relacional con soporte Multimodelo)
 
 * **Ventajas Técnicas:**
-  1. **Integridad Referencial y Restricciones Físicas:** Soporta `FOREIGN KEY` con políticas de cascada, `CheckConstraint` (como obligar a que el número de capítulo esté entre 1 y 3) y `UniqueConstraint` condicionales (un único asesor activo por proyecto con `Q(role="ASESOR", is_active=True)`).
-  2. **Transaccionalidad ACID Estricta:** En el método `guardar_envio_paso`, la actualización del paso, la materialización de filas en la Matriz de Consistencia, la creación de variables, el incremento de `lock_version` y la generación de la nueva revisión ocurren dentro de un `with transaction.atomic():`. O se persiste todo o no se persiste nada.
+  1. **Integridad Referencial y Restricciones Físicas:** Soporta `FOREIGN KEY` con `PROTECT`, `CheckConstraint` (como obligar a que el número de capítulo esté entre 1 y 3) y `UniqueConstraint` condicionales (un único asesor activo por proyecto con `Q(role="ADVISOR", active=True)`).
+  2. **Transaccionalidad ACID Estricta:** En `guardar_paso_servicio`, la materialización relacional, la creación de la revisión, la actualización de `ProgresoPaso` y el incremento de `lock_version` ocurren dentro de `transaction.atomic()`. O se persiste todo o no se persiste nada.
   3. **Capacidades Documentales Nativas (`JSONB` + Índices GIN):** PostgreSQL almacena JSON descompuesto en formato binario (`JSONB`), permitiendo consultas e indexación dentro de claves internas sin sacrificar el esquema relacional.
   4. **Garantía de Inmutabilidad en el Motor (PL/pgSQL Triggers):** Permite disparadores a nivel de motor (`BEFORE UPDATE OR DELETE`) como `tesis_rechazar_cambio_historial()` para que nadie, ni siquiera un administrador con acceso SQL, pueda alterar revisiones o bitácoras pasadas.
   5. **Búsqueda Semántica Vectorial Unificada (`pgvector`):** En la versión completa, soporta vectores de embeddings sin necesidad de incorporar otra base de datos como Pinecone o Milvus.
@@ -101,10 +101,9 @@ PostgreSQL resuelve esta dualidad actuando como una **Base de Datos Multimodelo 
 
 1. **La Columna Vertebral es Relacional:**
    * Las tablas `tesis_proyecto`, `tesis_participante_proyecto`, `tesis_fila_consistencia`, `tesis_variable_investigacion`, `tesis_dimension_variable` e `tesis_indicador` son relacionales porque modelan entidades con restricciones formales de unicidad, cardinalidad y llaves foráneas.
-2. **Las Ramas Dinámicas son Documentales (`JSONB`):**
-   * En `tesis_progreso_paso`, la columna `datos_actuales` almacena el JSON completo validado de cada paso.
-   * En `tesis_perfil_investigacion`, la columna `topic_options` almacena los temas propuestos exploratorios.
-   * En `tesis_revision_capitulo`, la columna `instantanea_estructurada` almacena la foto completa del capítulo.
+2. **La Salida de Cada Paso es Documental (`JSONB`):**
+   * En `tesis_progreso_paso`, la columna `salida_json` almacena el JSON completo que ya superó su contrato Pydantic.
+   * Las entidades necesarias para consultas metodológicas se materializan además en tablas relacionales; las revisiones conservan el Markdown y su SHA-256.
 3. **Cero Penalización Operativa:**
    * El equipo y el despliegue gestionan **un solo motor de base de datos** en lugar de mantener sincronizadas dos bases de datos distintas (ej. PostgreSQL para usuarios y MongoDB para textos), evitando el problema de coherencia eventual (*Eventual Consistency* y *Dual Writes*).
 

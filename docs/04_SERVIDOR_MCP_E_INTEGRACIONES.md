@@ -1,4 +1,4 @@
-# 04. Servidor MCP (`FastMCP`), Prompts Hidratados e Integraciones Científicas
+# 04. Servidor MCP (`MCPServer`), Prompts Hidratados e Integraciones Científicas
 
 Este documento explica el funcionamiento interno del paquete [`mcp_server/`](../mcp_server/) y de las integraciones científicas en [`backend/thesis/integrations/`](../backend/thesis/integrations/).
 
@@ -6,15 +6,12 @@ Este documento explica el funcionamiento interno del paquete [`mcp_server/`](../
 
 ## 1. Cómo Conecta el Servidor MCP con Django (`django_bridge.py`)
 
-El protocolo MCP (*Model Context Protocol*) implementado con la librería oficial `mcp.server.fastmcp.FastMCP` puede ejecutarse dentro de un bucle de eventos asíncrono (`asyncio`). Sin embargo, el ORM de Django es síncrono por defecto y lanza `SynchronousOnlyOperation` si intentas hacer una consulta SQL directamente desde una corrutina asíncrona.
+El protocolo MCP (*Model Context Protocol*) está implementado con `mcp.server.mcpserver.MCPServer`, perteneciente al SDK oficial `mcp`. Las herramientas registradas son funciones síncronas que delegan en servicios Django transaccionales.
 
-Para resolver esto limpiamente, [`mcp_server/django_bridge.py`](../mcp_server/django_bridge.py) implementa dos mecanismos:
+[`mcp_server/django_bridge.py`](../mcp_server/django_bridge.py) implementa dos puntos concretos:
 
-1. **`asegurar_django()`**: Configura `sys.path`, establece `DJANGO_SETTINGS_MODULE = "config.settings"` y llama a `django.setup()` de forma idempotente solo cuando aún no ha sido inicializado.
-2. **`ejecutar_sincrono(funcion, *args, **kwargs)`**:
-   * Detecta si existe un bucle `asyncio` activo mediante `asyncio.get_running_loop()`.
-   * Si **no** hay bucle activo (llamada directa en un script síncrono), cierra conexiones obsoletas (`close_old_connections()`) y ejecuta la función directamente.
-   * Si **sí** hay un bucle asíncrono activo (como ocurre dentro de `app.call_tool()` o `app.get_prompt()` de `FastMCP`), despacha la ejecución a un hilo dedicado mediante `ThreadPoolExecutor(max_workers=1)`, garantizando seguridad transaccional con PostgreSQL.
+1. **`configurar_django()`**: agrega `backend/` a `sys.path`, establece `DJANGO_SETTINGS_MODULE`, habilita el uso síncrono controlado del ORM en el proceso MCP y llama a `django.setup()` de forma idempotente.
+2. **`usuario_actual()`**: toma `TESISMCP_MCP_TOKEN` del entorno y lo resuelve con `usuario_desde_token()`. Si falta, está vencido o fue revocado, la operación falla de forma cerrada.
 
 ---
 
@@ -24,14 +21,13 @@ Ninguna herramienta MCP que modifique o consulte un proyecto confía en que el u
 
 En su lugar, [`backend/thesis/services/mcp_auth.py`](../backend/thesis/services/mcp_auth.py) implementa autenticación por **Token Opaco con Hash SHA-256**:
 
-1. **Emisión (`emitir_token_acceso_mcp`)**:
-   * Genera un token con prefijo identificable: `tmcp_<token_urlsafe_24>`.
-   * Calcula su digest SHA-256 hexadecimal (`hashlib.sha256(token.encode("utf-8")).hexdigest()`).
-   * Guarda en la tabla `tesis_token_acceso_mcp` únicamente el `prefijo_clave` (primeros 12 caracteres) y el `resumen_token` (SHA-256). El token en texto plano se devuelve **una sola vez** al crearse.
-2. **Resolución (`resolver_usuario_mcp`)**:
-   * Lee el token pasado a la herramienta MCP (o desde la variable de entorno `TESISMCP_TOKEN_ACCESO`).
+1. **Emisión (`emitir_token`)**:
+   * Genera 48 bytes aleatorios con `secrets.token_urlsafe(48)`.
+   * Calcula su digest SHA-256 hexadecimal (`hashlib.sha256(raw.encode()).hexdigest()`).
+   * Guarda únicamente `hash_token`, usuario, expiración, revocación y fecha de creación. El token en texto plano se devuelve una sola vez.
+2. **Resolución (`usuario_desde_token`)**:
+   * Lee el token desde la variable de entorno `TESISMCP_MCP_TOKEN`.
    * Calcula su SHA-256 y busca en `TokenAccesoMcp` un registro cuyo usuario esté activo (`is_active=True`), no haya sido revocado (`revoked_at__isnull=True`) y no haya expirado (`expires_at`).
-   * Actualiza la marca temporal `last_used_at` para auditoría de seguridad.
 
 ---
 
@@ -40,12 +36,12 @@ En su lugar, [`backend/thesis/services/mcp_auth.py`](../backend/thesis/services/
 Registradas entre [`mcp_server/server.py`](../mcp_server/server.py) (3 herramientas de catálogo/diagnóstico) y [`mcp_server/project_tools.py`](../mcp_server/project_tools.py) (14 herramientas operativas):
 
 ### A. Diagnóstico y Catálogo Metodológico (`server.py`)
-1. **`estado_servidor`**: Devuelve el estado `ACTIVO`, versión `0.1.0-avance-cap1-3`, capítulos disponibles `[1, 2, 3]`, total de pasos (`12`) y prompts (`15`).
+1. **`estado_servidor`**: Devuelve el estado `ACTIVO`, versión `0.1.0`, capítulos disponibles `[1, 2, 3]`, total de pasos (`12`) y prompts (`15`).
 2. **`listar_pasos_mvp`**: Lista los 12 pasos (`P01` a `P12`) con su título, capítulo y campos requeridos.
 3. **`consultar_detalle_paso`**: Dado un `codigo_paso` (`P01`–`P12`), devuelve su definición completa; si se pide `P13` o superior, responde con error controlado indicando el alcance de los Capítulos 1 al 3.
 
 ### B. Gestión de Proyecto y Exploración Bibliográfica Inicial (`project_tools.py`)
-4. **`crear_proyecto`**: Crea el proyecto en PostgreSQL, asigna al usuario autenticado como `TESISTA`, crea su `PerfilInvestigacion`, inicializa los `Capitulo` `1`, `2` y `3` en `DRAFT` y crea los 12 registros `ProgresoPaso` en `PENDING`.
+4. **`crear_proyecto`**: Crea el proyecto en PostgreSQL, asigna al usuario autenticado como `TESISTA` y crea su `PerfilInvestigacion`. Los registros `Capitulo` y `ProgresoPaso` se materializan de forma diferida conforme se ejecutan los pasos.
 5. **`obtener_estado`**: Devuelve el estado actual del proyecto, su `lock_version`, el rol del usuario y el resumen del perfil de investigación.
 6. **`registrar_idea`**: Guarda la idea inicial confirmada por el tesista (con control optimista `expected_version`).
 7. **`explorar_idea`**: Consulta **OpenAlex** sobre la idea registrada y devuelve metadatos bibliográficos reales advirtiendo explícitamente que los metadatos no constituyen texto completo verificado.
@@ -58,7 +54,7 @@ Registradas entre [`mcp_server/server.py`](../mcp_server/server.py) (3 herramien
 12. **`enviar_capitulo`**: Permite al `TESISTA` cambiar un capítulo de `DRAFT` / `CHANGES_REQUESTED` a `READY` una vez completados todos sus pasos.
 13. **`asignar_asesor`**: Asigna un usuario existente como `ASESOR` activo del proyecto.
 14. **`consultar_observaciones`**: Lista los comentarios de revisión (`OPEN` y `RESOLVED`) anclados al capítulo.
-15. **`observar_fragmento`**: Permite al `ASESOR` anclar una observación sobre un rango exacto de caracteres (`start_offset`, `end_offset`, `quoted_text`) de la revisión vigente.
+15. **`observar_fragmento`**: Permite al `ASESOR` anclar una observación sobre un rango exacto de caracteres (`start_cp`, `end_cp`, `selected_text`) de la revisión vigente.
 16. **`decidir_capitulo`**: Permite al `ASESOR` ejecutar `REQUEST_CHANGES`, `APPROVE` (solo si no hay observaciones `OPEN`) o `REOPEN`.
 17. **`resolver_observacion`**: Permite al `ASESOR` marcar una observación como `RESOLVED`.
 

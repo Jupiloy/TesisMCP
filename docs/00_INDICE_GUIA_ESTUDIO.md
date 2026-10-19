@@ -15,7 +15,7 @@ Bienvenido a la documentación técnica en profundidad de **TesisMCP — Edició
 4. [**04. Servidor MCP, Prompts Hidratados e Integraciones (`04_SERVIDOR_MCP_E_INTEGRACIONES.md`)**](./04_SERVIDOR_MCP_E_INTEGRACIONES.md)
    * Cómo operan las **17 herramientas MCP**, los **15 prompts dinámicos**, el puente asíncrono-síncrono (`django_bridge.py`), la autenticación por token SHA-256 y los clientes HTTP hacia OpenAlex, Semantic Scholar y ALICIA (CONCYTEC).
 5. [**05. Suite de Pruebas, Puerta DoD y Defensa Docente (`05_PRUEBAS_AUDITORIA_Y_DEFENSA_DOCENTE.md`)**](./05_PRUEBAS_AUDITORIA_Y_DEFENSA_DOCENTE.md)
-   * Desglose de los 43 tests automatizados, la puerta `verify_project.py` y un banco de preguntas y respuestas técnicas para sustentar el avance frente al docente.
+   * Desglose de las 32 pruebas automatizadas, la puerta `verify_project.py` y un banco de preguntas y respuestas técnicas para sustentar el avance frente al docente.
 6. [**06. Evaluación Técnica Imparcial: PostgreSQL vs. NoSQL (`06_EVALUACION_POSTGRESQL_VS_NOSQL.md`)**](./06_EVALUACION_POSTGRESQL_VS_NOSQL.md)
    * Análisis neutral de arquitectura de datos (Relacional vs. Documental vs. Grafos vs. Clave-Valor), matriz de decisión ponderada, enfoque multimodelo (`JSONB`) y guía de defensa ante el profesor.
 
@@ -27,9 +27,9 @@ Bienvenido a la documentación técnica en profundidad de **TesisMCP — Edició
 version_reducida_docente/
 ├── README.md                                 # Resumen ejecutivo y comandos de arranque rápido
 ├── compose.yaml                              # Orquestación Docker (PostgreSQL 16 + Backend + MCP)
-├── Dockerfile                                # Imagen Python 3.12 para contenedor del backend
+├── Dockerfile                                # Imagen Python 3.14 para backend y servidor MCP
 ├── pytest.ini                                # Configuración de pytest apuntando a config.settings
-├── requirements-backend.txt                  # Dependencias limpias (Django, Ninja, Pydantic, FastMCP, httpx)
+├── requirements-backend.txt                  # Dependencias limpias (Django, Ninja, Pydantic, SDK MCP, httpx)
 ├── scripts/
 │   └── verify_project.py                     # Puerta determinista DoD (7 auditorías automatizadas)
 │
@@ -37,7 +37,7 @@ version_reducida_docente/
 │   ├── manage.py                             # Punto de entrada CLI de administración Django
 │   ├── config/
 │   │   ├── settings.py                       # Configuración BD (tesismcp_reducido_docente) y apps
-│   │   ├── urls.py                           # Enrutador raíz (/admin/ y /api/)
+│   │   ├── urls.py                           # Enrutador raíz (/health/, /admin/ y /api/v1/)
 │   │   ├── api.py                            # Instancia NinjaAPI, endpoint /health y router de proyectos
 │   │   └── wsgi.py                           # Punto de entrada WSGI para despliegue
 │   │
@@ -65,7 +65,7 @@ version_reducida_docente/
 │       │   ├── errors.py                     # Jerarquía de excepciones (ErrorDominio, ErrorConflicto...)
 │       │   ├── access.py                     # Control de acceso por rol (TESISTA vs ASESOR)
 │       │   ├── mcp_auth.py                   # Emisión, hash SHA-256 y validación de tokens MCP
-│       │   ├── projects.py                   # Creación de proyecto (inicializa Cap. 1-3 y 12 pasos)
+│       │   ├── projects.py                   # Creación de proyecto y perfil; capítulos/pasos nacen al usarse
 │       │   ├── step_contracts.py             # Contratos Pydantic estrictos (SalidaP01 a SalidaP12)
 │       │   ├── steps.py                      # Guardado transaccional de pasos con control optimista
 │       │   ├── step_materializers/
@@ -84,7 +84,7 @@ version_reducida_docente/
 │       │   ├── alicia.py                     # Cliente HTTP hacia repositorio nacional ALICIA
 │       │   └── peru_articles.py              # Filtro de artículos con filiación institucional peruana
 │       │
-│       └── tests/                            # SUITE AUTOMATIZADA (43 PRUEBAS PYTEST)
+│       └── tests/                            # SUITE AUTOMATIZADA (32 PRUEBAS PYTEST)
 │           ├── test_health.py                # Salud de API y modelo Usuario
 │           ├── test_first_slice.py           # Flujo vertical P01, bloqueo optimista e inmutabilidad BD
 │           ├── test_discovery.py             # Exploración de ideas y Semantic Scholar
@@ -96,16 +96,16 @@ version_reducida_docente/
 │               ├── conftest.py               # Fixtures compartidos para pruebas de capítulos
 │               └── test_chapter3.py          # Pruebas profundas de Matriz de Consistencia y Variables
 │
-└── mcp_server/                               # SERVIDOR MODEL CONTEXT PROTOCOL (FASTMCP)
+└── mcp_server/                               # SERVIDOR MODEL CONTEXT PROTOCOL (MCPSERVER)
     ├── server.py                             # Servidor principal: herramientas base y registro de módulos
     ├── project_tools.py                      # Herramientas MCP de proyecto, pasos P01-P12 y asesoría
-    ├── django_bridge.py                      # Puente seguro entre bucle async de FastMCP y ORM síncrono
+    ├── django_bridge.py                      # Puente seguro entre el SDK MCP y el ORM síncrono
     ├── test_local.py                         # Simulación E2E interactiva de los 12 pasos y 3 capítulos
     ├── demo/
     │   ├── case_data.py                      # Payloads metodológicos de prueba para P01-P12
     │   └── support.py                        # Utilidades de invocación MCP para simulación
     └── prompts/
-        ├── catalog.py                        # Registro de los 15 prompts en FastMCP
+        ├── catalog.py                        # Registro de los 15 prompts en MCPServer
         ├── hydration.py                      # Hidratación de contexto en vivo desde PostgreSQL
         ├── roles.py                          # 3 prompts de rol (Asesor, Investigador, Revisor)
         └── templates/

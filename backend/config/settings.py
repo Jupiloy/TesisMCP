@@ -75,7 +75,7 @@ def configuracion_postgres(url: str) -> dict:
 
 DATABASES = {"default": configuracion_postgres(os.getenv(
     "DATABASE_URL",
-    "postgresql://tesismcp:tesismcp_local@127.0.0.1:5432/tesismcp_reducido_docente",
+    "postgresql://tesismcp:tesismcp_local@127.0.0.1:5434/tesismcp_reducido_docente",
 ))}
 DATABASES["default"]["TEST"] = {
     "NAME": os.getenv("POSTGRES_TEST_DB", "test_tesismcp_reducido_docente"),

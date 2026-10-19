@@ -211,21 +211,50 @@ class SuiteVerificacion:
 
                 cursor.execute(
                     """
-                    SELECT tg.tgname
+                    SELECT tg.tgname, procedimiento.proname
                     FROM pg_trigger tg
                     JOIN pg_class tabla ON tabla.oid = tg.tgrelid
                     JOIN pg_namespace ns ON ns.oid = tabla.relnamespace
+                    JOIN pg_proc procedimiento ON procedimiento.oid = tg.tgfoid
                     WHERE ns.nspname = 'public'
                       AND starts_with(tabla.relname, 'tesis_')
                       AND NOT tg.tgisinternal
-                      AND NOT starts_with(tg.tgname, 'tesis_')
                     """
                 )
-                disparadores_no_espanoles = [fila[0] for fila in cursor.fetchall()]
+                disparadores = dict(cursor.fetchall())
+                disparadores_no_espanoles = [
+                    nombre for nombre in disparadores if not nombre.startswith("tesis_")
+                ]
                 if disparadores_no_espanoles:
                     errors.append(
                         "Disparadores propios sin nombre español: "
                         f"{disparadores_no_espanoles}"
+                    )
+
+                disparadores_esperados = {
+                    "tesis_revision_capitulo_solo_anexar": "tesis_rechazar_cambio_historial",
+                    "tesis_evento_revision_solo_anexar": "tesis_rechazar_cambio_historial",
+                }
+                if disparadores != disparadores_esperados:
+                    errors.append(
+                        "Disparadores de inmutabilidad discrepantes; "
+                        f"encontrados={disparadores}, esperados={disparadores_esperados}"
+                    )
+
+                cursor.execute(
+                    """
+                    SELECT procedimiento.proname
+                    FROM pg_proc procedimiento
+                    JOIN pg_namespace ns ON ns.oid = procedimiento.pronamespace
+                    WHERE ns.nspname = 'public'
+                      AND procedimiento.proname = 'tesis_rechazar_cambio_historial'
+                    """
+                )
+                funciones = {fila[0] for fila in cursor.fetchall()}
+                if funciones != {"tesis_rechazar_cambio_historial"}:
+                    errors.append(
+                        "No se encontró la función PostgreSQL "
+                        "tesis_rechazar_cambio_historial"
                     )
 
             connection.close()
@@ -250,10 +279,18 @@ class SuiteVerificacion:
     def verificar_suite_pytest(self):
         cmd = [PYTEST_EXEC, "--reuse-db", "-q"]
         code, out, err, elapsed = self.ejecutar_comando(cmd, timeout=180)
-        passed = code == 0 and ("passed" in out.lower() and "failed" not in out.lower())
         m = re.search(r"(\d+)\s+passed", out)
-        count_str = f" ({m.group(1)} pruebas en verde)" if m else ""
-        details = f"Suite de pruebas superada al 100%{count_str}" if passed else (err or out).strip()[:200]
+        cantidad = int(m.group(1)) if m else None
+        passed = (
+            code == 0
+            and "failed" not in out.lower()
+            and cantidad == 32
+        )
+        details = (
+            "Suite de pruebas superada al 100% (32 pruebas en verde)"
+            if passed
+            else f"Se esperaban 32 pruebas aprobadas; detectadas={cantidad}; {(err or out).strip()[:160]}"
+        )
         self.registrar_resultado("Pruebas Unitarias/Integración", "Pytest Suite Completa", passed, details, elapsed)
 
     def verificar_higiene_repositorio(self):
@@ -265,7 +302,10 @@ class SuiteVerificacion:
             errors.append("No existe archivo .gitignore en la raíz")
         else:
             gi_text = gitignore.read_text(encoding="utf-8")
-            required_patterns = [".venv", "__pycache__", ".pytest_cache", "var/"]
+            required_patterns = [
+                ".venv/", "__pycache__/", "*.pyc", ".pytest_cache/",
+                ".env", "var/", "graphify-out/cache/",
+            ]
             for pat in required_patterns:
                 if pat not in gi_text:
                     errors.append(f"Falta patrón obligatorio en .gitignore: '{pat}'")
@@ -277,6 +317,60 @@ class SuiteVerificacion:
                     temp_files.append(str(tf.relative_to(ROOT_DIR)))
         if temp_files:
             errors.append(f"Residuos temporales encontrados: {', '.join(temp_files[:3])}")
+
+        code, tracked_out, tracked_err, _ = self.ejecutar_comando(
+            ["git", "ls-files"], timeout=15,
+        )
+        if code != 0:
+            errors.append(f"No se pudo auditar git ls-files: {tracked_err.strip()[:120]}")
+        else:
+            tracked = tracked_out.splitlines()
+            forbidden_tracked = [
+                path for path in tracked
+                if "__pycache__/" in path
+                or path.endswith(".pyc")
+                or "/.pytest_cache/" in f"/{path}"
+                or Path(path).name in {".env", ".env.local"}
+            ]
+            if forbidden_tracked:
+                errors.append(
+                    f"Cachés o secretos rastreados: {forbidden_tracked[:3]}"
+                )
+
+        excluded_parts = {".git", ".venv", "__pycache__", ".pytest_cache"}
+        archivos_proyecto = [
+            path for path in ROOT_DIR.rglob("*")
+            if path.is_file() and not excluded_parts.intersection(path.relative_to(ROOT_DIR).parts)
+        ]
+        if len(archivos_proyecto) > 250:
+            errors.append(
+                f"Explosión potencial de archivos: {len(archivos_proyecto)} archivos (máximo 250)"
+            )
+        archivos_grandes = [
+            str(path.relative_to(ROOT_DIR))
+            for path in archivos_proyecto
+            if path.stat().st_size > 500 * 1024
+        ]
+        if archivos_grandes:
+            errors.append(
+                f"Archivos de código/documentación mayores a 500 KB: {archivos_grandes[:3]}"
+            )
+
+        dockerfile = ROOT_DIR / "Dockerfile"
+        if dockerfile.exists():
+            fuentes_copy = []
+            for linea in dockerfile.read_text(encoding="utf-8").splitlines():
+                partes = linea.strip().split()
+                if len(partes) >= 3 and partes[0].upper() == "COPY":
+                    fuentes_copy.extend(partes[1:-1])
+            fuentes_inexistentes = [
+                fuente for fuente in fuentes_copy
+                if fuente != "." and not (ROOT_DIR / fuente).exists()
+            ]
+            if fuentes_inexistentes:
+                errors.append(
+                    f"Dockerfile copia fuentes inexistentes: {fuentes_inexistentes}"
+                )
 
         elapsed = time.time() - t0
         passed = len(errors) == 0
@@ -341,6 +435,36 @@ class SuiteVerificacion:
         if broken_links:
             errors.append(f"Enlaces Markdown rotos ({len(broken_links)}): {broken_links[:2]}")
 
+        textos_docs = "\n".join(
+            doc.read_text(encoding="utf-8", errors="ignore") for doc in docs_to_check
+        )
+        afirmaciones_obsoletas = [
+            texto for texto in [
+                "43 tests", "43 Tests", "43 pruebas", "FastMCP",
+                "STALE_VERSION", "CHAPTER_APPROVED_LOCKED",
+                "start_offset", "end_offset", "quoted_text",
+                "guardar_envio_paso", "validar_carga_paso",
+                "renderizar_markdown_capitulo", "topic_options",
+                "instantanea_estructurada", "prefijo_clave",
+                "TESISMCP_TOKEN_ACCESO", "POST /api/projects",
+            ]
+            if texto in textos_docs
+        ]
+        if afirmaciones_obsoletas:
+            errors.append(
+                f"Documentación contiene contratos obsoletos: {afirmaciones_obsoletas}"
+            )
+
+        settings_text = (ROOT_DIR / "backend" / "config" / "settings.py").read_text(encoding="utf-8")
+        compose_text = (ROOT_DIR / "compose.yaml").read_text(encoding="utf-8")
+        if "127.0.0.1:5434/tesismcp_reducido_docente" not in settings_text:
+            errors.append("settings.py no usa por defecto el PostgreSQL aislado del puerto 5434")
+        if '"127.0.0.1:5434:5432"' not in compose_text:
+            errors.append("compose.yaml no publica PostgreSQL reducido en 127.0.0.1:5434")
+        for servicio in ["postgres:", "backend:", "mcp:"]:
+            if servicio not in compose_text:
+                errors.append(f"compose.yaml no declara el servicio {servicio.rstrip(':')}")
+
         elapsed = time.time() - t0
         passed = len(errors) == 0
         details = (
@@ -393,16 +517,29 @@ class SuiteVerificacion:
             errors.append(f"Fallo importando/validando contratos Pydantic: {e}")
 
         service_mocks = []
-        for pyfile in (ROOT_DIR / "backend" / "thesis" / "services").glob("*.py"):
-            content = pyfile.read_text(encoding="utf-8")
-            if "2501.00001" in content or "mock_data_dummy" in content:
-                service_mocks.append(str(pyfile.relative_to(ROOT_DIR)))
+        marcadores_ficticios = [
+            "2501.00001", "mock_data_dummy", "example.invalid",
+            "paper alucinado", "autor ficticio",
+        ]
+        production_roots = [
+            ROOT_DIR / "backend" / "thesis" / "services",
+            ROOT_DIR / "backend" / "thesis" / "integrations",
+            ROOT_DIR / "mcp_server",
+        ]
+        for production_root in production_roots:
+            for pyfile in production_root.rglob("*.py"):
+                relative_parts = pyfile.relative_to(ROOT_DIR).parts
+                if "demo" in relative_parts or "tests" in relative_parts or pyfile.name.startswith("test_"):
+                    continue
+                content = pyfile.read_text(encoding="utf-8").lower()
+                if any(marker in content for marker in marcadores_ficticios):
+                    service_mocks.append(str(pyfile.relative_to(ROOT_DIR)))
         if service_mocks:
             errors.append(f"Mocks residuales encontrados en servicios: {', '.join(service_mocks)}")
 
         elapsed = time.time() - t0
         passed = len(errors) == 0
-        details = "Contratos Pydantic estrictos (extra='forbid') y 0 mocks en servicios de producción" if passed else "; ".join(errors)
+        details = "Contratos Pydantic estrictos (extra='forbid') y 0 marcadores ficticios en producción" if passed else "; ".join(errors)
         self.registrar_resultado("Auditoría Adversaria", "Validación de Contratos y Cero Mocks", passed, details, elapsed)
 
     def ejecutar_todo(self) -> int:
