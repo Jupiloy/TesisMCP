@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: tesismcp_reducido_docente
+      POSTGRES_USER: tesismcp
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tesismcp_local}
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - postgres_reducido_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tesismcp -d tesismcp_reducido_docente"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_reducido_data:

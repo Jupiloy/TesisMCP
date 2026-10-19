@@ -1,0 +1,13 @@
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+var/
+
+# Graphify temporales y regenerables
+graphify-out/cache/
+graphify-out/converted/
+graphify-out/obsidian/

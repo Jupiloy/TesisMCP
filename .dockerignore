@@ -1,0 +1,10 @@
+.venv
+.git
+var
+docs
+graphify-out
+__pycache__
+backend/staticfiles
+*.pyc
+*.pdf
+*.docx
