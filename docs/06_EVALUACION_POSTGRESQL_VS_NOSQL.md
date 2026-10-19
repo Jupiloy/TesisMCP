@@ -107,6 +107,8 @@ PostgreSQL resuelve esta dualidad actuando como una **Base de Datos Multimodelo 
 3. **Cero Penalización Operativa:**
    * El equipo y el despliegue gestionan **un solo motor de base de datos** en lugar de mantener sincronizadas dos bases de datos distintas (ej. PostgreSQL para usuarios y MongoDB para textos), evitando el problema de coherencia eventual (*Eventual Consistency* y *Dual Writes*).
 
+> 📌 **Esquema Físico Implementado:** El modelo físico multimodelo de 17 tablas con prefijo `tesis_` implementado en PostgreSQL 16 se puede consultar en [`07_der_modelo_fisico_17_tablas.png`](./diagramas/07_der_modelo_fisico_17_tablas.png).
+
 ---
 
 ## 5. Guía de Respuestas para Defensa Docente

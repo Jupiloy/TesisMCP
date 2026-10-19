@@ -25,6 +25,11 @@ erDiagram
 
 `PerfilInvestigacion.version_bloqueo` contiene la versión usada para concurrencia optimista. Los capítulos y progresos no se crean anticipadamente: aparecen conforme el tesista ejecuta los pasos.
 
+El diseño y modelado de datos se estructura formalmente en tres niveles disponibles en `docs/diagramas/`:
+* **Modelo Conceptual (ER):** Entidades sustantivas y relaciones semánticas de negocio. Ver [`05_modelo_conceptual_er.png`](./diagramas/05_modelo_conceptual_er.png).
+* **Modelo Lógico Relacional (3NF):** Normalización en tercera forma normal, resolución de cardinalidades $N:M$ y claves foráneas. Ver [`06_modelo_logico_relacional.png`](./diagramas/06_modelo_logico_relacional.png).
+* **Modelo Físico Oficial (17 Tablas):** Esquema implementado en PostgreSQL 16 con prefijo `tesis_` y triggers de inmutabilidad. Ver [`07_der_modelo_fisico_17_tablas.png`](./diagramas/07_der_modelo_fisico_17_tablas.png).
+
 ## 2. Catálogo literal de tablas propias
 
 Las 17 tablas con prefijo `tesis_` corresponden a 15 modelos Django y 2 tablas intermedias de autorización.

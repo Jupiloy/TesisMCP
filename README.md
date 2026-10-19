@@ -20,6 +20,7 @@ Para estudiar a fondo cómo está programado cada módulo, patrón de diseño y 
 6. [**05. Suite de Pruebas, Puerta DoD y Guía de Defensa Docente**](./docs/05_PRUEBAS_AUDITORIA_Y_DEFENSA_DOCENTE.md)
 7. [**06. Evaluación Técnica Imparcial: PostgreSQL vs. NoSQL**](./docs/06_EVALUACION_POSTGRESQL_VS_NOSQL.md)
 8. [**07. Informe Base del Proyecto — Corte de Semana 10**](./docs/07_INFORME_BASE_SEMANA_10.md)
+9. [**Diagramas Oficiales en Blanco y Negro (`docs/diagramas/`)**](./docs/diagramas/01_ishikawa_situacion_problematica.png) (7 diagramas con PNG y `.drawio` editable)
 
 ---
 

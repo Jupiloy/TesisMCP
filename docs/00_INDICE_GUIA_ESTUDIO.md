@@ -20,6 +20,8 @@ Bienvenido a la documentación técnica en profundidad de **TesisMCP — Edició
    * Análisis neutral de arquitectura de datos (Relacional vs. Documental vs. Grafos vs. Clave-Valor), matriz de decisión ponderada, enfoque multimodelo (`JSONB`) y guía de defensa ante el profesor.
 7. [**07. Informe Base del Proyecto — Corte de Semana 10 (`07_INFORME_BASE_SEMANA_10.md`)**](./07_INFORME_BASE_SEMANA_10.md)
    * Informe académico y técnico formal redactado para la entrega de Semana 10, con detalle de arquitectura, catálogo metodológico y justificaciones.
+8. [**Diagramas Oficiales en Blanco y Negro (`docs/diagramas/`)**](./diagramas/01_ishikawa_situacion_problematica.png)
+   * Los 7 diagramas oficiales del avance (`01` a `07`) en formato monocromático de alta resolución y archivos editables `.drawio` compatibles con [diagrams.net](https://app.diagrams.net/): Ishikawa, Lean Canvas, FODA, Casos de Uso UML, Modelo Conceptual ER, Modelo Lógico 3NF y DER Físico de 17 Tablas.
 
 ---
 
@@ -34,6 +36,24 @@ version_reducida_docente/
 ├── requirements-backend.txt                  # Dependencias limpias (Django, Ninja, Pydantic, SDK MCP, httpx)
 ├── scripts/
 │   └── verify_project.py                     # Puerta determinista DoD (7 auditorías automatizadas)
+│
+├── docs/                                     # DOCUMENTACIÓN Y GUÍAS DE ESTUDIO
+│   ├── 00_INDICE_GUIA_ESTUDIO.md             # Este índice maestro
+│   ├── 01_ARQUITECTURA_Y_PATRONES_DISENO.md  # Arquitectura en 5 capas y 7 patrones de software
+│   ├── 02_MODELO_DATOS_Y_ESQUEMA_ESPANOL.md  # 15 modelos, 17 tablas tesis_* y triggers
+│   ├── 03_FLUJO_METODOLOGICO_P01_A_P12.md    # Contratos Pydantic y pasos metodológicos P01-P12
+│   ├── 04_SERVIDOR_MCP_E_INTEGRACIONES.md    # 17 herramientas MCP y 15 prompts dinámicos
+│   ├── 05_PRUEBAS_AUDITORIA_Y_DEFENSA_DOCENTE.md # 32 pruebas pytest y defensa académica
+│   ├── 06_EVALUACION_POSTGRESQL_VS_NOSQL.md  # Análisis comparativo neutral de BD
+│   ├── 07_INFORME_BASE_SEMANA_10.md          # Informe base formal de entrega
+│   └── diagramas/                            # 7 diagramas oficiales en PNG y editable .drawio
+│       ├── 01_ishikawa_situacion_problematica.png / .drawio
+│       ├── 02_lean_canvas_tesismcp.png / .drawio
+│       ├── 03_foda_diagnostico_estrategico.png / .drawio
+│       ├── 04_casos_uso_sistema.png / .drawio
+│       ├── 05_modelo_conceptual_er.png / .drawio
+│       ├── 06_modelo_logico_relacional.png / .drawio
+│       └── 07_der_modelo_fisico_17_tablas.png / .drawio
 │
 ├── backend/                                  # NÚCLEO BACKEND (DJANGO 5.2 + DJANGO NINJA)
 │   ├── manage.py                             # Punto de entrada CLI de administración Django

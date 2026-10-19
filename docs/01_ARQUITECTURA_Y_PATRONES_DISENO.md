@@ -50,6 +50,8 @@ flowchart TD
     M --> PG
 ```
 
+> 📌 **Diagramas Visuales Complementarios:** Para consultar la interacción de requerimientos funcionales y roles, ver el [Diagrama de Casos de Uso](./diagramas/04_casos_uso_sistema.png). Para consultar las 17 tablas físicas y claves foráneas en PostgreSQL 16, ver el [Diagrama Entidad-Relación Físico](./diagramas/07_der_modelo_fisico_17_tablas.png).
+
 ---
 
 ## 2. Los 7 Patrones de Diseño Implementados en el Código
