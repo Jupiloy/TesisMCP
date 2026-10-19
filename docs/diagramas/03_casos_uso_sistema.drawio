@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" modified="2026-10-19T17:00:00.000Z" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_03_casos_uso_sistema" name="03_casos_uso_sistema">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="actor_t" parent="1" value="&lt;b&gt;TESISTA&lt;/b&gt;&lt;br/&gt;(Estudiante Titular)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;strokeColor=#000000;strokeWidth=2;fillColor=#ffffff;" vertex="1">
+          <mxGeometry x="60" y="300" width="120" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_a" parent="1" value="&lt;b&gt;DOCENTE ASESOR&lt;/b&gt;&lt;br/&gt;(Revisor / Jurado)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;strokeColor=#000000;strokeWidth=2;fillColor=#ffffff;" vertex="1">
+          <mxGeometry x="1040" y="300" width="120" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="bound" parent="1" value="&lt;b&gt;Sistema TesisMCP (Backend Django + Servidor MCP + PostgreSQL 16)&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=2;fillColor=#ffffff;verticalAlign=top;spacingTop=10;fontStyle=1;" vertex="1">
+          <mxGeometry x="240" y="40" width="740" height="720" as="geometry" />
+        </mxCell>
+        <mxCell id="uc1" parent="1" value="CU01: Registrar y Explorar Idea" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="280" y="90" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc2" parent="1" value="CU02: Consultar Literatura Científica" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="280" y="165" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc3" parent="1" value="CU03: Guardar Paso Metodológico (P01-P12)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="280" y="240" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc4" parent="1" value="CU04: Enviar Capítulo a Revisión (READY)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="280" y="315" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc5" parent="1" value="CU05: Consultar Estado y Matriz" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="460" y="390" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc6" parent="1" value="CU06: Asignar Asesor al Proyecto" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="280" y="465" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc7" parent="1" value="CU07: Observar Fragmento de Texto" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="640" y="165" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc8" parent="1" value="CU08: Resolver Observación (RESOLVED)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="640" y="240" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc9" parent="1" value="CU09: Decidir Capítulo (Aprobar / Reabrir)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="640" y="315" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc10" parent="1" value="CU10: Exportar Borrador Editable (.docx)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;" vertex="1">
+          <mxGeometry x="460" y="550" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_t" target="uc1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_t" target="uc2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_t" target="uc3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l4" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_t" target="uc4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l5" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_t" target="uc5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l6" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_a" target="uc5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l7" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_a" target="uc7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_a" target="uc8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l9" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_a" target="uc9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l10" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_t" target="uc10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l11" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" edge="1" source="actor_a" target="uc10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

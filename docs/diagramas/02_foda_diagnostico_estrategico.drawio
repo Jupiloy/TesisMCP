@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" modified="2026-10-19T17:00:00.000Z" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_02_foda_diagnostico_estrategico" name="02_foda_diagnostico_estrategico">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="f" parent="1" value="&lt;b&gt;FORTALEZAS (F) — Factores Internos (+)&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Arquitectura desacoplada: el LLM no escribe directo en la BD.&lt;br/&gt;• Inmutabilidad en PostgreSQL con triggers que protegen revisiones.&lt;br/&gt;• Control de versiones optimista con lock_version.&lt;br/&gt;• Observaciones ancladas a texto exacto (start_cp, end_cp).&lt;br/&gt;• 32 pruebas automatizadas y Definition of Done Gate (7/7 verde)." style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=15;fontSize=12;verticalAlign=top;" vertex="1">
+          <mxGeometry x="40" y="40" width="560" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="o" parent="1" value="&lt;b&gt;OPORTUNIDADES (O) — Factores Externos (+)&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Adopción creciente del protocolo estándar abierto MCP.&lt;br/&gt;• Integración con APIs académicas libres: OpenAlex, Semantic Scholar y ALICIA.&lt;br/&gt;• Exigencia de rigor metodológico y originalidad en normativas SUNEDU.&lt;br/&gt;• Alta demanda de optimización en horas de supervisión docente." style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=15;fontSize=12;verticalAlign=top;" vertex="1">
+          <mxGeometry x="620" y="40" width="560" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="d" parent="1" value="&lt;b&gt;DEBILIDADES (D) — Factores Internos (-)&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Alcance delimitado a primeros 3 capítulos (P01 a P12).&lt;br/&gt;• Interfaz web de usuario aún no implementada (interacción vía MCP/API).&lt;br/&gt;• Exploración científica actual limitada a metadatos.&lt;br/&gt;• Necesidad de configuración de tokens MCP para alternar roles." style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=15;fontSize=12;verticalAlign=top;" vertex="1">
+          <mxGeometry x="40" y="400" width="560" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="a" parent="1" value="&lt;b&gt;AMENAZAS (A) — Factores Externos (-)&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Caídas o cambios de esquema en APIs externas de búsqueda.&lt;br/&gt;• Resistencia docente tradicional al uso de IA en formulación de tesis.&lt;br/&gt;• Variaciones de costos en proveedores de tokens LLM de cada usuario.&lt;br/&gt;• Riesgo de complacencia del alumno al aceptar sugerencias sin leer." style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=15;fontSize=12;verticalAlign=top;" vertex="1">
+          <mxGeometry x="620" y="400" width="560" height="340" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

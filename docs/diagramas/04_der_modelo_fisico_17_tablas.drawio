@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" modified="2026-10-19T17:00:00.000Z" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_04_der_modelo_fisico_17_tablas" name="04_der_modelo_fisico_17_tablas">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tab1" parent="1" value="&lt;b&gt;tesis_usuario [Identidad]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (UUID, PK)&lt;br/&gt;email (VARCHAR 254, UNIQUE)&lt;br/&gt;first_name, last_name (VARCHAR)&lt;br/&gt;is_active, is_staff (BOOL)&lt;br/&gt;created_at, updated_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="40" y="40" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab2" parent="1" value="&lt;b&gt;tesis_token_acceso_mcp [Auth]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;user_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;token_hash (VARCHAR 64, SHA256)&lt;br/&gt;client_name (VARCHAR)&lt;br/&gt;created_at, expires_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="330" y="40" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab3" parent="1" value="&lt;b&gt;tesis_proyecto [Proyecto]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (UUID, PK)&lt;br/&gt;title (VARCHAR 255)&lt;br/&gt;status (VARCHAR, choices)&lt;br/&gt;created_at, updated_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="620" y="40" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab4" parent="1" value="&lt;b&gt;tesis_participante_proyecto&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;&lt;i&gt;user_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;role (VARCHAR: OWNER/ADVISOR)&lt;br/&gt;active (BOOL), joined_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="910" y="40" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab5" parent="1" value="&lt;b&gt;tesis_perfil_investigacion&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK 1:1)&lt;br/&gt;problem_statement (TEXT)&lt;br/&gt;ods_code, approach, place (VARCHAR)&lt;br/&gt;&lt;b&gt;lock_version&lt;/b&gt; (INT, Concurrencia)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="40" y="230" width="260" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="tab6" parent="1" value="&lt;b&gt;tesis_progreso_paso [P01-P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;step_code (VARCHAR 3)&lt;br/&gt;status (IN_PROGRESS/COMPLETED)&lt;br/&gt;&lt;b&gt;output_json&lt;/b&gt; (JSONB, Pydantic)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="330" y="230" width="260" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="tab7" parent="1" value="&lt;b&gt;tesis_fila_consistencia [Matriz]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;row_number (INT, 0=Gen, 1..N)&lt;br/&gt;question, objective, hypothesis (TEXT)&lt;br/&gt;is_general (BOOL)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="620" y="230" width="260" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="tab8" parent="1" value="&lt;b&gt;tesis_variable_investigacion&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;name (VARCHAR 255)&lt;br/&gt;variable_type (INDEPENDENT/DEPENDENT)&lt;br/&gt;conceptual_def, operational_def (TEXT)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="910" y="230" width="260" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="tab9" parent="1" value="&lt;b&gt;tesis_variable_fila_consistencia&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;variable_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;consistency_row_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;(Relación N:M variable - fila)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="40" y="430" width="260" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tab10" parent="1" value="&lt;b&gt;tesis_dimension_variable&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;variable_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;name (VARCHAR 255)&lt;br/&gt;description (TEXT)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="330" y="430" width="260" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tab11" parent="1" value="&lt;b&gt;tesis_indicador [P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;dimension_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;name (VARCHAR 255)&lt;br/&gt;measurement_scale (NOMINAL/ORDINAL)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="620" y="430" width="260" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tab12" parent="1" value="&lt;b&gt;tesis_capitulo [FSM]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;number (SMALLINT: 1, 2, 3)&lt;br/&gt;status (DRAFT, READY, APPROVED)&lt;br/&gt;&lt;i&gt;approved_revision_id&lt;/i&gt; (BIGINT, FK)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="910" y="430" width="260" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tab13" parent="1" value="&lt;b&gt;tesis_revision_capitulo [Inmutable]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;chapter_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;revision_no (INT)&lt;br/&gt;step_code (VARCHAR 3)&lt;br/&gt;content_md (TEXT), content_sha256&lt;br/&gt;&lt;b&gt;TRIGGER: Bloquea UPDATE/DELETE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="40" y="610" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab14" parent="1" value="&lt;b&gt;tesis_comentario_revision&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;revision_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;author_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;&lt;b&gt;start_cp, end_cp&lt;/b&gt; (INT, Texto exacto)&lt;br/&gt;body (TEXT), status (OPEN/RESOLVED)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="330" y="610" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab15" parent="1" value="&lt;b&gt;tesis_evento_revision [Auditoría]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;chapter_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;revision_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;actor_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;action, reason (TEXT)&lt;br/&gt;&lt;b&gt;TRIGGER: Bloquea UPDATE/DELETE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="620" y="610" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="tab16" parent="1" value="&lt;b&gt;tesis_usuario_grupo / permiso&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;user_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;&lt;i&gt;group_id / permission_id&lt;/i&gt; (INT, FK)&lt;br/&gt;(Tablas intermedias auth Django)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
+          <mxGeometry x="910" y="610" width="260" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

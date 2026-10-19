@@ -117,6 +117,13 @@ El problema se organiza en tres dimensiones:
 
 Estas dificultades constituyen la motivación técnica del proyecto. Su frecuencia e impacto en usuarios reales deberán medirse posteriormente mediante instrumentos de recolección de datos; el presente informe no atribuye porcentajes ni mejoras que todavía no han sido observados.
 
+El análisis de causas y efectos que dan origen a esta problemática se sintetiza en la Figura 1.1:
+
+![Diagrama de Causa-Efecto Ishikawa](./diagramas/01_ishikawa_situacion_problematica.png)
+
+*Figura 1.1: Diagrama de Causa-Efecto (Ishikawa) de la situación problemática en la formulación de tesis.*  
+*[Descargar archivo editable (.drawio)](./diagramas/01_ishikawa_situacion_problematica.drawio)*
+
 ### 1.2.1 Cómo se suele trabajar sin el sistema
 
 Un recorrido común puede verse así:
@@ -351,16 +358,18 @@ La propuesta de valor no es “hacer la tesis automáticamente”. La utilidad e
 
 ### 4.3 Cronograma de trabajo
 
-El desarrollo se organiza por incrementos. La tabla no intenta presentar como terminado lo que todavía está en planificación.
+El desarrollo del proyecto se organiza en 16 semanas académicas. La siguiente tabla detalla la planificación temporal, distinguiendo con rigor los componentes completados para el corte actual de aquellos previstos para los siguientes incrementos:
 
-| Etapa | Trabajo principal | Estado |
-| :--- | :--- | :---: |
-| Preparación | Definición del problema, alcance y arquitectura | Realizado |
-| Corte de Semana 10 | PostgreSQL, modelos, `P01`–`P12`, MCP, API y revisión docente | Operativo |
-| Siguiente incremento metodológico | Implementar `P13`–`P32` y capítulos 4–7 | Previsto |
-| Evidencia documental | Carga de PDF, extracción, OCR y citas con página física | Previsto |
-| Interfaz | Web del tesista y panel especializado del asesor | Previsto |
-| Cierre académico | Exportación institucional, despliegue y pruebas con usuarios | Previsto |
+| Fase / Actividad | Semanas | Entregables clave | Estado en Semana 10 |
+| :--- | :---: | :--- | :---: |
+| **Fase 1: Diagnóstico y Alcance** | Semanas 1 – 3 | Matriz CA-S-P-CO-CC-PC, problema, objetivos preliminares y Lean Canvas. | **Completado** |
+| **Fase 2: Arquitectura y Datos** | Semanas 4 – 6 | Modelo relacional, 17 tablas en PostgreSQL 16 y disparadores de inmutabilidad. | **Completado** |
+| **Fase 3: Servidor MCP y Pasos** | Semanas 7 – 9 | 17 herramientas MCP, 15 prompts y contratos Pydantic para pasos `P01` a `P12`. | **Completado** |
+| **Fase 4: Módulo de Supervisión** | Semanas 9 – 10 | Máquina de estados FSM, comentarios anclados (`start_cp:end_cp`) y 32 pruebas. | **Completado** |
+| **HITO ACTUAL: Corte Semana 10** | **Semana 10** | **Capítulos 1 al 3 operativos, API REST, Django Admin y Definition of Done.** | **ENTREGADO** |
+| **Fase 5: Extensión Metodológica** | Semanas 11 – 12 | Implementación de catálogo `P13` a `P32` para los Capítulos 4 al 7. | *Previsto* |
+| **Fase 6: Evidencia Documental** | Semanas 13 – 14 | Ingesta controlada de PDFs, comprobación física de páginas y OCR. | *Previsto* |
+| **Fase 7: Interfaz y Cierre** | Semanas 14 – 16 | Portal web para el tesista, panel docente, pruebas con usuarios y sustentación. | *Previsto* |
 
 #### 4.3.1 Criterio para avanzar de una etapa a otra
 
@@ -415,6 +424,13 @@ Estos instrumentos todavía deben ser revisados y aplicados. Por tanto, este doc
 | **Fortalezas:** pasos definidos, PostgreSQL, contratos estrictos, historial de revisiones y separación de roles. | **Oportunidades:** uso creciente de asistentes de IA, disponibilidad de catálogos científicos abiertos y necesidad de ordenar la revisión de tesis. |
 | **Debilidades:** ejecución principalmente local, falta de una web propia y búsqueda bibliográfica limitada a metadatos. | **Amenazas:** cambios en servicios externos, respuestas incorrectas del modelo, exposición de credenciales o resistencia de usuarios acostumbrados a Word y correo. |
 
+La matriz estratégica resultante se ilustra en la Figura 6.1:
+
+![Matriz FODA del Proyecto TesisMCP](./diagramas/02_foda_diagnostico_estrategico.png)
+
+*Figura 6.1: Matriz FODA del Proyecto TesisMCP — Fase 01: Diagnóstico Estratégico.*  
+*[Descargar archivo editable (.drawio)](./diagramas/02_foda_diagnostico_estrategico.drawio)*
+
 #### 6.1.2 Causas que se busca atender
 
 El problema puede separarse en cuatro grupos:
@@ -458,6 +474,13 @@ Los riesgos principales se presentaron en la sección 4.2.3. Desde el punto de v
 | RF11 | Procesar PDF y comprobar citas por página. | Previsto |
 | RF12 | Completar `P13`–`P32` y capítulos 4–7. | Previsto |
 | RF13 | Ofrecer una web propia para tesista y asesor. | Previsto |
+
+Los requerimientos funcionales implementados y los roles involucrados se modelan en el Diagrama de Casos de Uso de la Figura 6.2:
+
+![Diagrama de Casos de Uso del Sistema UML](./diagramas/03_casos_uso_sistema.png)
+
+*Figura 6.2: Diagrama de Casos de Uso del Sistema (UML) — Fase 03: Requerimientos Funcionales.*  
+*[Descargar archivo editable (.drawio)](./diagramas/03_casos_uso_sistema.drawio)*
 
 #### 6.3.2 Requerimientos no funcionales
 
@@ -619,6 +642,13 @@ Los nombres físicos propios están en español. Las clases internas conservan a
 | `tesis_evento_revision` | Envío, solicitud de cambios, aprobación o reapertura. |
 | `tesis_usuario_grupo` | Relación intermedia de grupos de autenticación. |
 | `tesis_usuario_permiso` | Relación intermedia de permisos de autenticación. |
+
+El esquema físico relacional de las 17 tablas se ilustra en la Figura 6.3:
+
+![Diagrama Entidad-Relación Físico de 17 Tablas](./diagramas/04_der_modelo_fisico_17_tablas.png)
+
+*Figura 6.3: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*  
+*[Descargar archivo editable (.drawio)](./diagramas/04_der_modelo_fisico_17_tablas.drawio)*
 
 No todas las tablas se llenan al crear el proyecto. Los capítulos y avances aparecen conforme el estudiante trabaja. Esto evita generar contenido ficticio o revisiones vacías solo para completar registros.
 
