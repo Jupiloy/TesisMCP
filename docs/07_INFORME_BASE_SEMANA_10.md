@@ -596,32 +596,41 @@ Las observaciones se vinculan con una revisión y una posición del texto. El se
 
 ### 6.5 Fase 05: Estados, datos y contratos de implementación
 
-#### 6.5.1 Modelo de datos del corte actual
+#### 6.5.1 Modelo Conceptual (ER)
 
-La aplicación declara 15 modelos Django y genera 17 tablas físicas propias porque dos relaciones de autenticación utilizan tablas intermedias. Las tablas y columnas propias emplean nombres físicos en español con el prefijo `tesis_`.
+El modelo conceptual captura las entidades sustantivas del dominio de investigación formativa y revisión metodológica en TesisMCP, abstrayendo detalles de implementación y motores de persistencia. Define las relaciones de negocio entre el tesista, el docente asesor, el perfil del proyecto, la formulación de la matriz de consistencia, la operacionalización de variables y el ciclo inmutable de versiones de capítulos y revisiones.
+
+El esquema conceptual del dominio se presenta en la Figura 6.3:
+
+![Modelo Conceptual Entidad-Relación](./diagramas/05_modelo_conceptual_er.png)
+
+*Figura 6.3: Modelo Conceptual Entidad-Relación (ER) — Dominio Metodológico de TesisMCP.*  
+*[Descargar archivo editable (.drawio)](./diagramas/05_modelo_conceptual_er.drawio)*
+
+#### 6.5.2 Modelo Lógico Relacional (3NF)
+
+El modelo lógico traduce las entidades de negocio a una estructura relacional rigurosamente normalizada en Tercera Forma Normal (3NF). En esta etapa se resuelven las cardinalidades muchos a muchos ($N:M$) mediante las entidades asociativas `PARTICIPANTE_PROYECTO` (relacionando usuarios con proyectos y roles) y `VARIABLE_FILA_CONSISTENCIA` (vinculando variables con filas de consistencia). Asimismo, se establecen las claves primarias (`PK`), claves foráneas (`FK`) de integridad referencial y el tipado de datos conceptual abstracto (`UUID`, `Entero`, `Cadena`, `Texto`, `Booleano`, `Estructura JSON`).
+
+La estructura lógica normalizada se ilustra en la Figura 6.4:
+
+![Modelo Lógico Relacional 3NF](./diagramas/06_modelo_logico_relacional.png)
+
+*Figura 6.4: Modelo Lógico Relacional (3NF) — Normalización y Claves de Entidad.*  
+*[Descargar archivo editable (.drawio)](./diagramas/06_modelo_logico_relacional.drawio)*
+
+#### 6.5.3 Modelo Físico en PostgreSQL 16 y Catálogo de Tablas
+
+La aplicación implementa 15 modelos Django que dan lugar a 17 tablas físicas propias en PostgreSQL 16 (dos relaciones de autenticación de Django generan tablas intermedias). Todas las tablas y columnas propias utilizan identificadores en español con el prefijo `tesis_`.
 
 Los grupos principales son:
 
-- **identidad y acceso:** usuario y token MCP;
-- **proyecto:** proyecto y participantes;
-- **metodología:** perfil, progreso de pasos y filas de consistencia;
-- **variables:** variables, relación con filas, dimensiones e indicadores;
-- **revisión:** capítulos, revisiones, comentarios y eventos.
+- **identidad y acceso:** usuario y token MCP (`tesis_usuario`, `tesis_token_acceso_mcp`, `tesis_usuario_grupo`, `tesis_usuario_permiso`);
+- **proyecto:** proyecto y participantes (`tesis_proyecto`, `tesis_participante_proyecto`);
+- **metodología:** perfil, progreso de pasos y filas de consistencia (`tesis_perfil_investigacion`, `tesis_progreso_paso`, `tesis_fila_consistencia`);
+- **variables:** variables, relación con filas, dimensiones e indicadores (`tesis_variable_investigacion`, `tesis_variable_fila_consistencia`, `tesis_dimension_variable`, `tesis_indicador`);
+- **revisión:** capítulos, revisiones, comentarios y eventos (`tesis_capitulo`, `tesis_revision_capitulo`, `tesis_comentario_revision`, `tesis_evento_revision`).
 
-El esquema se crea mediante dos migraciones: una migración inicial consolidada y una migración para nombres físicos e inmutabilidad. PostgreSQL es el único motor de persistencia previsto para este corte.
-
-#### 6.5.2 Seguridad e integridad
-
-- Los clientes MCP se autentican mediante tokens cuyo valor no se almacena en texto plano; se conserva su huella SHA-256.
-- La identidad del actor se resuelve en el backend y no se confía en un identificador propuesto libremente por el modelo.
-- Los permisos distinguen al tesista titular del asesor asignado.
-- `transaction.atomic()` y el control optimista protegen el guardado compuesto.
-- Las revisiones y eventos están protegidos en PostgreSQL contra `UPDATE` y `DELETE`.
-- La aprobación requiere una revisión vigente y ausencia de observaciones abiertas.
-
-#### 6.5.3 Tablas físicas y para qué sirve cada grupo
-
-Los nombres físicos propios están en español. Las clases internas conservan algunos nombres técnicos en inglés para mantener compatibilidad con Django, pero el esquema que se puede consultar en PostgreSQL utiliza el prefijo `tesis_`.
+El esquema se despliega mediante dos migraciones Django: una consolidada inicial y una de nombres físicos e inmutabilidad con triggers nativos PostgreSQL.
 
 | Tabla física | Información principal |
 | :--- | :--- |
@@ -643,16 +652,25 @@ Los nombres físicos propios están en español. Las clases internas conservan a
 | `tesis_usuario_grupo` | Relación intermedia de grupos de autenticación. |
 | `tesis_usuario_permiso` | Relación intermedia de permisos de autenticación. |
 
-El esquema físico relacional de las 17 tablas se ilustra en la Figura 6.3:
+El esquema físico relacional de las 17 tablas se ilustra en la Figura 6.5:
 
 ![Diagrama Entidad-Relación Físico de 17 Tablas](./diagramas/04_der_modelo_fisico_17_tablas.png)
 
-*Figura 6.3: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*  
+*Figura 6.5: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*  
 *[Descargar archivo editable (.drawio)](./diagramas/04_der_modelo_fisico_17_tablas.drawio)*
 
 No todas las tablas se llenan al crear el proyecto. Los capítulos y avances aparecen conforme el estudiante trabaja. Esto evita generar contenido ficticio o revisiones vacías solo para completar registros.
 
-#### 6.5.4 Herramientas disponibles en el servidor MCP
+#### 6.5.4 Seguridad e integridad
+
+- Los clientes MCP se autentican mediante tokens cuyo valor no se almacena en texto plano; se conserva su huella SHA-256.
+- La identidad del actor se resuelve en el backend y no se confía en un identificador propuesto libremente por el modelo.
+- Los permisos distinguen al tesista titular del asesor asignado.
+- `transaction.atomic()` y el control optimista protegen el guardado compuesto.
+- Las revisiones y eventos están protegidos en PostgreSQL contra `UPDATE` y `DELETE`.
+- La aprobación requiere una revisión vigente y ausencia de observaciones abiertas.
+
+#### 6.5.5 Herramientas disponibles en el servidor MCP
 
 El servidor registra diecisiete herramientas. Tres sirven para conocer el servidor y catorce trabajan con el proyecto.
 
@@ -682,7 +700,7 @@ El servidor también registra quince prompts: uno para cada paso `P01`–`P12` y
 
 Estos roles son instrucciones que el cliente aplica por turnos. No son tres programas autónomos ejecutándose solos ni sustituyen a tres personas. Esta distinción evita presentar el proyecto como un sistema multiagente más complejo de lo que realmente es en este corte.
 
-#### 6.5.5 Cómo funcionan realmente los comentarios
+#### 6.5.6 Cómo funcionan realmente los comentarios
 
 Los comentarios ya tienen lógica y persistencia, pero no una presentación visual completa. El flujo real es el siguiente:
 
@@ -703,7 +721,7 @@ La observación no se inserta dentro del contenido ni modifica automáticamente 
 
 En Django Admin los comentarios pueden consultarse como registros de solo lectura. Para crearlos se usa MCP o la API. La futura web deberá convertir estos datos en una experiencia más parecida a comentarios al margen.
 
-#### 6.5.6 API, panel administrativo y exportación
+#### 6.5.7 API, panel administrativo y exportación
 
 Además de MCP, el backend publica rutas bajo `/api/v1/`. Estas rutas permiten crear proyectos, guardar pasos, enviar capítulos, registrar comentarios y tomar decisiones. También existe un endpoint de tablero del asesor y un endpoint que descarga un borrador `.docx`.
 

@@ -1,0 +1,60 @@
+digraph ModeloConceptual_ER {
+    graph [
+        bgcolor="white",
+        rankdir=LR,
+        splines=ortho,
+        nodesep=0.6,
+        ranksep=0.9,
+        pad="0.25"
+    ];
+
+    node [
+        shape=rectangle,
+        style="solid",
+        color="#000000",
+        fontname="Arial Bold",
+        fontsize=10,
+        penwidth=1.5,
+        fillcolor="#ffffff"
+    ];
+
+    edge [
+        color="#000000",
+        fontname="Arial",
+        fontsize=9,
+        arrowsize=0.7,
+        penwidth=1.2
+    ];
+
+    // ENTIDADES CONCEPTUALES (Sustantivos del Dominio)
+    Usuario [label="USUARIO\n(Tesista / Asesor)"];
+    TokenAcceso [label="TOKEN ACCESO\n(Credencial MCP)"];
+    Proyecto [label="PROYECTO DE TESIS\n(Título, Alcance)"];
+    Perfil [label="PERFIL INVESTIGACIÓN\n(Idea, ODS, Problema)"];
+    PasoProgreso [label="PASO METODOLÓGICO\n(P01..P12 / Avance)"];
+    FilaConsistencia [label="FILA CONSISTENCIA\n(Pregunta, Objetivo, Hipótesis)"];
+    Variable [label="VARIABLE INVESTIGACIÓN\n(Independiente / Dependiente)"];
+    Dimension [label="DIMENSIÓN\n(Sub-constructo)"];
+    Indicador [label="INDICADOR\n(Escala, Medición P12)"];
+    Capitulo [label="CAPÍTULO\n(Capítulos 1, 2, 3)"];
+    Revision [label="REVISIÓN\n(Texto Inmutable, SHA-256)"];
+    Comentario [label="COMENTARIO OBSERVACIÓN\n(Fragmento y Feedback Asesor)"];
+    EventoAuditoria [label="EVENTO AUDITORÍA\n(Envío, Aprobación, Rechazo)"];
+
+    // RELACIONES CONCEPTUALES DE ALTO NIVEL
+    Usuario -> TokenAcceso [label="autentica\n1 : N"];
+    Usuario -> Proyecto [label="participa en\nN : M"];
+    Proyecto -> Perfil [label="define\n1 : 1"];
+    Proyecto -> PasoProgreso [label="ejecuta\n1 : N"];
+    Proyecto -> FilaConsistencia [label="formula\n1 : N"];
+    Proyecto -> Variable [label="contiene\n1 : N"];
+    Proyecto -> Capitulo [label="estructura\n1 : N"];
+
+    FilaConsistencia -> Variable [label="vincula\nN : M"];
+    Variable -> Dimension [label="se desglosa en\n1 : N"];
+    Dimension -> Indicador [label="se mide con\n1 : N"];
+
+    Capitulo -> Revision [label="versiona\n1 : N"];
+    Revision -> Comentario [label="recibe observación\n1 : N"];
+    Capitulo -> EventoAuditoria [label="audita decisión\n1 : N"];
+}

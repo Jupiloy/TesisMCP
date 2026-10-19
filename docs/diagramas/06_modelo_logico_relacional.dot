@@ -1,0 +1,170 @@
+digraph ModeloLogico_3NF {
+    graph [
+        bgcolor="white",
+        rankdir=LR,
+        splines=ortho,
+        nodesep=0.45,
+        ranksep=0.75,
+        pad="0.25"
+    ];
+
+    node [
+        shape=plain,
+        fontname="Arial",
+        fontsize=9
+    ];
+
+    edge [
+        color="#000000",
+        fontname="Arial",
+        fontsize=8,
+        arrowsize=0.6,
+        penwidth=1.0
+    ];
+
+    // Columna 1: Identidad y Proyecto Raíz
+    USUARIO [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>USUARIO</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>UK</B> correo</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre_visible</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">esta_activo</TD><TD ALIGN="RIGHT">Booleano</TD></TR>
+    </TABLE>>];
+
+    PROYECTO [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>PROYECTO</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">UUID</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">titulo</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">estado</TD><TD ALIGN="RIGHT">Cadena (Activo/Archivado)</TD></TR>
+    </TABLE>>];
+
+    // Columna 2: Entidades Asociativas / Relacionadas Directas
+    TOKEN_ACCESO [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>TOKEN_ACCESO</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> usuario_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>UK</B> hash_token</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+    </TABLE>>];
+
+    PARTICIPANTE_PROYECTO [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>PARTICIPANTE_PROYECTO</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> proyecto_id</TD><TD ALIGN="RIGHT">UUID</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> usuario_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT">rol</TD><TD ALIGN="RIGHT">Cadena (Tesista/Asesor)</TD></TR>
+        <TR><TD ALIGN="LEFT">activo</TD><TD ALIGN="RIGHT">Booleano</TD></TR>
+    </TABLE>>];
+
+    PERFIL_INVESTIGACION [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>PERFIL_INVESTIGACION</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK,FK</B> proyecto_id</TD><TD ALIGN="RIGHT">UUID (1:1)</TD></TR>
+        <TR><TD ALIGN="LEFT">enfoque</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">tema</TD><TD ALIGN="RIGHT">Texto</TD></TR>
+        <TR><TD ALIGN="LEFT">planteamiento_problema</TD><TD ALIGN="RIGHT">Texto</TD></TR>
+    </TABLE>>];
+
+    PROGRESO_PASO [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>PROGRESO_PASO [P01-P12]</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> proyecto_id</TD><TD ALIGN="RIGHT">UUID</TD></TR>
+        <TR><TD ALIGN="LEFT">codigo_paso</TD><TD ALIGN="RIGHT">Cadena(3)</TD></TR>
+        <TR><TD ALIGN="LEFT">estado</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">salida_json</TD><TD ALIGN="RIGHT">Estructura JSON</TD></TR>
+    </TABLE>>];
+
+    FILA_CONSISTENCIA [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>FILA_CONSISTENCIA</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> proyecto_id</TD><TD ALIGN="RIGHT">UUID</TD></TR>
+        <TR><TD ALIGN="LEFT">orden</TD><TD ALIGN="RIGHT">Entero (0=Gen, 1..N)</TD></TR>
+        <TR><TD ALIGN="LEFT">texto_pregunta</TD><TD ALIGN="RIGHT">Texto</TD></TR>
+        <TR><TD ALIGN="LEFT">texto_objetivo</TD><TD ALIGN="RIGHT">Texto</TD></TR>
+        <TR><TD ALIGN="LEFT">texto_hipotesis</TD><TD ALIGN="RIGHT">Texto</TD></TR>
+    </TABLE>>];
+
+    VARIABLE_INVESTIGACION [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>VARIABLE_INVESTIGACION</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> proyecto_id</TD><TD ALIGN="RIGHT">UUID</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">rol</TD><TD ALIGN="RIGHT">Cadena (Indep/Dep)</TD></TR>
+    </TABLE>>];
+
+    CAPITULO [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>CAPITULO</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> proyecto_id</TD><TD ALIGN="RIGHT">UUID</TD></TR>
+        <TR><TD ALIGN="LEFT">numero</TD><TD ALIGN="RIGHT">Entero (1..3)</TD></TR>
+        <TR><TD ALIGN="LEFT">estado</TD><TD ALIGN="RIGHT">Cadena (Borrador/Revisión/Aprobado)</TD></TR>
+    </TABLE>>];
+
+    // Columna 3: Sub-entidades y Desglose
+    VARIABLE_FILA_CONSISTENCIA [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>VARIABLE_FILA_CONSISTENCIA</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> fila_consistencia_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> variable_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+    </TABLE>>];
+
+    DIMENSION_VARIABLE [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>DIMENSION_VARIABLE</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> variable_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+    </TABLE>>];
+
+    REVISION_CAPITULO [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>REVISION_CAPITULO</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> capitulo_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> creado_por_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT">numero_revision</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT">contenido_sha256</TD><TD ALIGN="RIGHT">Cadena(64)</TD></TR>
+    </TABLE>>];
+
+    EVENTO_REVISION [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>EVENTO_REVISION</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> capitulo_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT">accion</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+    </TABLE>>];
+
+    // Columna 4: Detalles Finales
+    INDICADOR [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>INDICADOR [P12]</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> dimension_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+        <TR><TD ALIGN="LEFT">escala_medicion</TD><TD ALIGN="RIGHT">Cadena</TD></TR>
+    </TABLE>>];
+
+    COMENTARIO_REVISION [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#000000">
+        <TR><TD COLSPAN="2" BORDER="1"><B>COMENTARIO_REVISION</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B> id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> revision_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B> autor_id</TD><TD ALIGN="RIGHT">Entero</TD></TR>
+        <TR><TD ALIGN="LEFT">texto_seleccionado</TD><TD ALIGN="RIGHT">Texto</TD></TR>
+        <TR><TD ALIGN="LEFT">estado</TD><TD ALIGN="RIGHT">Cadena (Abierto/Resuelto)</TD></TR>
+    </TABLE>>];
+
+    // Conexiones relacionales (1:N, 1:1)
+    USUARIO -> TOKEN_ACCESO [label="1:N"];
+    USUARIO -> PARTICIPANTE_PROYECTO [label="1:N"];
+
+    PROYECTO -> PARTICIPANTE_PROYECTO [label="1:N"];
+    PROYECTO -> PERFIL_INVESTIGACION [label="1:1"];
+    PROYECTO -> PROGRESO_PASO [label="1:N"];
+    PROYECTO -> FILA_CONSISTENCIA [label="1:N"];
+    PROYECTO -> VARIABLE_INVESTIGACION [label="1:N"];
+    PROYECTO -> CAPITULO [label="1:N"];
+
+    FILA_CONSISTENCIA -> VARIABLE_FILA_CONSISTENCIA [label="1:N"];
+    VARIABLE_INVESTIGACION -> VARIABLE_FILA_CONSISTENCIA [label="1:N"];
+    VARIABLE_INVESTIGACION -> DIMENSION_VARIABLE [label="1:N"];
+    DIMENSION_VARIABLE -> INDICADOR [label="1:N"];
+
+    CAPITULO -> REVISION_CAPITULO [label="1:N"];
+    REVISION_CAPITULO -> COMENTARIO_REVISION [label="1:N"];
+    CAPITULO -> EVENTO_REVISION [label="1:N"];
+}

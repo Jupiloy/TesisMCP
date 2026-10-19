@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_logico" name="Modelo_Logico_Relacional">
+    <mxGraphModel dx="1400" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="USUARIO" parent="1" value="&lt;b&gt;USUARIO&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;+ correo: Cadena [UK]&lt;br/&gt;+ nombre_visible: Cadena&lt;br/&gt;+ esta_activo: Booleano" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="40" y="60" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="PROYECTO" parent="1" value="&lt;b&gt;PROYECTO&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: UUID [PK]&lt;br/&gt;+ nombre: Cadena&lt;br/&gt;+ titulo: Cadena&lt;br/&gt;+ estado: Cadena" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="40" y="240" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="TOKEN_ACCESO" parent="1" value="&lt;b&gt;TOKEN_ACCESO&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# usuario_id: Entero [FK]&lt;br/&gt;+ hash_token: Cadena [UK]" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="320" y="40" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="PARTICIPANTE_PROYECTO" parent="1" value="&lt;b&gt;PARTICIPANTE_PROYECTO&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# proyecto_id: UUID [FK]&lt;br/&gt;# usuario_id: Entero [FK]&lt;br/&gt;+ rol: Cadena&lt;br/&gt;+ activo: Booleano" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="320" y="160" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="PERFIL_INVESTIGACION" parent="1" value="&lt;b&gt;PERFIL_INVESTIGACION&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+# proyecto_id: UUID [PK, FK 1:1]&lt;br/&gt;+ enfoque: Cadena&lt;br/&gt;+ tema: Texto&lt;br/&gt;+ planteamiento_problema: Texto" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="320" y="300" width="230" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="PROGRESO_PASO" parent="1" value="&lt;b&gt;PROGRESO_PASO [P01-P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# proyecto_id: UUID [FK]&lt;br/&gt;+ codigo_paso: Cadena(3)&lt;br/&gt;+ estado: Cadena&lt;br/&gt;+ salida_json: JSON" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="320" y="430" width="230" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="FILA_CONSISTENCIA" parent="1" value="&lt;b&gt;FILA_CONSISTENCIA&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# proyecto_id: UUID [FK]&lt;br/&gt;+ orden: Entero&lt;br/&gt;+ texto_pregunta: Texto&lt;br/&gt;+ texto_objetivo: Texto" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="320" y="560" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="VARIABLE_INVESTIGACION" parent="1" value="&lt;b&gt;VARIABLE_INVESTIGACION&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# proyecto_id: UUID [FK]&lt;br/&gt;+ nombre: Cadena&lt;br/&gt;+ rol: Cadena (Indep/Dep)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="320" y="700" width="230" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="CAPITULO" parent="1" value="&lt;b&gt;CAPITULO [FSM]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# proyecto_id: UUID [FK]&lt;br/&gt;+ numero: Entero (1..3)&lt;br/&gt;+ estado: Cadena" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="320" y="830" width="230" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VARIABLE_FILA_CONSISTENCIA" parent="1" value="&lt;b&gt;VARIABLE_FILA_CONSISTENCIA&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# fila_consistencia_id: Entero [FK]&lt;br/&gt;# variable_id: Entero [FK]" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="620" y="620" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="DIMENSION_VARIABLE" parent="1" value="&lt;b&gt;DIMENSION_VARIABLE&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# variable_id: Entero [FK]&lt;br/&gt;+ nombre: Cadena" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="620" y="740" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="INDICADOR" parent="1" value="&lt;b&gt;INDICADOR [P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# dimension_id: Entero [FK]&lt;br/&gt;+ nombre: Cadena&lt;br/&gt;+ escala_medicion: Cadena" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="910" y="740" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="REVISION_CAPITULO" parent="1" value="&lt;b&gt;REVISION_CAPITULO [Inmutable]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# capitulo_id: Entero [FK]&lt;br/&gt;# creado_por_id: Entero [FK]&lt;br/&gt;+ numero_revision: Entero&lt;br/&gt;+ contenido_sha256: Cadena(64)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="620" y="860" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="COMENTARIO_REVISION" parent="1" value="&lt;b&gt;COMENTARIO_REVISION&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# revision_id: Entero [FK]&lt;br/&gt;# autor_id: Entero [FK]&lt;br/&gt;+ texto_seleccionado: Texto&lt;br/&gt;+ estado: Cadena" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="910" y="860" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="EVENTO_REVISION" parent="1" value="&lt;b&gt;EVENTO_REVISION [Auditoría]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: Entero [PK]&lt;br/&gt;# capitulo_id: Entero [FK]&lt;br/&gt;+ accion: Cadena" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="620" y="1000" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_0" parent="1" edge="1" source="USUARIO" target="TOKEN_ACCESO" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_1" parent="1" edge="1" source="USUARIO" target="PARTICIPANTE_PROYECTO" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_2" parent="1" edge="1" source="PROYECTO" target="PARTICIPANTE_PROYECTO" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_3" parent="1" edge="1" source="PROYECTO" target="PERFIL_INVESTIGACION" value="1:1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_4" parent="1" edge="1" source="PROYECTO" target="PROGRESO_PASO" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_5" parent="1" edge="1" source="PROYECTO" target="FILA_CONSISTENCIA" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_6" parent="1" edge="1" source="PROYECTO" target="VARIABLE_INVESTIGACION" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_7" parent="1" edge="1" source="PROYECTO" target="CAPITULO" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_8" parent="1" edge="1" source="FILA_CONSISTENCIA" target="VARIABLE_FILA_CONSISTENCIA" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_9" parent="1" edge="1" source="VARIABLE_INVESTIGACION" target="VARIABLE_FILA_CONSISTENCIA" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_10" parent="1" edge="1" source="VARIABLE_INVESTIGACION" target="DIMENSION_VARIABLE" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_11" parent="1" edge="1" source="DIMENSION_VARIABLE" target="INDICADOR" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_12" parent="1" edge="1" source="CAPITULO" target="REVISION_CAPITULO" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_13" parent="1" edge="1" source="REVISION_CAPITULO" target="COMENTARIO_REVISION" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l_14" parent="1" edge="1" source="CAPITULO" target="EVENTO_REVISION" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

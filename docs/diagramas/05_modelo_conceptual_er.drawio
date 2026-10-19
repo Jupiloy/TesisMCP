@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_conceptual" name="Modelo_Conceptual_ER">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Usuario" parent="1" value="USUARIO&lt;br/&gt;(Tesista / Asesor)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="40" y="80" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="TokenAcceso" parent="1" value="TOKEN ACCESO&lt;br/&gt;(Credencial MCP)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="40" y="240" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Proyecto" parent="1" value="PROYECTO DE TESIS&lt;br/&gt;(Título, Alcance)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="300" y="80" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Perfil" parent="1" value="PERFIL INVESTIGACIÓN&lt;br/&gt;(Idea, ODS, Problema)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="580" y="40" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="PasoProgreso" parent="1" value="PASO METODOLÓGICO&lt;br/&gt;(P01..P12 / Avance)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="580" y="150" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Capitulo" parent="1" value="CAPÍTULO&lt;br/&gt;(Capítulos 1, 2, 3)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="300" y="270" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Revision" parent="1" value="REVISIÓN&lt;br/&gt;(Texto Inmutable, SHA-256)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="580" y="270" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Comentario" parent="1" value="COMENTARIO OBSERVACIÓN&lt;br/&gt;(Fragmento y Feedback)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="860" y="240" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="EventoAuditoria" parent="1" value="EVENTO AUDITORÍA&lt;br/&gt;(Envío, Aprobación, Rechazo)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="860" y="340" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="FilaConsistencia" parent="1" value="FILA CONSISTENCIA&lt;br/&gt;(Pregunta, Objetivo, Hipótesis)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="300" y="450" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Variable" parent="1" value="VARIABLE INVESTIGACIÓN&lt;br/&gt;(Independiente / Dependiente)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="580" y="450" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Dimension" parent="1" value="DIMENSIÓN&lt;br/&gt;(Sub-constructo)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="860" y="450" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Indicador" parent="1" value="INDICADOR&lt;br/&gt;(Escala, Medición P12)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontStyle=1;fontSize=11;align=center;">
+          <mxGeometry x="1100" y="450" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_0" parent="1" edge="1" source="Usuario" target="TokenAcceso" value="autentica (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_1" parent="1" edge="1" source="Usuario" target="Proyecto" value="participa en (N:M)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_2" parent="1" edge="1" source="Proyecto" target="Perfil" value="define (1:1)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_3" parent="1" edge="1" source="Proyecto" target="PasoProgreso" value="ejecuta (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_4" parent="1" edge="1" source="Proyecto" target="Capitulo" value="estructura (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_5" parent="1" edge="1" source="Capitulo" target="Revision" value="versiona (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_6" parent="1" edge="1" source="Revision" target="Comentario" value="recibe observación (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_7" parent="1" edge="1" source="Capitulo" target="EventoAuditoria" value="audita decisión (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_8" parent="1" edge="1" source="Proyecto" target="FilaConsistencia" value="formula (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_9" parent="1" edge="1" source="Proyecto" target="Variable" value="contiene (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_10" parent="1" edge="1" source="FilaConsistencia" target="Variable" value="vincula (N:M)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_11" parent="1" edge="1" source="Variable" target="Dimension" value="se desglosa en (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_c_12" parent="1" edge="1" source="Dimension" target="Indicador" value="se mide con (1:N)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=block;fontSize=10;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
