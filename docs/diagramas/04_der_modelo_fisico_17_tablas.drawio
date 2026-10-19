@@ -1,57 +1,123 @@
 <?xml version='1.0' encoding='utf-8'?>
-<mxfile host="Electron" modified="2026-10-19T17:00:00.000Z" agent="Antigravity" version="21.6.8" type="device">
-  <diagram id="diag_04_der_modelo_fisico_17_tablas" name="04_der_modelo_fisico_17_tablas">
-    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+<mxfile host="Electron" modified="2026-10-19T18:00:00.000Z" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_der_oficial" name="DER_Fisico_17_Tablas">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1650" pageHeight="950" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="tab1" parent="1" value="&lt;b&gt;tesis_usuario [Identidad]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (UUID, PK)&lt;br/&gt;email (VARCHAR 254, UNIQUE)&lt;br/&gt;first_name, last_name (VARCHAR)&lt;br/&gt;is_active, is_staff (BOOL)&lt;br/&gt;created_at, updated_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="40" y="40" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_usuario" parent="1" value="&lt;b&gt;tesis_usuario [Identidad]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;+ correo: varchar(254) [UK]&lt;br/&gt;+ nombre_visible: varchar(150)&lt;br/&gt;+ contrasena_hash: varchar(128)&lt;br/&gt;+ esta_activo: boolean&lt;br/&gt;+ creado_en: timestamptz" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="40" y="60" width="250" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="tab2" parent="1" value="&lt;b&gt;tesis_token_acceso_mcp [Auth]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;user_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;token_hash (VARCHAR 64, SHA256)&lt;br/&gt;client_name (VARCHAR)&lt;br/&gt;created_at, expires_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="330" y="40" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_token_acceso_mcp" parent="1" value="&lt;b&gt;tesis_token_acceso_mcp&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# usuario_id: bigint [FK]&lt;br/&gt;+ hash_token: varchar(64) [UK]&lt;br/&gt;+ expira_en: timestamptz" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="40" y="250" width="250" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="tab3" parent="1" value="&lt;b&gt;tesis_proyecto [Proyecto]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (UUID, PK)&lt;br/&gt;title (VARCHAR 255)&lt;br/&gt;status (VARCHAR, choices)&lt;br/&gt;created_at, updated_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="620" y="40" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_usuario_grupo" parent="1" value="&lt;b&gt;tesis_usuario_grupo&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# usuario_id: bigint [FK]&lt;br/&gt;# grupo_id: integer [FK]" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="40" y="400" width="250" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="tab4" parent="1" value="&lt;b&gt;tesis_participante_proyecto&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;&lt;i&gt;user_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;role (VARCHAR: OWNER/ADVISOR)&lt;br/&gt;active (BOOL), joined_at (TIMESTAMP)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="910" y="40" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_usuario_permiso" parent="1" value="&lt;b&gt;tesis_usuario_permiso&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# usuario_id: bigint [FK]&lt;br/&gt;# permiso_id: integer [FK]" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="40" y="520" width="250" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="tab5" parent="1" value="&lt;b&gt;tesis_perfil_investigacion&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK 1:1)&lt;br/&gt;problem_statement (TEXT)&lt;br/&gt;ods_code, approach, place (VARCHAR)&lt;br/&gt;&lt;b&gt;lock_version&lt;/b&gt; (INT, Concurrencia)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="40" y="230" width="260" height="170" as="geometry" />
+        <mxCell id="tesis_proyecto" parent="1" value="&lt;b&gt;tesis_proyecto [Proyecto]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: uuid [PK]&lt;br/&gt;+ nombre: varchar(160)&lt;br/&gt;+ titulo: varchar(300)&lt;br/&gt;+ estado: varchar(12)&lt;br/&gt;+ creado_en: timestamptz" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="340" y="60" width="260" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tab6" parent="1" value="&lt;b&gt;tesis_progreso_paso [P01-P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;step_code (VARCHAR 3)&lt;br/&gt;status (IN_PROGRESS/COMPLETED)&lt;br/&gt;&lt;b&gt;output_json&lt;/b&gt; (JSONB, Pydantic)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="330" y="230" width="260" height="170" as="geometry" />
+        <mxCell id="tesis_participante_proyecto" parent="1" value="&lt;b&gt;tesis_participante_proyecto&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# proyecto_id: uuid [FK]&lt;br/&gt;# usuario_id: bigint [FK]&lt;br/&gt;+ rol: varchar(10)&lt;br/&gt;+ activo: boolean" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="340" y="240" width="260" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="tab7" parent="1" value="&lt;b&gt;tesis_fila_consistencia [Matriz]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;row_number (INT, 0=Gen, 1..N)&lt;br/&gt;question, objective, hypothesis (TEXT)&lt;br/&gt;is_general (BOOL)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="620" y="230" width="260" height="170" as="geometry" />
+        <mxCell id="tesis_capitulo" parent="1" value="&lt;b&gt;tesis_capitulo [FSM]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# proyecto_id: uuid [FK]&lt;br/&gt;+ numero: smallint (1..3)&lt;br/&gt;+ estado: varchar(20)&lt;br/&gt;# revision_aprobada_id: bigint [FK]" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="650" y="60" width="270" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="tab8" parent="1" value="&lt;b&gt;tesis_variable_investigacion&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;name (VARCHAR 255)&lt;br/&gt;variable_type (INDEPENDENT/DEPENDENT)&lt;br/&gt;conceptual_def, operational_def (TEXT)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="910" y="230" width="260" height="170" as="geometry" />
+        <mxCell id="tesis_revision_capitulo" parent="1" value="&lt;b&gt;tesis_revision_capitulo [Inmutable]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# capitulo_id: bigint [FK]&lt;br/&gt;# creado_por_id: bigint [FK]&lt;br/&gt;+ numero_revision: integer&lt;br/&gt;+ codigo_paso: varchar(3)&lt;br/&gt;+ contenido_sha256: char(64)&lt;br/&gt;* TRIGGER: Inmutable" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="650" y="230" width="270" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="tab9" parent="1" value="&lt;b&gt;tesis_variable_fila_consistencia&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;variable_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;consistency_row_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;(Relación N:M variable - fila)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="40" y="430" width="260" height="150" as="geometry" />
+        <mxCell id="tesis_comentario_revision" parent="1" value="&lt;b&gt;tesis_comentario_revision&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# revision_id: bigint [FK]&lt;br/&gt;# autor_id: bigint [FK]&lt;br/&gt;+ inicio_caracter, fin_caracter: int&lt;br/&gt;+ texto_seleccionado: text&lt;br/&gt;+ estado: varchar(10)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="650" y="420" width="270" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tab10" parent="1" value="&lt;b&gt;tesis_dimension_variable&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;variable_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;name (VARCHAR 255)&lt;br/&gt;description (TEXT)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="330" y="430" width="260" height="150" as="geometry" />
+        <mxCell id="tesis_evento_revision" parent="1" value="&lt;b&gt;tesis_evento_revision [Auditoría]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# capitulo_id: bigint [FK]&lt;br/&gt;# revision_id: bigint [FK]&lt;br/&gt;# usuario_actor_id: bigint [FK]&lt;br/&gt;+ accion: varchar(20)&lt;br/&gt;+ creado_en: timestamptz" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="650" y="590" width="270" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tab11" parent="1" value="&lt;b&gt;tesis_indicador [P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;dimension_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;name (VARCHAR 255)&lt;br/&gt;measurement_scale (NOMINAL/ORDINAL)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="620" y="430" width="260" height="150" as="geometry" />
+        <mxCell id="tesis_perfil_investigacion" parent="1" value="&lt;b&gt;tesis_perfil_investigacion&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+# proyecto_id: uuid [PK, FK 1:1]&lt;br/&gt;+ enfoque: varchar(16)&lt;br/&gt;+ tema: text&lt;br/&gt;+ codigo_ods: varchar(20)&lt;br/&gt;+ unidad_analisis: text&lt;br/&gt;+ planteamiento_problema: text&lt;br/&gt;+ version_bloqueo: integer" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="970" y="60" width="260" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="tab12" parent="1" value="&lt;b&gt;tesis_capitulo [FSM]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;project_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;number (SMALLINT: 1, 2, 3)&lt;br/&gt;status (DRAFT, READY, APPROVED)&lt;br/&gt;&lt;i&gt;approved_revision_id&lt;/i&gt; (BIGINT, FK)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="910" y="430" width="260" height="150" as="geometry" />
+        <mxCell id="tesis_progreso_paso" parent="1" value="&lt;b&gt;tesis_progreso_paso [P01-P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# proyecto_id: uuid [FK]&lt;br/&gt;+ codigo_paso: varchar(3)&lt;br/&gt;+ estado: varchar(16)&lt;br/&gt;+ salida_json: jsonb" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="970" y="240" width="260" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="tab13" parent="1" value="&lt;b&gt;tesis_revision_capitulo [Inmutable]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;chapter_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;revision_no (INT)&lt;br/&gt;step_code (VARCHAR 3)&lt;br/&gt;content_md (TEXT), content_sha256&lt;br/&gt;&lt;b&gt;TRIGGER: Bloquea UPDATE/DELETE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="40" y="610" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_fila_consistencia" parent="1" value="&lt;b&gt;tesis_fila_consistencia [Matriz]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# proyecto_id: uuid [FK]&lt;br/&gt;+ orden: smallint (0..N)&lt;br/&gt;+ texto_pregunta: text&lt;br/&gt;+ texto_objetivo: text&lt;br/&gt;+ texto_hipotesis: text" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="1280" y="60" width="270" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tab14" parent="1" value="&lt;b&gt;tesis_comentario_revision&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;revision_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;author_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;&lt;b&gt;start_cp, end_cp&lt;/b&gt; (INT, Texto exacto)&lt;br/&gt;body (TEXT), status (OPEN/RESOLVED)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="330" y="610" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_variable_investigacion" parent="1" value="&lt;b&gt;tesis_variable_investigacion&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# proyecto_id: uuid [FK]&lt;br/&gt;+ nombre: varchar(200)&lt;br/&gt;+ rol: varchar(16) (IND/DEP)&lt;br/&gt;+ definicion_conceptual: text&lt;br/&gt;+ definicion_operacional: text" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="1280" y="230" width="270" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tab15" parent="1" value="&lt;b&gt;tesis_evento_revision [Auditoría]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;chapter_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;revision_id&lt;/i&gt; (BIGINT, FK)&lt;br/&gt;&lt;i&gt;actor_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;action, reason (TEXT)&lt;br/&gt;&lt;b&gt;TRIGGER: Bloquea UPDATE/DELETE&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="620" y="610" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_variable_fila_consistencia" parent="1" value="&lt;b&gt;tesis_variable_fila_consistencia&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# fila_consistencia_id: bigint [FK]&lt;br/&gt;# variable_id: bigint [FK]" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="1280" y="400" width="270" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="tab16" parent="1" value="&lt;b&gt;tesis_usuario_grupo / permiso&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;&lt;u&gt;id&lt;/u&gt; (BIGINT, PK)&lt;br/&gt;&lt;i&gt;user_id&lt;/i&gt; (UUID, FK)&lt;br/&gt;&lt;i&gt;group_id / permission_id&lt;/i&gt; (INT, FK)&lt;br/&gt;(Tablas intermedias auth Django)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=8;fontSize=11;verticalAlign=top;" vertex="1">
-          <mxGeometry x="910" y="610" width="260" height="160" as="geometry" />
+        <mxCell id="tesis_dimension_variable" parent="1" value="&lt;b&gt;tesis_dimension_variable&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# variable_id: bigint [FK]&lt;br/&gt;+ orden: smallint&lt;br/&gt;+ nombre: varchar(200)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="1280" y="520" width="270" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tesis_indicador" parent="1" value="&lt;b&gt;tesis_indicador [P12]&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;+ id: bigint [PK]&lt;br/&gt;# dimension_id: bigint [FK]&lt;br/&gt;+ orden: smallint&lt;br/&gt;+ nombre: varchar(200)&lt;br/&gt;+ escala_medicion: varchar(30)" vertex="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=left;spacing=6;fontSize=10;verticalAlign=top;">
+          <mxGeometry x="1280" y="640" width="270" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_usuario_tesis_token_acceso_mcp_0" parent="1" edge="1" source="tesis_usuario" target="tesis_token_acceso_mcp" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_usuario_tesis_usuario_grupo_1" parent="1" edge="1" source="tesis_usuario" target="tesis_usuario_grupo" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_usuario_tesis_usuario_permiso_2" parent="1" edge="1" source="tesis_usuario" target="tesis_usuario_permiso" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_usuario_tesis_participante_proyecto_3" parent="1" edge="1" source="tesis_usuario" target="tesis_participante_proyecto" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_proyecto_tesis_participante_proyecto_4" parent="1" edge="1" source="tesis_proyecto" target="tesis_participante_proyecto" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_proyecto_tesis_capitulo_5" parent="1" edge="1" source="tesis_proyecto" target="tesis_capitulo" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_proyecto_tesis_perfil_investigacion_6" parent="1" edge="1" source="tesis_proyecto" target="tesis_perfil_investigacion" value="1 : 1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_proyecto_tesis_progreso_paso_7" parent="1" edge="1" source="tesis_proyecto" target="tesis_progreso_paso" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_proyecto_tesis_fila_consistencia_8" parent="1" edge="1" source="tesis_proyecto" target="tesis_fila_consistencia" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_proyecto_tesis_variable_investigacion_9" parent="1" edge="1" source="tesis_proyecto" target="tesis_variable_investigacion" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_capitulo_tesis_revision_capitulo_10" parent="1" edge="1" source="tesis_capitulo" target="tesis_revision_capitulo" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_capitulo_tesis_evento_revision_11" parent="1" edge="1" source="tesis_capitulo" target="tesis_evento_revision" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_revision_capitulo_tesis_comentario_revision_12" parent="1" edge="1" source="tesis_revision_capitulo" target="tesis_comentario_revision" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_revision_capitulo_tesis_evento_revision_13" parent="1" edge="1" source="tesis_revision_capitulo" target="tesis_evento_revision" value="0..1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_fila_consistencia_tesis_variable_fila_consistencia_14" parent="1" edge="1" source="tesis_fila_consistencia" target="tesis_variable_fila_consistencia" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_variable_investigacion_tesis_variable_fila_consistencia_15" parent="1" edge="1" source="tesis_variable_investigacion" target="tesis_variable_fila_consistencia" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_variable_investigacion_tesis_dimension_variable_16" parent="1" edge="1" source="tesis_variable_investigacion" target="tesis_dimension_variable" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_dimension_variable_tesis_indicador_17" parent="1" edge="1" source="tesis_dimension_variable" target="tesis_indicador" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_usuario_tesis_revision_capitulo_18" parent="1" edge="1" source="tesis_usuario" target="tesis_revision_capitulo" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_usuario_tesis_comentario_revision_19" parent="1" edge="1" source="tesis_usuario" target="tesis_comentario_revision" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tesis_usuario_tesis_evento_revision_20" parent="1" edge="1" source="tesis_usuario" target="tesis_evento_revision" value="1 : N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;endArrow=ERmany;startArrow=ERmandOne;fontSize=9;fontColor=#000000;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
