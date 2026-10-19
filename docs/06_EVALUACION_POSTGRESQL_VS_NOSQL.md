@@ -23,7 +23,7 @@ El desarrollo de un sistema asistido por Modelos de Lenguaje (LLMs) para la form
                                                         • Requisitos típicos de RDBMS (ACID)
 ```
 
-1. **La Tentación NoSQL:** Los LLMs devuelven JSON. En un enfoque superficial, almacenar documentos JSON en una base de datos NoSQL documental como MongoDB parece natural, flexible y rápido de implementar en una primera semana.
+1. **La Tentación NoSQL:** Los LLMs devuelven JSON. En un enfoque superficial, almacenar documentos JSON en una base de datos NoSQL documental como MongoDB parece natural, flexible y rápido de implementar en una etapa inicial.
 2. **La Realidad Metodológica de una Tesis:** Una tesis universitaria no es un blog ni una colección arbitraria de documentos. La metodología científica exige **coherencia estricta**:
    * Cada pregunta específica debe corresponder a un objetivo específico y a una hipótesis específica.
    * Cada variable debe descomponerse en dimensiones, y cada dimensión en indicadores medibles.

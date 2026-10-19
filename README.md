@@ -1,6 +1,6 @@
-# TesisMCP — Avance de Primera Semana (Capítulos 1 al 3: P01 a P12)
+# TesisMCP — Avance de Semana 10 (Capítulos 1 al 3: P01 a P12)
 
-Esta carpeta contiene una implementación funcional y didáctica de **TesisMCP** acotada al **Avance de Primera Semana (Capítulos 1 al 3)** del Curso Integrador I: Sistemas - Software.
+Esta carpeta contiene una implementación funcional y didáctica de **TesisMCP** acotada al **Avance de Semana 10 (Capítulos 1 al 3)** del Curso Integrador I: Sistemas - Software.
 
 Conserva la arquitectura desacoplada real del proyecto (servidor MCP sobre `MCPServer` del SDK oficial `mcp`, API REST con Django Ninja, validación estricta con contratos Pydantic `SalidaEstricta` (`extra="forbid"`), control de concurrencia optimista `lock_version`, Matriz de Consistencia relacional, Matriz de Operacionalización de variables y máquina de estados de revisión del asesor con historial inmutable *append-only* mediante triggers PL/pgSQL y tokens SHA-256), delimitando el alcance a los primeros tres capítulos metodológicos.
 
@@ -19,6 +19,7 @@ Para estudiar a fondo cómo está programado cada módulo, patrón de diseño y 
 5. [**04. Servidor MCP (`MCPServer`), Prompts Hidratados e Integraciones Científicas**](./docs/04_SERVIDOR_MCP_E_INTEGRACIONES.md)
 6. [**05. Suite de Pruebas, Puerta DoD y Guía de Defensa Docente**](./docs/05_PRUEBAS_AUDITORIA_Y_DEFENSA_DOCENTE.md)
 7. [**06. Evaluación Técnica Imparcial: PostgreSQL vs. NoSQL**](./docs/06_EVALUACION_POSTGRESQL_VS_NOSQL.md)
+8. [**07. Informe Base del Proyecto — Corte de Semana 10**](./docs/07_INFORME_BASE_SEMANA_10.md)
 
 ---
 

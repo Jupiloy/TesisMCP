@@ -18,6 +18,8 @@ Bienvenido a la documentación técnica en profundidad de **TesisMCP — Edició
    * Desglose de las 32 pruebas automatizadas, la puerta `verify_project.py` y un banco de preguntas y respuestas técnicas para sustentar el avance frente al docente.
 6. [**06. Evaluación Técnica Imparcial: PostgreSQL vs. NoSQL (`06_EVALUACION_POSTGRESQL_VS_NOSQL.md`)**](./06_EVALUACION_POSTGRESQL_VS_NOSQL.md)
    * Análisis neutral de arquitectura de datos (Relacional vs. Documental vs. Grafos vs. Clave-Valor), matriz de decisión ponderada, enfoque multimodelo (`JSONB`) y guía de defensa ante el profesor.
+7. [**07. Informe Base del Proyecto — Corte de Semana 10 (`07_INFORME_BASE_SEMANA_10.md`)**](./07_INFORME_BASE_SEMANA_10.md)
+   * Informe académico y técnico formal redactado para la entrega de Semana 10, con detalle de arquitectura, catálogo metodológico y justificaciones.
 
 ---
 
