@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #090d16;
+    color: #1e293b;
+    padding: 32px;
+    width: 2000px;
+    height: 1260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .header {
+    background: linear-gradient(135deg, #131b2e 0%, #0b1120 100%);
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 20px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .header-left h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .badge-project {
+    background: #2563eb;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .header-left p {
+    color: #94a3b8;
+    font-size: 15px;
+    margin-top: 6px;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .meta-title {
+    color: #38bdf8;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .header-right .meta-sub {
+    color: #cbd5e1;
+    font-size: 13.5px;
+    margin-top: 4px;
+  }
+
+  .canvas-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 420px) 240px;
+    gap: 14px;
+    flex-grow: 1;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  .card-problem::before { background: #ef4444; }
+  .card-solution::before { background: #3b82f6; }
+  .card-uvp::before { background: #10b981; }
+  .card-advantage::before { background: #8b5cf6; }
+  .card-customer::before { background: #f59e0b; }
+  .card-metrics::before { background: #06b6d4; }
+  .card-channels::before { background: #ec4899; }
+  .card-cost::before { background: #64748b; }
+  .card-revenue::before { background: #10b981; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+  }
+
+  .card-num {
+    font-size: 12px;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13.5px;
+    line-height: 1.48;
+    color: #334155;
+  }
+
+  .sub-section {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: auto;
+  }
+
+  .sub-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 6px;
+    letter-spacing: 0.6px;
+  }
+
+  ul {
+    padding-left: 18px;
+    margin: 0;
+  }
+
+  li {
+    margin-bottom: 7px;
+  }
+
+  li strong {
+    color: #0f172a;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 1.5px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+  }
+
+  /* Grid layout placement */
+  .grid-problem { grid-column: 1; grid-row: 1 / span 2; }
+  .grid-solution { grid-column: 2; grid-row: 1; }
+  .grid-metrics { grid-column: 2; grid-row: 2; }
+  .grid-uvp { grid-column: 3; grid-row: 1 / span 2; }
+  .grid-advantage { grid-column: 4; grid-row: 1; }
+  .grid-channels { grid-column: 4; grid-row: 2; }
+  .grid-customer { grid-column: 5; grid-row: 1 / span 2; }
+  .grid-cost { grid-column: 1 / span 2; grid-row: 3; }
+  .grid-revenue { grid-column: 3 / span 3; grid-row: 3; }
+
+  .highlight-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 13px;
+    color: #14532d;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .footer-note {
+    text-align: center;
+    color: #64748b;
+    font-size: 12.5px;
+    margin-top: 15px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>
+      <span>TesisMCP — LIENZO LEAN CANVAS</span>
+      <span class="badge-project">Corte Semana 10</span>
+    </h1>
+    <p>Plataforma colaborativa basada en el protocolo MCP, roles secuenciales y validación determinista para tesis universitarias</p>
+  </div>
+  <div class="header-right">
+    <div class="meta-title">Curso Integrador I: Sistemas - Software</div>
+    <div class="meta-sub">UTP Piura &bull; Responsable: Josué Carrasco García</div>
+  </div>
+</div>
+
+<div class="canvas-grid">
+
+  <!-- 1. PROBLEMA -->
+  <div class="card card-problem grid-problem">
+    <div class="card-header">
+      <span class="card-title">1. Problema</span>
+      <span class="card-num">#01</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Pérdida de contexto e hilo conductor:</strong> Desarticulación frecuente entre problemas, objetivos, hipótesis y variables al trabajar en sesiones dispersas.</li>
+        <li><strong>Alucinaciones e invención de fuentes:</strong> Los LLM comerciales inventan citas, autores y páginas inexistentes por falta de verificación a texto completo.</li>
+        <li><strong>Revisión docente fragmentada:</strong> Correcciones del asesor dispersas en múltiples archivos Word (<code>_v2</code>, <code>_final_revisado.docx</code>) sin trazabilidad de cambios ni historial de versiones.</li>
+      </ul>
+      <div class="sub-section">
+        <div class="sub-title">Alternativas Existentes</div>
+        <ul>
+          <li>Chats de IA generalistas sin estado ni reglas (ChatGPT, Claude Web).</li>
+          <li>Plantillas Word y formatos institucionales estáticos.</li>
+          <li>Portales tradicionales de subida de archivos (sin asistencia metodológica interactiva).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. SOLUCIÓN -->
+  <div class="card card-solution grid-solution">
+    <div class="card-header">
+      <span class="card-title">4. Solución Inicial</span>
+      <span class="card-num">#04</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Ruta guiada P01 a P12:</strong> Desacople en 12 pasos secuenciales para los capítulos 1 al 3 con prerrequisitos bloqueantes (<code>PREREQUISITE_LOCKED</code>).</li>
+        <li><strong>Servidor MCP + API REST:</strong> 17 herramientas y 15 prompts que aíslan el modelo de la persistencia directa.</li>
+        <li><strong>Supervisión con observaciones ancladas:</strong> Máquina de estados FSM y comentarios vinculados a posiciones exactas de caracteres (<code>start_cp:end_cp</code>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 8. MÉTRICAS CLAVE -->
+  <div class="card card-metrics grid-metrics">
+    <div class="card-header">
+      <span class="card-title">8. Métricas Clave</span>
+      <span class="card-num">#08</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Rigor de contratos:</strong> 100% de salidas validadas bajo contratos estrictos Pydantic 2 sin campos huérfanos.</li>
+        <li><strong>Resolución de observaciones:</strong> Tasa de comentarios en estado <code>RESOLVED</code> previo a la aprobación del capítulo.</li>
+        <li><strong>Control de versiones:</strong> Detección determinista de colisiones concurrentes mediante <code>lock_version</code> (<code>VERSION_CONFLICT</code>).</li>
+        <li><strong>Automatización auditada:</strong> 32 pruebas automatizadas y 7 compuertas en verde (<code>scripts/verify_project.py</code>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. PROPUESTA DE VALOR ÚNICA -->
+  <div class="card card-uvp grid-uvp">
+    <div class="card-header">
+      <span class="card-title">3. Propuesta de Valor</span>
+      <span class="card-num">#03</span>
+    </div>
+    <div class="card-body">
+      <div class="highlight-box">
+        <strong>"Asistencia metodológica estructurada y supervisión docente inmutable."</strong><br><br>
+        Una plataforma que no redacta libremente ni inventa fuentes: guía al estudiante paso a paso (<strong>P01 a P12</strong>), valida consistencia lógica matemática y ancla las observaciones del asesor a revisiones inmutables.
+      </div>
+      <ul style="margin-top: 10px;">
+        <li><strong>Trazabilidad auditable:</strong> El estudiante sabe exactamente qué aprobó su docente y qué revisión está vigente.</li>
+        <li><strong>Cero tolerancia al formateo ciego:</strong> Cada decisión metodológica se materializa en tablas relacionales estructuradas.</li>
+      </ul>
+      <div class="sub-section">
+        <div class="sub-title">Concepto de Alto Nivel</div>
+        <p style="font-size: 13px; font-weight: 700; color: #166534;">
+          "El entorno de desarrollo y validación determinista para tesis universitarias asistidas por IA."
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. VENTAJA DIFERENCIAL -->
+  <div class="card card-advantage grid-advantage">
+    <div class="card-header">
+      <span class="card-title">9. Ventaja Diferencial</span>
+      <span class="card-num">#09</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Arquitectura desacoplada (Zero Direct Write):</strong> El LLM no escribe en la base de datos; solo propone contratos Pydantic validados por el backend Django.</li>
+        <li><strong>Inmutabilidad física en PostgreSQL:</strong> Triggers en PL/pgSQL que impiden modificar o borrar revisiones y eventos históricos.</li>
+        <li><strong>Integraciones académicas verificadas:</strong> Conectores a OpenAlex, Semantic Scholar y ALICIA (Concytec).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. CANALES -->
+  <div class="card card-channels grid-channels">
+    <div class="card-header">
+      <span class="card-title">5. Canales</span>
+      <span class="card-num">#05</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Cliente MCP Local:</strong> Comunicación mediante transporte <code>stdio</code> para clientes de IA (Antigravity, Claude Desktop, Cursor).</li>
+        <li><strong>API REST HTTP:</strong> Endpoints <code>/api/v1/</code> mediante Django Ninja para integraciones web.</li>
+        <li><strong>Django Admin:</strong> Panel de auditoría e inspección para revisión y docencia.</li>
+        <li><strong>Repositorio y CLI:</strong> Scripts deterministas de verificación y defensa académica.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. SEGMENTOS DE CLIENTES -->
+  <div class="card card-customer grid-customer">
+    <div class="card-header">
+      <span class="card-title">2. Segmento de Clientes</span>
+      <span class="card-num">#02</span>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Estudiantes de Tesis / Curso Integrador:</strong> Tesistas de pregrado en ingeniería y ciencias que necesitan formular y defender su proyecto de investigación con rigor metodológico.</li>
+        <li><strong>Docentes Asesores y Revisores:</strong> Profesores que supervisan múltiples proyectos y requieren revisar borradores por capítulos, realizar observaciones puntuales y certificar avances sin confusiones de versiones.</li>
+      </ul>
+      <div class="sub-section">
+        <div class="sub-title">Early Adopters</div>
+        <p style="font-size: 13px; color: #92400e; font-weight: 700;">
+          Estudiantes y docentes del Curso Integrador I (Sistemas - Software) de la Universidad Tecnológica del Perú (Filial Piura).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. ESTRUCTURA DE COSTOS -->
+  <div class="card card-cost grid-cost">
+    <div class="card-header">
+      <span class="card-title">7. Estructura de Costos</span>
+      <span class="card-num">#07</span>
+    </div>
+    <div class="card-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+      <div>
+        <div class="sub-title">Costos de Prototipo (Semana 10)</div>
+        <ul>
+          <li><strong>Infraestructura:</strong> S/. 0.00 (Entorno local en computadoras del equipo).</li>
+          <li><strong>Software:</strong> S/. 0.00 (Stack 100% libre: Python, Django, PostgreSQL 16, SDK MCP).</li>
+          <li><strong>Consumo LLM:</strong> Descentralizado (cuenta propia de cada usuario en su cliente de IA).</li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-title">Costos Proyectados (Despliegue Institucional)</div>
+        <ul>
+          <li><strong>Servidor VPS:</strong> ~USD 12 - 20 / mes (Docker + PostgreSQL gestionado).</li>
+          <li><strong>Almacenamiento PDF/OCR:</strong> Almacenamiento local o S3 compatible según volumen de tesis.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. SOSTENIBILIDAD / FLUJO DE VALOR -->
+  <div class="card card-revenue grid-revenue">
+    <div class="card-header">
+      <span class="card-title">6. Sostenibilidad y Retorno de Valor</span>
+      <span class="card-num">#06</span>
+    </div>
+    <div class="card-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+      <div>
+        <div class="sub-title">Retorno Académico e Institucional</div>
+        <ul>
+          <li><strong>Reducción de reprocesos metodológicos:</strong> Detección temprana de inconsistencias entre variables y objetivos antes de la sustentación.</li>
+          <li><strong>Mayor productividad docente:</strong> Centralización de observaciones y eliminación de cadenas de correos con archivos Word duplicados.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-title">Modelo de Adopción Viable</div>
+        <ul>
+          <li><strong>Open Core / Auto-alojado:</strong> Esquema de código abierto para universidades públicas y privadas con soporte en gobernanza de datos.</li>
+          <li><strong>Tesis Institucional:</strong> Validación de conformidad con normativas SUNEDU y repositorios institucionales (ALICIA / RENATI).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  Generado con base en el documento oficial <code>07_INFORME_BASE_SEMANA_10.md</code> &bull; Proyecto TesisMCP &bull; Verificado contra PostgreSQL 16 y servicios de dominio Django
+</div>
+
+</body>
+</html>

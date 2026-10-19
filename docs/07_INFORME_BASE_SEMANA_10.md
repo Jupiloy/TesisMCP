@@ -287,7 +287,13 @@ Desarrollar progresivamente una plataforma colaborativa basada en MCP que guíe 
 
 ### 4.1 Lienzo Lean Canvas
 
-El siguiente cuadro resume el proyecto sin asumir que sus beneficios ya fueron medidos:
+El siguiente lienzo resume el modelo de valor del proyecto para el corte de Semana 10:
+
+![Lienzo Lean Canvas TesisMCP](./lean_canvas_tesismcp.png)
+
+*Figura 4.1: Lienzo Lean Canvas del proyecto TesisMCP (Corte Semana 10).*
+
+El siguiente cuadro detalla cada bloque del lienzo sin asumir que sus beneficios ya fueron medidos:
 
 | Bloque | Aplicación en TesisMCP |
 | :--- | :--- |
