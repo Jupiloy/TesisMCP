@@ -1,52 +1,34 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="Electron" agent="Antigravity" version="21.6.8" type="device">
-  <diagram id="diag_slide2" name="Arquitectura_MVC_TesisMCP">
+  <diagram id="diag_mvc_cycle" name="Patron_MVC_TesisMCP">
     <mxGraphModel dx="1920" dy="1080" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="banner2" parent="1" value="&lt;b&gt;ARQUITECTURA DE SOFTWARE: PATRÓN MODELO-VISTA-CONTROLADOR (MVC)&lt;/b&gt;&lt;br/&gt;TesisMCP — Ecosistema Tecnológico por Capas y Herramientas Reales (Semana 09)" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;fontColor=#ffffff;fontSize=18;align=left;spacingLeft=30;">
-          <mxGeometry x="40" y="25" width="1840" height="90" as_="geometry" />
+        <mxCell id="b" parent="1" value="&lt;b&gt;PATRÓN DE DISEÑO MVC (MODEL - VIEW - CONTROLLER)&lt;/b&gt;&lt;br/&gt;Ciclo de Interacción en TesisMCP con Herramientas Reales (Semana 09)" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;fontColor=#ffffff;fontSize=18;align=left;spacingLeft=30;">
+          <mxGeometry x="50" y="25" width="1820" height="85" as_="geometry" />
         </mxCell>
-        <mxCell id="col1" parent="1" value="&lt;b&gt;1. VISTA (View / Interfaz)&lt;/b&gt;&lt;br/&gt;&lt;font color='#e0f2fe'&gt;Capa de Presentación&lt;/font&gt;" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0284c7;fontColor=#ffffff;fontSize=15;align=center;verticalAlign=top;spacingTop=10;">
-          <mxGeometry x="50" y="135" width="540" height="730" as_="geometry" />
+        <mxCell id="user" parent="1" value="&lt;b&gt;User&lt;/b&gt;&lt;br/&gt;(Tesista / Asesor)" vertex="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#2e7d32;strokeColor=#1b5e20;">
+          <mxGeometry x="150" y="280" width="60" height="100" as_="geometry" />
         </mxCell>
-        <mxCell id="v1" parent="col1" value="&lt;b&gt;Claude Desktop / Antigravity&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Cliente MCP Nativo (JSON-RPC stdio)&lt;/i&gt;&lt;br/&gt;Interfaz conversacional de redacción guiada P01-P12" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="85" width="490" height="145" as_="geometry" />
+        <mxCell id="ctrl" parent="1" value="&lt;b&gt;Controller&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• FastMCP Server (Python SDK)&lt;br/&gt;• Django Ninja REST API&lt;br/&gt;• TokenResolver SHA-256" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#81c784;fontColor=#0f172a;fontSize=14;align=left;spacingLeft=20;verticalAlign=top;spacingTop=15;">
+          <mxGeometry x="500" y="220" width="460" height="260" as_="geometry" />
         </mxCell>
-        <mxCell id="v2" parent="col1" value="&lt;b&gt;Django Admin Dashboard&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Panel Web del Asesor (HTML5)&lt;/i&gt;&lt;br/&gt;Portal de supervisión para auditar avances y dejar observaciones" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="250" width="490" height="145" as_="geometry" />
+        <mxCell id="mdl" parent="1" value="&lt;b&gt;Model&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Contratos Pydantic 2 (Bloom, variables)&lt;br/&gt;• Servicios de Tesis (FSM Máquina de Estados)&lt;br/&gt;• Capa de Acceso a Datos (Patrón DAO)" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#81c784;fontColor=#0f172a;fontSize=14;align=left;spacingLeft=20;verticalAlign=top;spacingTop=15;">
+          <mxGeometry x="1160" y="390" width="470" height="260" as_="geometry" />
         </mxCell>
-        <mxCell id="v3" parent="col1" value="&lt;b&gt;Swagger UI / OpenAPI 3.0&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Documentación REST (/api/v1/docs)&lt;/i&gt;&lt;br/&gt;Endpoints interactivos para pruebas y exportación a Word (.docx)" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="415" width="490" height="145" as_="geometry" />
+        <mxCell id="db" parent="1" value="&lt;b&gt;DataBase&lt;/b&gt;&lt;br/&gt;PostgreSQL 16&lt;br/&gt;(17 Tablas Físicas ACID)" vertex="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#2e7d32;strokeColor=#1b5e20;fontColor=#ffffff;fontSize=13;">
+          <mxGeometry x="1710" y="690" width="140" height="120" as_="geometry" />
         </mxCell>
-        <mxCell id="col2" parent="1" value="&lt;b&gt;2. CONTROLADOR (Controller)&lt;/b&gt;&lt;br/&gt;&lt;font color='#38bdf8'&gt;Capa de Orquestación&lt;/font&gt;" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e293b;fontColor=#ffffff;fontSize=15;align=center;verticalAlign=top;spacingTop=10;">
-          <mxGeometry x="690" y="135" width="540" height="730" as_="geometry" />
+        <mxCell id="vw" parent="1" value="&lt;b&gt;View&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Claude Desktop / Antigravity (Chat MCP)&lt;br/&gt;• Django Admin Dashboard (Web Asesor)&lt;br/&gt;• Swagger UI / Exportador Word (.docx)" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#81c784;fontColor=#0f172a;fontSize=14;align=left;spacingLeft=20;verticalAlign=top;spacingTop=15;">
+          <mxGeometry x="140" y="670" width="510" height="235" as_="geometry" />
         </mxCell>
-        <mxCell id="c1" parent="col2" value="&lt;b&gt;Servidor FastMCP (Python)&lt;/b&gt;&lt;br/&gt;&lt;i&gt;FastMCP Protocol Engine&lt;/i&gt;&lt;br/&gt;Despacha 17 herramientas y 15 prompts oficiales de tesis" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="85" width="490" height="145" as_="geometry" />
-        </mxCell>
-        <mxCell id="c2" parent="col2" value="&lt;b&gt;Django Ninja REST API&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Controlador HTTP REST Asíncrono&lt;/i&gt;&lt;br/&gt;Rutas con tipado estricto (/api/v1/) para proyectos y capítulos" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="250" width="490" height="145" as_="geometry" />
-        </mxCell>
-        <mxCell id="c3" parent="col2" value="&lt;b&gt;Módulo de Seguridad SHA-256&lt;/b&gt;&lt;br/&gt;&lt;i&gt;TokenResolver y Permisos&lt;/i&gt;&lt;br/&gt;Resuelve identidad del tesista y asesor antes de despachar" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="415" width="490" height="145" as_="geometry" />
-        </mxCell>
-        <mxCell id="col3" parent="1" value="&lt;b&gt;3. MODELO (Model / Negocio y Datos)&lt;/b&gt;&lt;br/&gt;&lt;font color='#bbf7d0'&gt;Capa de Dominio y Persistencia&lt;/font&gt;" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#059669;fontColor=#ffffff;fontSize=15;align=center;verticalAlign=top;spacingTop=10;">
-          <mxGeometry x="1330" y="135" width="540" height="730" as_="geometry" />
-        </mxCell>
-        <mxCell id="m1" parent="col3" value="&lt;b&gt;Dominio &amp; Contratos Pydantic 2&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Contratos extra='forbid'&lt;/i&gt;&lt;br/&gt;Valida verbos Bloom, conteo de palabras y consistencia metodológica" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="85" width="490" height="145" as_="geometry" />
-        </mxCell>
-        <mxCell id="m2" parent="col3" value="&lt;b&gt;Acceso a Datos (Django ORM)&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Patrón DAO (Data Access Object)&lt;/i&gt;&lt;br/&gt;Aísla consultas SQL y gestiona transacciones atómicas seguras" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="250" width="490" height="145" as_="geometry" />
-        </mxCell>
-        <mxCell id="m3" parent="col3" value="&lt;b&gt;Base de Datos PostgreSQL 16&lt;/b&gt;&lt;br/&gt;&lt;i&gt;17 Tablas Físicas Normalizadas (3NF)&lt;/i&gt;&lt;br/&gt;Triggers PL/pgSQL que protegen la inmutabilidad de revisiones" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#0f172a;fontSize=12;align=left;spacingLeft=15;">
-          <mxGeometry x="25" y="415" width="490" height="145" as_="geometry" />
-        </mxCell>
-        <mxCell id="dock" parent="1" value="&lt;b&gt;PRINCIPIOS Y SERVICIOS TRANSVERSALES (SEMANA 09):&lt;/b&gt; 1. MVC/MVT (Separación) | 2. DAO (Acceso desacoplado) | 3. TDD (32 tests pytest en verde) | 4. SOLID y Docker (Contenedores portables)" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;fontColor=#ffffff;fontSize=12;align=center;">
-          <mxGeometry x="40" y="885" width="1840" height="160" as_="geometry" />
-        </mxCell>
+        <mxCell id="e1" parent="1" value="1. Request" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;" source="user" target="ctrl" />
+        <mxCell id="e2" parent="1" value="2. Contacts" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;" source="ctrl" target="mdl" />
+        <mxCell id="e_db" parent="1" value="(Abstraction Layer)" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#1b5e20;fontSize=12;fontStyle=1;" source="mdl" target="db" />
+        <mxCell id="e3" parent="1" value="3. Returns" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;" source="mdl" target="ctrl" />
+        <mxCell id="e4" parent="1" value="4. Delivers" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;" source="ctrl" target="vw" />
+        <mxCell id="e5" parent="1" value="5. Shows" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;" source="vw" target="user" />
       </root>
     </mxGraphModel>
   </diagram>
