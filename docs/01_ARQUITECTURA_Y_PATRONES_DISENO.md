@@ -1,6 +1,6 @@
-# 01. Arquitectura en Capas y Patrones de Diseño (`version_reducida_docente`)
+# 01. Arquitectura en Capas y Patrones de Diseño (`V1`)
 
-Este documento explica cómo está estructurada la ingeniería interna de `version_reducida_docente/`. Aunque el alcance funcional está acotado a los **Capítulos 1 al 3 (`P01` a `P12`)**, la arquitectura aplica separación estricta de responsabilidades (*Separation of Concerns*) y patrones clásicos de diseño de software.
+Este documento explica cómo está estructurada la ingeniería interna de `V1/`. Aunque el alcance funcional está acotado a los **Capítulos 1 al 3 (`P01` a `P12`)**, la arquitectura aplica separación estricta de responsabilidades (*Separation of Concerns*) y patrones clásicos de diseño de software.
 
 ---
 

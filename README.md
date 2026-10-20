@@ -96,7 +96,7 @@ Si el equipo dispone de `podman-compose` o del complemento Docker Compose, tambi
 Los comandos locales toman por defecto `postgresql://tesismcp:tesismcp_local@127.0.0.1:5434/tesismcp_reducido_docente`:
 
 ```bash
-cd version_reducida_docente
+cd V1
 source ../.venv/bin/activate
 DJANGO_DEBUG=1 python backend/manage.py migrate
 DJANGO_DEBUG=1 python -m pytest --reuse-db -q
@@ -106,7 +106,7 @@ DJANGO_DEBUG=1 python -m pytest --reuse-db -q
 Recorre los 12 pasos (`P01` a `P12`), demuestra el bloqueo de pasos fuera de alcance (`P13`), materializa la Matriz de Consistencia y la Matriz de Operacionalización en PostgreSQL, y ejecuta el ciclo completo de revisión y aprobación del asesor en los Capítulos 1 al 3:
 
 ```bash
-cd version_reducida_docente
+cd V1
 source ../.venv/bin/activate
 DJANGO_DEBUG=1 python mcp_server/test_local.py
 ```
@@ -115,7 +115,7 @@ DJANGO_DEBUG=1 python mcp_server/test_local.py
 Comprueba salud de Django, migraciones, esquema físico español en PostgreSQL (17 tablas `tesis_*`), suite `pytest`, higiene de archivos, conteos exactos (15 modelos, 2 migraciones, 12 pasos, 17 herramientas MCP y 15 prompts) y contratos Pydantic:
 
 ```bash
-cd version_reducida_docente
+cd V1
 python3 scripts/verify_project.py
 ```
 

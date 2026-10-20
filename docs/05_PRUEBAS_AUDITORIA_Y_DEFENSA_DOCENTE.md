@@ -1,6 +1,6 @@
 # 05. Suite de Pruebas, Puerta DoD y Guía de Defensa Docente
 
-Este documento explica cómo se verifica la calidad del código en `version_reducida_docente/`, qué valida cada archivo de pruebas y cómo responder a posibles preguntas técnicas del docente durante la presentación del avance.
+Este documento explica cómo se verifica la calidad del código en `V1/`, qué valida cada archivo de pruebas y cómo responder a posibles preguntas técnicas del docente durante la presentación del avance.
 
 ---
 
@@ -25,7 +25,7 @@ Todas las pruebas se ejecutan contra una base de datos PostgreSQL real (`test_te
 
 Al ejecutar:
 ```bash
-python3 version_reducida_docente/scripts/verify_project.py
+python3 V1/scripts/verify_project.py
 ```
 El script ejecuta **7 auditorías deterministas**:
 
@@ -59,6 +59,6 @@ El script ejecuta **7 auditorías deterministas**:
 * **Respuesta técnica:**
   > Ejecutando la simulación local de punta a punta del servidor MCP:
   ```bash
-  DJANGO_DEBUG=1 .venv/bin/python version_reducida_docente/mcp_server/test_local.py
+  DJANGO_DEBUG=1 .venv/bin/python V1/mcp_server/test_local.py
   ```
   > Ese script levanta el servidor MCP real, autentica al tesista y al asesor con tokens criptográficos SHA-256, crea un proyecto, ejecuta los pasos `P01` al `P12`, demuestra cómo el servidor bloquea el paso `P13` (Capítulo 4), registra una observación anclada del asesor en el Capítulo 3, verifica que no se pueda aprobar mientras la observación esté abierta, la resuelve y aprueba los Capítulos 1, 2 y 3.

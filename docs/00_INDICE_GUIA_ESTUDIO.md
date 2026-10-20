@@ -1,4 +1,4 @@
-# 00. Índice Maestro y Mapa Completo del Código (`version_reducida_docente`)
+# 00. Índice Maestro y Mapa Completo del Código (`V1`)
 
 Bienvenido a la documentación técnica en profundidad de **TesisMCP — Edición de Avance Capítulos 1 al 3 (`P01` a `P12`)**. Esta carpeta de documentación explica línea por línea cómo está construido el proyecto, qué patrones de diseño utiliza y cómo fluyen los datos desde el cliente MCP o la API REST hasta PostgreSQL.
 
@@ -28,7 +28,7 @@ Bienvenido a la documentación técnica en profundidad de **TesisMCP — Edició
 ## 2. Mapa Completo del Repositorio (Archivo por Archivo)
 
 ```text
-version_reducida_docente/
+V1/
 ├── README.md                                 # Resumen ejecutivo y comandos de arranque rápido
 ├── compose.yaml                              # Orquestación Docker (PostgreSQL 16 + Backend + MCP)
 ├── Dockerfile                                # Imagen Python 3.14 para backend y servidor MCP
