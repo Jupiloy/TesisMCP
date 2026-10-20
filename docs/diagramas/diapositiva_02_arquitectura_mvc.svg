@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="headerGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/>
+    </marker>
+    <style>
+      .main-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 36px; font-weight: 900; fill: #ffffff; letter-spacing: 0.08em; }
+      .sub-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 16px; fill: #94a3b8; font-weight: 500; }
+      .mvc-header { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 20px; font-weight: 900; fill: #ffffff; letter-spacing: 0.05em; }
+      .layer-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 15px; font-weight: 800; fill: #0f172a; }
+      .layer-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 11.5px; fill: #475569; }
+      .tool-box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.2; rx: 8; }
+      .tool-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 13px; font-weight: 700; fill: #0f172a; }
+      .tool-badge { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #2563eb; }
+      .tool-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 11px; fill: #475569; line-height: 1.4; }
+      .pill-tech { fill: #eff6ff; stroke: #bfdbfe; stroke-width: 1; rx: 4; }
+      .pill-txt { font-family: monospace; font-size: 10px; font-weight: bold; fill: #1e40af; }
+      .flow-lbl { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #0284c7; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Fondo General -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#f8fafc"/>
+
+  <!-- ==================================================================== -->
+  <!-- BANNER SUPERIOR -->
+  <!-- ==================================================================== -->
+  <rect x="30" y="25" width="1860" height="90" rx="12" fill="url(#headerGrad2)" filter="url(#shadow2)"/>
+  <rect x="55" y="48" width="45" height="45" rx="10" fill="#0284c7"/>
+  <text x="77" y="77" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">A</text>
+  <text x="120" y="65" class="main-title">ARQUITECTURA DE SOFTWARE: PATRÓN MODELO-VISTA-CONTROLADOR (MVC / MVT)</text>
+  <text x="120" y="92" class="sub-title">TesisMCP — Mapeo Tecnológico por Capas y Herramientas Reales de Implementación</text>
+  <rect x="1660" y="50" width="200" height="40" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="1760" y="75" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Semana 09 — Arquitecturas</text>
+
+  <!-- ==================================================================== -->
+  <!-- COLUMNA 1: VISTA (VIEW / PRESENTACIÓN) — x=40, w=560 -->
+  <!-- ==================================================================== -->
+  <rect x="40" y="140" width="560" height="750" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow2)"/>
+  <rect x="40" y="140" width="560" height="60" rx="12" fill="#0284c7"/>
+  <text x="70" y="177" class="mvc-header">1. VISTA (VIEW / CLIENTES)</text>
+  <text x="560" y="177" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e0f2fe" text-anchor="end">Capa de Presentación</text>
+
+  <g transform="translate(65, 220)">
+    <!-- Herramienta V1: Claude Desktop / Antigravity IDE -->
+    <rect x="0" y="0" width="510" height="150" class="tool-box"/>
+    <circle cx="35" cy="35" r="20" fill="#e0f2fe"/>
+    <!-- Icono Desktop -->
+    <rect x="23" y="24" width="24" height="18" rx="2" fill="#0284c7"/>
+    <line x1="30" y1="45" x2="40" y2="45" stroke="#0284c7" stroke-width="2"/>
+    <text x="70" y="32" class="tool-title">Claude Desktop / Antigravity IDE</text>
+    <rect x="70" y="40" width="130" height="18" class="pill-tech"/>
+    <text x="135" y="53" class="pill-txt" text-anchor="middle">Cliente MCP Nativo</text>
+    <text x="20" y="85" class="tool-desc">Interfaz conversacional del tesista. El usuario redacta los pasos P01 a P12</text>
+    <text x="20" y="103" class="tool-desc">mediante prompts guiados y confirma las salidas validadas en tiempo real.</text>
+    <rect x="20" y="115" width="200" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="130" font-family="monospace" font-size="10" fill="#334155">Transporte: stdio (JSON-RPC)</text>
+
+    <!-- Herramienta V2: Django Admin Dashboard -->
+    <rect x="0" y="170" width="510" height="150" class="tool-box"/>
+    <circle cx="35" cy="205" r="20" fill="#fef3c7"/>
+    <!-- Icono Panel -->
+    <rect x="23" y="195" width="24" height="20" rx="3" fill="#d97706"/>
+    <text x="70" y="202" class="tool-title">Django Admin Dashboard</text>
+    <rect x="70" y="210" width="140" height="18" class="pill-tech" fill="#fef3c7" stroke="#fde68a"/>
+    <text x="140" y="223" class="pill-txt" fill="#92400e" text-anchor="middle">Panel de Supervisión</text>
+    <text x="20" y="255" class="tool-desc">Portal visual para el Docente Asesor y Coordinación UTP. Permite inspeccionar</text>
+    <text x="20" y="273" class="tool-desc">proyectos, auditar revisiones y supervisar comentarios en modo seguro.</text>
+    <rect x="20" y="285" width="220" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="300" font-family="monospace" font-size="10" fill="#334155">Tecnología: Django Templates (HTML5)</text>
+
+    <!-- Herramienta V3: Swagger / OpenAPI UI -->
+    <rect x="0" y="340" width="510" height="150" class="tool-box"/>
+    <circle cx="35" cy="375" r="20" fill="#dcfce7"/>
+    <!-- Icono API -->
+    <rect x="23" y="365" width="24" height="20" rx="3" fill="#16a34a"/>
+    <text x="70" y="372" class="tool-title">Django Ninja Interactive API Docs</text>
+    <rect x="70" y="380" width="130" height="18" class="pill-tech" fill="#dcfce7" stroke="#bbf7d0"/>
+    <text x="135" y="393" class="pill-txt" fill="#166534" text-anchor="middle">Swagger UI / OpenAPI</text>
+    <text x="20" y="425" class="tool-desc">Documentación interactiva de la API REST para consumo de clientes externos,</text>
+    <text x="20" y="443" class="tool-desc">pruebas de integración y descarga directa del borrador en Microsoft Word.</text>
+    <rect x="20" y="455" width="180" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="470" font-family="monospace" font-size="10" fill="#334155">Ruta: /api/v1/docs (OpenAPI 3.0)</text>
+
+    <!-- Resumen Capa Vista -->
+    <rect x="0" y="510" width="510" height="135" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="20" y="535" class="layer-title">Responsabilidades de la Vista:</text>
+    <text x="20" y="560" class="tool-desc">• Capturar requerimientos y decisiones del estudiante y asesor.</text>
+    <text x="20" y="580" class="tool-desc">• Renderizar formularios, borradores de texto y tablas de consistencia.</text>
+    <text x="20" y="600" class="tool-desc">• Aislar al usuario de la complejidad interna del motor relacional.</text>
+    <text x="20" y="620" class="tool-desc">• Cero lógica de negocio incrustada en las pantallas.</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- FLECHAS DE CONEXIÓN ENTRE CAPAS (1 -> 2 y 2 -> 3) -->
+  <!-- ==================================================================== -->
+  <line x1="605" y1="350" x2="655" y2="350" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow2)"/>
+  <rect x="612" y="325" width="35" height="18" rx="3" fill="#ffffff" stroke="#0284c7" stroke-width="1"/>
+  <text x="630" y="338" class="flow-lbl">Petición</text>
+
+  <line x1="655" y1="420" x2="605" y2="420" stroke="#64748b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow2)"/>
+  <rect x="612" y="428" width="35" height="18" rx="3" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <text x="630" y="441" class="flow-lbl" fill="#64748b">Respuesta</text>
+
+  <!-- ==================================================================== -->
+  <!-- COLUMNA 2: CONTROLADOR (CONTROLLER / TRANSPORTE) — x=660, w=560 -->
+  <!-- ==================================================================== -->
+  <rect x="660" y="140" width="560" height="750" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow2)"/>
+  <rect x="660" y="140" width="560" height="60" rx="12" fill="#0f172a"/>
+  <text x="690" y="177" class="mvc-header">2. CONTROLADOR (CONTROLLER)</text>
+  <text x="1180" y="177" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#38bdf8" text-anchor="end">Capa de Orquestación</text>
+
+  <g transform="translate(685, 220)">
+    <!-- Herramienta C1: FastMCP Server -->
+    <rect x="0" y="0" width="510" height="150" class="tool-box"/>
+    <circle cx="35" cy="35" r="20" fill="#f1f5f9"/>
+    <!-- Icono Servidor MCP -->
+    <rect x="23" y="24" width="24" height="22" rx="3" fill="#0f172a"/>
+    <text x="70" y="32" class="tool-title">MCPServer (SDK Oficial mcp Python)</text>
+    <rect x="70" y="40" width="150" height="18" class="pill-tech"/>
+    <text x="145" y="53" class="pill-txt" text-anchor="middle">FastMCP Protocol Engine</text>
+    <text x="20" y="85" class="tool-desc">Servidor de herramientas y prompts. Publica 17 herramientas y 15 prompts.</text>
+    <text x="20" y="103" class="tool-desc">Deserializa payloads JSON-RPC y resuelve la identidad por token.</text>
+    <rect x="20" y="115" width="240" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="130" font-family="monospace" font-size="10" fill="#334155">Herramientas: guardar_paso, observar...</text>
+
+    <!-- Herramienta C2: Django Ninja API Routers -->
+    <rect x="0" y="170" width="510" height="150" class="tool-box"/>
+    <circle cx="35" cy="205" r="20" fill="#fee2e2"/>
+    <!-- Icono Router -->
+    <rect x="23" y="195" width="24" height="20" rx="3" fill="#dc2626"/>
+    <text x="70" y="202" class="tool-title">Django Ninja REST API Routers</text>
+    <rect x="70" y="210" width="140" height="18" class="pill-tech" fill="#fee2e2" stroke="#fca5a5"/>
+    <text x="140" y="223" class="pill-txt" fill="#991b1b" text-anchor="middle">Controlador HTTP REST</text>
+    <text x="20" y="255" class="tool-desc">Endpoints asíncronos bajo /api/v1/. Mapea rutas para proyectos, pasos,</text>
+    <text x="20" y="273" class="tool-desc">comentarios, tablero del asesor y descarga del archivo .docx compilado.</text>
+    <rect x="20" y="285" width="230" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="300" font-family="monospace" font-size="10" fill="#334155">Framework: Django Ninja (Type-Hinted)</text>
+
+    <!-- Herramienta C3: Middleware de Seguridad & Token Resolver -->
+    <rect x="0" y="340" width="510" height="150" class="tool-box"/>
+    <circle cx="35" cy="375" r="20" fill="#fef3c7"/>
+    <!-- Icono Seguridad -->
+    <circle cx="35" cy="375" r="12" fill="#d97706"/>
+    <text x="70" y="372" class="tool-title">Módulo de Autenticación &amp; Permisos</text>
+    <rect x="70" y="380" width="150" height="18" class="pill-tech" fill="#fef3c7" stroke="#fde68a"/>
+    <text x="145" y="393" class="pill-txt" fill="#92400e" text-anchor="middle">TokenResolver SHA-256</text>
+    <text x="20" y="425" class="tool-desc">Valida que cada solicitud provenga de un actor con credenciales vigentes.</text>
+    <text x="20" y="443" class="tool-desc">Determina el rol (Tesista titular vs. Docente asesor) antes del despacho.</text>
+    <rect x="20" y="455" width="250" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="470" font-family="monospace" font-size="10" fill="#334155">Seguridad: Hash SHA-256 (Cero plaintext)</text>
+
+    <!-- Resumen Capa Controlador -->
+    <rect x="0" y="510" width="510" height="135" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="20" y="535" class="layer-title">Responsabilidades del Controlador:</text>
+    <text x="20" y="560" class="tool-desc">• Recibir la petición HTTP o mensaje stdio del protocolo MCP.</text>
+    <text x="20" y="580" class="tool-desc">• Resolver la identidad del usuario sin confiar en IDs enviados por la IA.</text>
+    <text x="20" y="600" class="tool-desc">• Invocar los servicios de negocio de forma completamente agnóstica.</text>
+    <text x="20" y="620" class="tool-desc">• Formatear las respuestas y códigos de error normalizados (HTTP/JSON).</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- FLECHAS DE CONEXIÓN ENTRE CAPAS (2 -> 3 y 3 -> 2) -->
+  <!-- ==================================================================== -->
+  <line x1="1225" y1="350" x2="1275" y2="350" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow2)"/>
+  <rect x="1232" y="325" width="35" height="18" rx="3" fill="#ffffff" stroke="#0284c7" stroke-width="1"/>
+  <text x="1250" y="338" class="flow-lbl">Invoca</text>
+
+  <line x1="1275" y1="420" x2="1225" y2="420" stroke="#64748b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow2)"/>
+  <rect x="1232" y="428" width="35" height="18" rx="3" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <text x="1250" y="441" class="flow-lbl" fill="#64748b">Datos</text>
+
+  <!-- ==================================================================== -->
+  <!-- COLUMNA 3: MODELO (MODEL / DOMINIO Y DAO) — x=1280, w=600 -->
+  <!-- ==================================================================== -->
+  <rect x="1280" y="140" width="600" height="750" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow2)"/>
+  <rect x="1280" y="140" width="600" height="60" rx="12" fill="#15803d"/>
+  <text x="1310" y="177" class="mvc-header">3. MODELO (MODEL &amp; DAO)</text>
+  <text x="1840" y="177" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#bbf7d0" text-anchor="end">Capa de Negocio y Datos</text>
+
+  <g transform="translate(1305, 220)">
+    <!-- Herramienta M1: Servicios de Dominio & Pydantic -->
+    <rect x="0" y="0" width="550" height="150" class="tool-box"/>
+    <circle cx="35" cy="35" r="20" fill="#dcfce7"/>
+    <!-- Icono Dominio -->
+    <rect x="23" y="24" width="24" height="22" rx="3" fill="#15803d"/>
+    <text x="70" y="32" class="tool-title">Lógica de Dominio &amp; Contratos Pydantic 2</text>
+    <rect x="70" y="40" width="160" height="18" class="pill-tech" fill="#dcfce7" stroke="#bbf7d0"/>
+    <text x="150" y="53" class="pill-txt" fill="#14532d" text-anchor="middle">Contratos extra="forbid"</text>
+    <text x="20" y="85" class="tool-desc">Contratos estrictos SalidaP01 a SalidaP12, verificación de verbos Bloom,</text>
+    <text x="20" y="103" class="tool-desc">recuento físico de palabras, coherencia de variables y máquina de estados FSM.</text>
+    <rect x="20" y="115" width="260" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="130" font-family="monospace" font-size="10" fill="#334155">Módulos: thesis.services + contracts.py</text>
+
+    <!-- Herramienta M2: Django ORM / DAO -->
+    <rect x="0" y="170" width="550" height="150" class="tool-box"/>
+    <circle cx="35" cy="205" r="20" fill="#e0f2fe"/>
+    <!-- Icono DAO -->
+    <rect x="23" y="195" width="24" height="20" rx="3" fill="#0369a1"/>
+    <text x="70" y="202" class="tool-title">Capa de Acceso a Datos (Django ORM / DAO)</text>
+    <rect x="70" y="210" width="160" height="18" class="pill-tech"/>
+    <text x="150" y="223" class="pill-txt" text-anchor="middle">Patrón Data Access Object</text>
+    <text x="20" y="255" class="tool-desc">Mapeo objeto-relacional de 15 modelos Django a 17 tablas físicas.</text>
+    <text x="20" y="273" class="tool-desc">Gestiona transacciones atómicas (transaction.atomic) y bloqueo concurrente.</text>
+    <rect x="20" y="285" width="260" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="300" font-family="monospace" font-size="10" fill="#334155">Modelos: Proyecto, Revision, Capitulo...</text>
+
+    <!-- Herramienta M3: PostgreSQL 16 & Triggers -->
+    <rect x="0" y="340" width="550" height="150" class="tool-box"/>
+    <circle cx="35" cy="375" r="20" fill="#ede9fe"/>
+    <!-- Icono Base de Datos -->
+    <ellipse cx="35" cy="370" rx="12" ry="5" fill="#6d28d9"/>
+    <path d="M 23 370 v 10 a 12 5 0 0 0 24 0 v -10" fill="#6d28d9"/>
+    <text x="70" y="372" class="tool-title">Base de Datos PostgreSQL 16 (Prefijo tesis_)</text>
+    <rect x="70" y="380" width="160" height="18" class="pill-tech" fill="#ede9fe" stroke="#ddd6fe"/>
+    <text x="150" y="393" class="pill-txt" fill="#5b21b6" text-anchor="middle">Motor Relacional ACID</text>
+    <text x="20" y="425" class="tool-desc">17 tablas físicas en español. Triggers PL/pgSQL impiden la modificación o</text>
+    <text x="20" y="443" class="tool-desc">borrado de revisiones históricas y garantizan inmutabilidad append-only.</text>
+    <rect x="20" y="455" width="260" height="22" rx="4" fill="#f1f5f9"/>
+    <text x="28" y="470" font-family="monospace" font-size="10" fill="#334155">Disparadores: tg_proteger_revision_capitulo</text>
+
+    <!-- Resumen Capa Modelo -->
+    <rect x="0" y="510" width="550" height="135" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="20" y="535" class="layer-title">Responsabilidades del Modelo:</text>
+    <text x="20" y="560" class="tool-desc">• Aplicar las reglas académicas estrictas (cero tolerancias a datos incompletos).</text>
+    <text x="20" y="580" class="tool-desc">• Ejecutar control de concurrencia optimista (lock_version) contra sobrescrituras.</text>
+    <text x="20" y="600" class="tool-desc">• Materializar entidades normalizadas en 3NF (consistencia, variables, pasos).</text>
+    <text x="20" y="620" class="tool-desc">• Proteger la inmutabilidad de la auditoría académica contra alteraciones.</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- BARRA INFERIOR: PRINCIPIOS DE DISEÑO APLICADOS (TDD, DAO, SOLID) -->
+  <!-- ==================================================================== -->
+  <rect x="40" y="910" width="1840" height="135" rx="10" fill="#0f172a" filter="url(#shadow2)"/>
+
+  <g transform="translate(65, 930)">
+    <text x="0" y="18" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#38bdf8">PRINCIPIOS Y PATRONES ARQUITECTÓNICOS APLICADOS EN TESISMCP (SEMANA 9):</text>
+
+    <!-- Principio 1: MVC / MVT -->
+    <rect x="0" y="32" width="420" height="65" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="15" y="54" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">1. MVC / MVT (Separación de Capas):</text>
+    <text x="15" y="72" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">La vista nunca habla directo con la BD; el controlador</text>
+    <text x="15" y="87" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">orquesta y el modelo valida las reglas académicas.</text>
+
+    <!-- Principio 2: DAO / ORM -->
+    <rect x="450" y="32" width="420" height="65" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="465" y="54" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">2. Patrón DAO (Acceso a Datos):</text>
+    <text x="465" y="72" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">Aísla el motor PostgreSQL de la lógica. Si se cambia de BD,</text>
+    <text x="465" y="87" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">los contratos y servicios de tesis no sufren impacto.</text>
+
+    <!-- Principio 3: SOLID -->
+    <rect x="900" y="32" width="420" height="65" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="915" y="54" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">3. Principios SOLID:</text>
+    <text x="915" y="72" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">SRP (servicios especializados por paso), OCP (catálogo extensible</text>
+    <text x="915" y="87" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">de P13 a P32) e Inversión de Dependencias en conectores.</text>
+
+    <!-- Principio 4: TDD -->
+    <rect x="1350" y="32" width="440" height="65" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="1365" y="54" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">4. Pruebas Automatizadas TDD / pytest:</text>
+    <text x="1365" y="72" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">32 pruebas de integración garantizan 100% de cumplimiento</text>
+    <text x="1365" y="87" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">antes de cada commit (Definition of Done Gate exit code 0).</text>
+  </g>
+</svg>

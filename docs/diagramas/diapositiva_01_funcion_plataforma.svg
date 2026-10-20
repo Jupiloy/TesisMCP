@@ -1,0 +1,430 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .main-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 38px; font-weight: 900; fill: #ffffff; letter-spacing: 0.08em; }
+      .sub-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 16px; fill: #94a3b8; font-weight: 500; }
+      .section-badge { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #2563eb; letter-spacing: 0.05em; }
+      .card-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #0f172a; }
+      .card-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 13px; fill: #475569; line-height: 1.45; }
+      .bullet { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 12px; fill: #334155; }
+      .step-num { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 14px; font-weight: 800; fill: #ffffff; }
+      .narrative-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 18px; font-weight: 800; fill: #0f172a; }
+      .narrative-p { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 13.5px; fill: #334155; line-height: 1.6; }
+      .tag { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #1e293b; }
+    </style>
+  </defs>
+
+  <!-- Fondo General de Diapositiva -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#f1f5f9"/>
+
+  <!-- ==================================================================== -->
+  <!-- BARRA SUPERIOR DE ENCABEZADO (Banner Principal) -->
+  <!-- ==================================================================== -->
+  <rect x="30" y="25" width="1860" height="90" rx="12" fill="url(#headerGrad)" filter="url(#shadow)"/>
+  <circle cx="75" cy="70" r="22" fill="#2563eb"/>
+  <text x="75" y="77" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">T</text>
+  <text x="115" y="65" class="main-title">FUNCIÓN DE LA PLATAFORMA</text>
+  <text x="115" y="92" class="sub-title">TesisMCP — Asistencia Metodológica en Etapas Desacopladas y Supervisión Continua de Tesis</text>
+  <rect x="1660" y="50" width="200" height="40" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="1760" y="75" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Semana 10 — Corte Oficial</text>
+
+  <!-- ==================================================================== -->
+  <!-- COLUMNA 1: ACTORES / USUARIOS (Izquierda, w=320) -->
+  <!-- ==================================================================== -->
+  <rect x="30" y="135" width="320" height="885" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="55" y="175" class="section-badge">ROLES DEL SISTEMA</text>
+  <text x="55" y="200" class="card-title">Usuarios Participantes</text>
+  <line x1="55" y1="215" x2="325" y2="215" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Actor 1: Tesista -->
+  <g transform="translate(50, 235)">
+    <rect x="0" y="0" width="280" height="340" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="40" cy="40" r="24" fill="#dbeafe"/>
+    <!-- Icono Usuario -->
+    <circle cx="40" cy="34" r="10" fill="#2563eb"/>
+    <path d="M 24 53 C 24 43, 56 43, 56 53" fill="#2563eb"/>
+    <text x="75" y="36" class="card-title" font-size="18">Tesista</text>
+    <text x="75" y="54" class="tag" fill="#64748b">Estudiante Investigador</text>
+    <line x1="15" y1="75" x2="265" y2="75" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <text x="15" y="102" class="card-desc" font-weight="bold" fill="#0f172a">¿Qué hace en la plataforma?</text>
+    <text x="15" y="130" class="bullet">• Evalúa y elige su tema de tesis.</text>
+    <text x="15" y="155" class="bullet">• Redacta su trabajo paso a paso (P01 a P12).</text>
+    <text x="15" y="180" class="bullet">• Busca antecedentes científicos reales.</text>
+    <text x="15" y="205" class="bullet">• Envía sus capítulos terminados a revisión.</text>
+    <text x="15" y="230" class="bullet">• Lee y corrige las observaciones del asesor.</text>
+    <text x="15" y="255" class="bullet">• Descarga su borrador oficial en Word.</text>
+    
+    <rect x="15" y="280" width="250" height="42" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="25" y="298" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e40af">Rol en la metodología:</text>
+    <text x="25" y="313" font-family="Arial, sans-serif" font-size="10" fill="#2563eb">Elaboración activa con asistencia guiada.</text>
+  </g>
+
+  <!-- Actor 2: Docente Asesor -->
+  <g transform="translate(50, 600)">
+    <rect x="0" y="0" width="280" height="340" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="40" cy="40" r="24" fill="#fef3c7"/>
+    <!-- Icono Docente -->
+    <circle cx="40" cy="34" r="10" fill="#d97706"/>
+    <path d="M 24 53 C 24 43, 56 43, 56 53" fill="#d97706"/>
+    <text x="75" y="36" class="card-title" font-size="18">Docente Asesor</text>
+    <text x="75" y="54" class="tag" fill="#64748b">Profesor Revisor Metodológico</text>
+    <line x1="15" y1="75" x2="265" y2="75" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <text x="15" y="102" class="card-desc" font-weight="bold" fill="#0f172a">¿Qué hace en la plataforma?</text>
+    <text x="15" y="130" class="bullet">• Lee el avance del capítulo completo.</text>
+    <text x="15" y="155" class="bullet">• Señala párrafos exactos a corregir.</text>
+    <text x="15" y="180" class="bullet">• Deja observaciones claras y explicadas.</text>
+    <text x="15" y="205" class="bullet">• Revisa que el tesista haya corregido.</text>
+    <text x="15" y="230" class="bullet">• Da el visto bueno y aprueba el capítulo.</text>
+    <text x="15" y="255" class="bullet">• Puede reabrir si se requiere más ajuste.</text>
+    
+    <rect x="15" y="280" width="250" height="42" rx="6" fill="#fef3c7" stroke="#fde68a" stroke-width="1"/>
+    <text x="25" y="298" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#92400e">Rol en la metodología:</text>
+    <text x="25" y="313" font-family="Arial, sans-serif" font-size="10" fill="#b45309">Control de calidad y dictamen académico.</text>
+  </g>
+
+  <rect x="50" y="955" width="280" height="50" rx="8" fill="#0f172a"/>
+  <text x="190" y="976" font-family="Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#38bdf8" text-anchor="middle">Colaboración Desacoplada:</text>
+  <text x="190" y="993" font-family="Arial, sans-serif" font-size="10.5" fill="#cbd5e1" text-anchor="middle">Cada actor tiene permisos y funciones separadas.</text>
+
+  <!-- ==================================================================== -->
+  <!-- SECCIÓN CENTRAL: FLUJO SECUENCIAL DE 5 PASOS (x=370, w=1080) -->
+  <!-- ==================================================================== -->
+  <rect x="370" y="135" width="1080" height="580" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="395" y="175" class="section-badge">CÓMO FUNCIONA LA PLATAFORMA</text>
+  <text x="395" y="200" class="card-title">Recorrido sencillo paso a paso (De la idea al capítulo aprobado)</text>
+  <line x1="395" y1="215" x2="1425" y2="215" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Paso 1: Elige tu Tema -->
+  <g transform="translate(390, 235)">
+    <rect x="0" y="0" width="195" height="450" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="28" cy="28" r="16" fill="#2563eb"/>
+    <text x="28" y="34" class="step-num" text-anchor="middle">1</text>
+    <text x="55" y="34" class="card-title" font-size="14">Elige tu Tema</text>
+
+    <!-- Mockup Card -->
+    <rect x="15" y="60" width="165" height="95" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="15" y="60" width="165" height="22" rx="6" fill="#1e293b"/>
+    <circle cx="26" cy="71" r="3" fill="#ef4444"/>
+    <circle cx="36" cy="71" r="3" fill="#eab308"/>
+    <circle cx="46" cy="71" r="3" fill="#22c55e"/>
+    <text x="85" y="74" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Selección de Tema</text>
+    <rect x="25" y="90" width="145" height="26" rx="3" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="30" y="103" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1e40af">Evaluar 3 opciones</text>
+    <text x="30" y="113" font-family="Arial, sans-serif" font-size="7" fill="#2563eb">Puntaje por viabilidad</text>
+    <rect x="25" y="122" width="145" height="24" rx="3" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="30" y="135" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#065f46">Tema Ganador</text>
+    <text x="30" y="144" font-family="Arial, sans-serif" font-size="6.5" fill="#047857">Alineado a línea UTP</text>
+
+    <!-- Bullets Sencillos -->
+    <text x="15" y="180" class="card-desc" font-weight="bold" fill="#0f172a">En este paso:</text>
+    <text x="15" y="205" class="bullet">• El tesista inicia sesión.</text>
+    <text x="15" y="228" class="bullet">• Propone varias ideas.</text>
+    <text x="15" y="251" class="bullet">• Compara cuál es viable.</text>
+    <text x="15" y="274" class="bullet">• Elige el mejor tema.</text>
+    <text x="15" y="297" class="bullet">• Se conecta a un ODS.</text>
+    <line x1="15" y1="318" x2="180" y2="318" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <rect x="15" y="335" width="165" height="95" rx="6" fill="#eff6ff"/>
+    <text x="25" y="355" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e40af">Lo que logras:</text>
+    <text x="25" y="375" font-family="Arial, sans-serif" font-size="10" fill="#334155">Un tema claro y seguro,</text>
+    <text x="25" y="392" font-family="Arial, sans-serif" font-size="10" fill="#334155">sin empezar a ciegas ni</text>
+    <text x="25" y="409" font-family="Arial, sans-serif" font-size="10" fill="#334155">cambiarlo después.</text>
+  </g>
+
+  <!-- Flecha 1 -> 2 -->
+  <line x1="590" y1="460" x2="603" y2="460" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Paso 2: Redacta Paso a Paso -->
+  <g transform="translate(605, 235)">
+    <rect x="0" y="0" width="195" height="450" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="28" cy="28" r="16" fill="#2563eb"/>
+    <text x="28" y="34" class="step-num" text-anchor="middle">2</text>
+    <text x="55" y="34" class="card-title" font-size="14">Redacta en Orden</text>
+
+    <!-- Mockup Card -->
+    <rect x="15" y="60" width="165" height="95" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="15" y="60" width="165" height="22" rx="6" fill="#1e293b"/>
+    <text x="30" y="74" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Pasos Guiados (P01-P12)</text>
+    <rect x="25" y="90" width="145" height="18" rx="3" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="30" y="102" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#065f46">Título delimitado</text>
+    <rect x="25" y="112" width="145" height="18" rx="3" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="30" y="124" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1e40af">Objetivos con Bloom</text>
+    <rect x="25" y="133" width="145" height="18" rx="3" fill="#fef3c7" stroke="#fde68a" stroke-width="1"/>
+    <text x="30" y="145" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#92400e">Matriz y Variables</text>
+
+    <!-- Bullets Sencillos -->
+    <text x="15" y="180" class="card-desc" font-weight="bold" fill="#0f172a">En este paso:</text>
+    <text x="15" y="205" class="bullet">• Avanzas en orden estricto.</text>
+    <text x="15" y="228" class="bullet">• Planteas el problema.</text>
+    <text x="15" y="251" class="bullet">• Escribes las preguntas.</text>
+    <text x="15" y="274" class="bullet">• Formulas hipótesis.</text>
+    <text x="15" y="297" class="bullet">• Defines tus variables.</text>
+    <line x1="15" y1="318" x2="180" y2="318" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <rect x="15" y="335" width="165" height="95" rx="6" fill="#eff6ff"/>
+    <text x="25" y="355" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e40af">Lo que logras:</text>
+    <text x="25" y="375" font-family="Arial, sans-serif" font-size="10" fill="#334155">Que los objetivos y las</text>
+    <text x="25" y="392" font-family="Arial, sans-serif" font-size="10" fill="#334155">preguntas coincidan de</text>
+    <text x="25" y="409" font-family="Arial, sans-serif" font-size="10" fill="#334155">forma exacta.</text>
+  </g>
+
+  <!-- Flecha 2 -> 3 -->
+  <line x1="805" y1="460" x2="818" y2="460" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Paso 3: Validación Automática -->
+  <g transform="translate(820, 235)">
+    <rect x="0" y="0" width="195" height="450" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="28" cy="28" r="16" fill="#2563eb"/>
+    <text x="28" y="34" class="step-num" text-anchor="middle">3</text>
+    <text x="55" y="34" class="card-title" font-size="14">Revisión Automática</text>
+
+    <!-- Mockup Card -->
+    <rect x="15" y="60" width="165" height="95" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="15" y="60" width="165" height="22" rx="6" fill="#1e293b"/>
+    <text x="30" y="74" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Filtro Anti-Errores</text>
+    <rect x="25" y="90" width="145" height="26" rx="3" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="30" y="103" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#065f46">Cero Datos Inventados</text>
+    <text x="30" y="113" font-family="Arial, sans-serif" font-size="7" fill="#047857">Rechazo de textos falsos</text>
+    <rect x="25" y="122" width="145" height="26" rx="3" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="30" y="135" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#1e40af">Guardado Seguro</text>
+    <text x="30" y="145" font-family="Arial, sans-serif" font-size="6.5" fill="#2563eb">No se pierden cambios</text>
+
+    <!-- Bullets Sencillos -->
+    <text x="15" y="180" class="card-desc" font-weight="bold" fill="#0f172a">En este paso:</text>
+    <text x="15" y="205" class="bullet">• Revisa que nada falte.</text>
+    <text x="15" y="228" class="bullet">• Cuida la coherencia.</text>
+    <text x="15" y="251" class="bullet">• Impide inventar citas.</text>
+    <text x="15" y="274" class="bullet">• Protege contra pérdidas.</text>
+    <text x="15" y="297" class="bullet">• Guarda cada versión.</text>
+    <line x1="15" y1="318" x2="180" y2="318" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <rect x="15" y="335" width="165" height="95" rx="6" fill="#eff6ff"/>
+    <text x="25" y="355" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e40af">Lo que logras:</text>
+    <text x="25" y="375" font-family="Arial, sans-serif" font-size="10" fill="#334155">Garantía de que la IA</text>
+    <text x="25" y="392" font-family="Arial, sans-serif" font-size="10" fill="#334155">no alucina datos y todo</text>
+    <text x="25" y="409" font-family="Arial, sans-serif" font-size="10" fill="#334155">queda respaldado.</text>
+  </g>
+
+  <!-- Flecha 3 -> 4 -->
+  <line x1="1020" y1="460" x2="1033" y2="460" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Paso 4: Revisión del Asesor -->
+  <g transform="translate(1035, 235)">
+    <rect x="0" y="0" width="195" height="450" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="28" cy="28" r="16" fill="#2563eb"/>
+    <text x="28" y="34" class="step-num" text-anchor="middle">4</text>
+    <text x="55" y="34" class="card-title" font-size="14">Revisión Asesor</text>
+
+    <!-- Mockup Card -->
+    <rect x="15" y="60" width="165" height="95" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="15" y="60" width="165" height="22" rx="6" fill="#1e293b"/>
+    <text x="30" y="74" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Comentarios al Margen</text>
+    <rect x="25" y="90" width="145" height="18" rx="3" fill="#fef3c7" stroke="#fde68a" stroke-width="1"/>
+    <text x="30" y="102" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#92400e">Capítulo en Revisión</text>
+    <rect x="25" y="112" width="145" height="36" rx="3" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="30" y="125" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#991b1b">Párrafo seleccionado:</text>
+    <text x="30" y="138" font-family="Arial, sans-serif" font-size="7" fill="#b91c1c">"Alinear con objetivo 2"</text>
+
+    <!-- Bullets Sencillos -->
+    <text x="15" y="180" class="card-desc" font-weight="bold" fill="#0f172a">En este paso:</text>
+    <text x="15" y="205" class="bullet">• Envías el capítulo listo.</text>
+    <text x="15" y="228" class="bullet">• Tu asesor lo examina.</text>
+    <text x="15" y="251" class="bullet">• Señala la frase a corregir.</text>
+    <text x="15" y="274" class="bullet">• Te explica qué ajustar.</text>
+    <text x="15" y="297" class="bullet">• Tú corriges ese punto.</text>
+    <line x1="15" y1="318" x2="180" y2="318" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <rect x="15" y="335" width="165" height="95" rx="6" fill="#eff6ff"/>
+    <text x="25" y="355" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e40af">Lo que logras:</text>
+    <text x="25" y="375" font-family="Arial, sans-serif" font-size="10" fill="#334155">Correcciones precisas,</text>
+    <text x="25" y="392" font-family="Arial, sans-serif" font-size="10" fill="#334155">sin confusiones de qué</text>
+    <text x="25" y="409" font-family="Arial, sans-serif" font-size="10" fill="#334155">versión se revisó.</text>
+  </g>
+
+  <!-- Flecha 4 -> 5 -->
+  <line x1="1235" y1="460" x2="1248" y2="460" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Paso 5: Aprobación y Word -->
+  <g transform="translate(1250, 235)">
+    <rect x="0" y="0" width="185" height="450" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <circle cx="28" cy="28" r="16" fill="#16a34a"/>
+    <text x="28" y="34" class="step-num" text-anchor="middle">5</text>
+    <text x="55" y="34" class="card-title" font-size="14">Aprobación / Word</text>
+
+    <!-- Mockup Card -->
+    <rect x="15" y="60" width="155" height="95" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="15" y="60" width="155" height="22" rx="6" fill="#14532d"/>
+    <text x="25" y="74" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Capítulo Aprobado</text>
+    <circle cx="77" cy="103" r="13" fill="#dcfce7"/>
+    <path d="M 71 103 L 75 107 L 83 98" stroke="#16a34a" stroke-width="2.5" fill="none"/>
+    <text x="77" y="128" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#166534" text-anchor="middle">APROBADO</text>
+    <text x="77" y="142" font-family="Arial, sans-serif" font-size="7" fill="#4b5563" text-anchor="middle">0 observaciones</text>
+
+    <!-- Bullets Sencillos -->
+    <text x="15" y="180" class="card-desc" font-weight="bold" fill="#0f172a">En este paso:</text>
+    <text x="15" y="205" class="bullet">• Asesor verifica cambios.</text>
+    <text x="15" y="228" class="bullet">• Da el visto bueno final.</text>
+    <text x="15" y="251" class="bullet">• Se congela esa versión.</text>
+    <text x="15" y="274" class="bullet">• Descargas en Word.</text>
+    <text x="15" y="297" class="bullet">• Pasas al siguiente tema.</text>
+    <line x1="15" y1="318" x2="170" y2="318" stroke="#e2e8f0" stroke-width="1"/>
+    
+    <rect x="15" y="335" width="155" height="95" rx="6" fill="#dcfce7"/>
+    <text x="25" y="355" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#166534">Resultado Final:</text>
+    <text x="25" y="375" font-family="Arial, sans-serif" font-size="10" fill="#14532d">Tu borrador listo en</text>
+    <text x="25" y="392" font-family="Arial, sans-serif" font-size="10" fill="#14532d">Word editable con el</text>
+    <text x="25" y="409" font-family="Arial, sans-serif" font-size="10" fill="#14532d">aval de tu asesor.</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- FRANJA INFERIOR: SERVICIOS Y RESULTADO FINAL (x=370, y=730) -->
+  <!-- ==================================================================== -->
+  <rect x="370" y="730" width="1080" height="290" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+
+  <!-- Sub-bloque 1: Servicios que ayudan a no inventar datos -->
+  <g transform="translate(390, 745)">
+    <text x="0" y="20" class="section-badge">BÚSQUEDA CIENTÍFICA REAL</text>
+    <text x="0" y="42" class="card-title">Servicios que ayudan a no inventar fuentes</text>
+
+    <!-- Servicio 1: OpenAlex -->
+    <rect x="0" y="60" width="160" height="80" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="15" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0f172a">OpenAlex</text>
+    <text x="15" y="103" font-family="Arial, sans-serif" font-size="10" fill="#475569">Millones de artículos</text>
+    <text x="15" y="118" font-family="Arial, sans-serif" font-size="10" fill="#475569">científicos de todo el mundo</text>
+
+    <!-- Servicio 2: Semantic Scholar -->
+    <rect x="175" y="60" width="160" height="80" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="190" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0f172a">Semantic Scholar</text>
+    <text x="190" y="103" font-family="Arial, sans-serif" font-size="10" fill="#475569">Resúmenes y citas</text>
+    <text x="190" y="118" font-family="Arial, sans-serif" font-size="10" fill="#475569">comprobables por internet</text>
+
+    <!-- Servicio 3: ALICIA Concytec -->
+    <rect x="350" y="60" width="160" height="80" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="365" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0f172a">ALICIA CONCYTEC</text>
+    <text x="365" y="103" font-family="Arial, sans-serif" font-size="10" fill="#475569">Repositorio oficial de</text>
+    <text x="365" y="118" font-family="Arial, sans-serif" font-size="10" fill="#475569">tesis peruanas sustentadas</text>
+
+    <!-- Servicio 4: Conexión Segura MCP -->
+    <rect x="525" y="60" width="160" height="80" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="540" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0f172a">Protocolo MCP</text>
+    <text x="540" y="103" font-family="Arial, sans-serif" font-size="10" fill="#475569">Conexión segura entre la</text>
+    <text x="540" y="118" font-family="Arial, sans-serif" font-size="10" fill="#475569">pantalla y el asistente de IA</text>
+  </g>
+
+  <!-- Sub-bloque 2: Camino de la información -->
+  <g transform="translate(390, 905)">
+    <text x="0" y="20" class="section-badge">EL CAMINO DE LA INFORMACIÓN</text>
+    <line x1="0" y1="30" x2="685" y2="30" stroke="#e2e8f0" stroke-width="1"/>
+
+    <!-- Step A: Pantalla -->
+    <rect x="0" y="45" width="150" height="55" rx="6" fill="#1e293b"/>
+    <text x="75" y="68" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Pantalla del Usuario</text>
+    <text x="75" y="85" font-family="Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Tesista escribe o consulta</text>
+
+    <line x1="155" y1="72" x2="185" y2="72" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Step B: Filtro -->
+    <rect x="190" y="45" width="155" height="55" rx="6" fill="#1e293b"/>
+    <text x="267" y="68" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Filtro de Reglas</text>
+    <text x="267" y="85" font-family="Arial, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Revisa que no falte nada</text>
+
+    <line x1="350" y1="72" x2="380" y2="72" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Step C: Persistencia -->
+    <rect x="385" y="45" width="155" height="55" rx="6" fill="#1e3a8a"/>
+    <text x="462" y="68" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">3. Base de Datos</text>
+    <text x="462" y="85" font-family="Arial, sans-serif" font-size="9" fill="#93c5fd" text-anchor="middle">Guarda todo con seguridad</text>
+
+    <line x1="545" y1="72" x2="575" y2="72" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Step D: Aprobación -->
+    <rect x="580" y="45" width="115" height="55" rx="6" fill="#14532d"/>
+    <text x="637" y="68" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">4. Word Final</text>
+    <text x="637" y="85" font-family="Arial, sans-serif" font-size="9" fill="#86efac" text-anchor="middle">Listo para imprimir</text>
+  </g>
+
+  <!-- Sub-bloque 3: Resultado Final -->
+  <g transform="translate(1100, 745)">
+    <rect x="0" y="0" width="330" height="260" rx="10" fill="#0f172a"/>
+    <circle cx="165" cy="50" r="26" fill="#16a34a"/>
+    <path d="M 153 50 L 161 58 L 177 42" stroke="#ffffff" stroke-width="3.5" fill="none"/>
+    <text x="165" y="98" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">Resultado del Proyecto</text>
+    <text x="165" y="120" font-family="Arial, sans-serif" font-size="12" fill="#38bdf8" text-anchor="middle">TesisMCP (Corte Semana 10)</text>
+
+    <text x="25" y="155" font-family="Arial, sans-serif" font-size="12" fill="#f1f5f9">• Tema, problema y objetivos ordenados</text>
+    <text x="25" y="180" font-family="Arial, sans-serif" font-size="12" fill="#f1f5f9">• Variables con indicadores claros</text>
+    <text x="25" y="205" font-family="Arial, sans-serif" font-size="12" fill="#f1f5f9">• Correcciones del asesor registradas</text>
+    <text x="25" y="230" font-family="Arial, sans-serif" font-size="12" fill="#f1f5f9">• Borrador listo en Microsoft Word</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- COLUMNA 3: NARRATIVA DE SUSTENTACIÓN (Derecha, w=410) -->
+  <!-- ==================================================================== -->
+  <rect x="1470" y="135" width="420" height="885" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="1470" y="135" width="420" height="55" rx="12" fill="#1e293b"/>
+  <text x="1495" y="170" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff">GUÍA NARRATIVA (PARA EXPOSICIÓN)</text>
+
+  <g transform="translate(1495, 215)">
+    <text x="0" y="10" class="narrative-title">Cómo explicarlo al profesor:</text>
+
+    <!-- Tarjeta de Discurso Sencillo -->
+    <rect x="0" y="25" width="370" height="340" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="15" y="55" class="narrative-p font-italic" font-weight="bold" fill="#1e40af">“En palabras sencillas...”</text>
+
+    <text x="15" y="85" class="narrative-p">“En esta diapositiva mostramos cómo funciona</text>
+    <text x="15" y="107" class="narrative-p">TesisMCP de manera muy clara y sencilla:</text>
+    <text x="15" y="137" class="narrative-p">1. Primero, el tesista ingresa y evalúa varias</text>
+    <text x="15" y="159" class="narrative-p">ideas hasta elegir un tema sólido y viable.</text>
+    <text x="15" y="189" class="narrative-p">2. Luego redacta paso a paso su proyecto:</text>
+    <text x="15" y="211" class="narrative-p">título, problema, objetivos y variables, sin</text>
+    <text x="15" y="233" class="narrative-p">saltarse etapas para evitar el desorden.</text>
+    <text x="15" y="263" class="narrative-p">3. El sistema valida automáticamente que no</text>
+    <text x="15" y="285" class="narrative-p">falten datos ni se invente información.</text>
+    <text x="15" y="315" class="narrative-p">4. Al terminar el capítulo, el asesor lo revisa</text>
+    <text x="15" y="337" class="narrative-p">y señala los párrafos exactos a corregir.</text>
+    <text x="15" y="367" class="narrative-p">5. Una vez subsanado, el asesor aprueba y</text>
+    <text x="15" y="389" class="narrative-p">el tesista descarga su borrador en Word.”</text>
+
+    <!-- Tarjeta de Puntos Clave Sencillos -->
+    <text x="0" y="420" class="narrative-title">Beneficios clave para la tesis:</text>
+
+    <rect x="0" y="435" width="370" height="215" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+
+    <text x="15" y="460" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e3a8a">1. Adiós a la tesis de un solo golpe:</text>
+    <text x="15" y="480" font-family="Arial, sans-serif" font-size="11" fill="#334155">Dividir el trabajo en pasos evita que el alumno</text>
+    <text x="15" y="497" font-family="Arial, sans-serif" font-size="11" fill="#334155">se abrume y asegura calidad metodológica.</text>
+
+    <text x="15" y="525" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e3a8a">2. Fuentes científicas de verdad:</text>
+    <text x="15" y="545" font-family="Arial, sans-serif" font-size="11" fill="#334155">Búsquedas en catálogos abiertos reales para</text>
+    <text x="15" y="562" font-family="Arial, sans-serif" font-size="11" fill="#334155">no inventar autores ni enlaces caídos.</text>
+
+    <text x="15" y="590" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e3a8a">3. Correcciones sin perderse:</text>
+    <text x="15" y="610" font-family="Arial, sans-serif" font-size="11" fill="#334155">Cada observación queda guardada con el texto</text>
+    <text x="15" y="627" font-family="Arial, sans-serif" font-size="11" fill="#334155">que la originó, sin confusiones de versiones.</text>
+  </g>
+
+    <text x="15" y="565" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e3a8a">3. Auditoría de Solo Anexado:</text>
+    <text x="15" y="585" font-family="Arial, sans-serif" font-size="11" fill="#334155">PostgreSQL protege con disparadores nativos</text>
+    <text x="15" y="602" font-family="Arial, sans-serif" font-size="11" fill="#334155">el historial completo de correcciones docentes.</text>
+  </g>
+</svg>
