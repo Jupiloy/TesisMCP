@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 830" width="1020" height="830">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f172a"/>
+    </marker>
+    <style>
+      .main-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #0f172a; letter-spacing: 0.02em; }
+      .main-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 11px; fill: #64748b; }
+      
+      .sidebar-bg { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; rx: 6; }
+      .sidebar-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10.5px; font-weight: bold; fill: #1e293b; text-anchor: middle; letter-spacing: 0.04em; }
+      .sidebar-num { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 16px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
+      
+      .node-card { fill: #ffffff; stroke: #0f172a; stroke-width: 1.5; rx: 6; }
+      .node-card-highlight { fill: #ffffff; stroke: #0f172a; stroke-width: 1.8; rx: 6; }
+      .node-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #0f172a; }
+      .node-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10.5px; fill: #334155; }
+      .node-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 9.5px; fill: #64748b; }
+      
+      .badge-bg { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 1; rx: 3; }
+      .badge-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 9px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+      
+      .connector { stroke: #0f172a; stroke-width: 1.4; fill: none; }
+      .pill-bg { fill: #ffffff; stroke: #0f172a; stroke-width: 1.2; rx: 10; }
+      .pill-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 9.5px; font-weight: bold; fill: #0f172a; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Tarjeta Contenedora Principal -->
+  <rect x="15" y="15" width="990" height="800" rx="12" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
+
+  <!-- Encabezado de la Tarjeta -->
+  <text x="40" y="44" class="main-title">ARQUITECTURA DEL SISTEMA TESISMCP — EDICIÓN CAPÍTULOS 1 AL 3</text>
+  <text x="40" y="62" class="main-sub">Arquitectura Limpia en 4 Capas: Protocolo MCP (JSON-RPC) + API REST (OpenAPI) + Servicios con Pydantic + PostgreSQL 16</text>
+  <line x1="40" y1="74" x2="980" y2="74" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- ==================================================================== -->
+  <!-- BARRA LATERAL IZQUIERDA: 4 CAPAS DEL SISTEMA -->
+  <!-- ==================================================================== -->
+  <!-- Capa 1 -->
+  <rect x="35" y="90" width="145" height="85" class="sidebar-bg"/>
+  <text x="107" y="122" class="sidebar-num">01</text>
+  <text x="107" y="142" class="sidebar-title">CAPAS DE</text>
+  <text x="107" y="156" class="sidebar-title">CLIENTE</text>
+
+  <!-- Capa 2 -->
+  <rect x="35" y="235" width="145" height="85" class="sidebar-bg"/>
+  <text x="107" y="267" class="sidebar-num">02</text>
+  <text x="107" y="287" class="sidebar-title">COMUNICACIÓN Y</text>
+  <text x="107" y="301" class="sidebar-title">TRANSPORTE</text>
+
+  <!-- Capa 3 -->
+  <rect x="35" y="380" width="145" height="180" class="sidebar-bg"/>
+  <text x="107" y="450" class="sidebar-num">03</text>
+  <text x="107" y="472" class="sidebar-title">NÚCLEO</text>
+  <text x="107" y="486" class="sidebar-title">TRANSACCIONAL Y</text>
+  <text x="107" y="500" class="sidebar-title">DOMINIO</text>
+
+  <!-- Capa 4 -->
+  <rect x="35" y="625" width="145" height="165" class="sidebar-bg"/>
+  <text x="107" y="695" class="sidebar-num">04</text>
+  <text x="107" y="717" class="sidebar-title">PERSISTENCIA</text>
+  <text x="107" y="731" class="sidebar-title">RELACIONAL Y</text>
+  <text x="107" y="745" class="sidebar-title">AUDITORÍA</text>
+
+  <!-- ==================================================================== -->
+  <!-- FILA 1: CLIENTES (y: 90 a 175) -->
+  <!-- ==================================================================== -->
+  <!-- Nodo 1.1: Cliente LLM -->
+  <rect x="200" y="90" width="375" height="85" class="node-card"/>
+  <text x="218" y="115" class="node-title">🤖 Cliente LLM Asistido</text>
+  <text x="218" y="133" class="node-body">Claude Desktop / Cursor IDE / IDEs compatibles con MCP</text>
+  <rect x="218" y="145" width="180" height="18" class="badge-bg"/>
+  <text x="308" y="157" class="badge-text">Agente Metodológico Autónomo</text>
+
+  <!-- Nodo 1.2: Cliente Web / Admin -->
+  <rect x="605" y="90" width="375" height="85" class="node-card"/>
+  <text x="623" y="115" class="node-title">💻 Panel Web y Clientes HTTP</text>
+  <text x="623" y="133" class="node-body">Django Admin (15 Modelos) / Swagger UI / Clientes REST</text>
+  <rect x="623" y="145" width="180" height="18" class="badge-bg"/>
+  <text x="713" y="157" class="badge-text">Supervisión Docente y Tesista</text>
+
+  <!-- ==================================================================== -->
+  <!-- CONECTORES FILA 1 -> FILA 2 (y: 175 a 235) -->
+  <!-- ==================================================================== -->
+  <!-- AI -> MCP -->
+  <path d="M 387 175 L 387 235" class="connector" marker-end="url(#arrow)"/>
+  <rect x="317" y="193" width="140" height="22" class="pill-bg"/>
+  <text x="387" y="208" class="pill-text">JSON-RPC (stdio)</text>
+
+  <!-- Web -> REST -->
+  <path d="M 792 175 L 792 235" class="connector" marker-end="url(#arrow)"/>
+  <rect x="732" y="193" width="120" height="22" class="pill-bg"/>
+  <text x="792" y="208" class="pill-text">HTTP / JSON</text>
+
+  <!-- ==================================================================== -->
+  <!-- FILA 2: TRANSPORTE Y COMUNICACIÓN (y: 235 a 320) -->
+  <!-- ==================================================================== -->
+  <!-- Nodo 2.1: Servidor MCP -->
+  <rect x="200" y="235" width="375" height="85" class="node-card"/>
+  <text x="218" y="259" class="node-title">🔌 Servidor MCP (MCPServer Oficial)</text>
+  <text x="218" y="277" class="node-body">17 Herramientas Metodológicas + 15 Prompts Dinámicos</text>
+  <text x="218" y="293" class="node-sub">Catálogo, inicialización, pasos P01 a P12 e inspección de revisión</text>
+  <rect x="218" y="299" width="165" height="15" class="badge-bg"/>
+  <text x="300" y="310" class="badge-text">Protocolo Estándar JSON-RPC</text>
+
+  <!-- Nodo 2.2: API REST OpenAPI -->
+  <rect x="605" y="235" width="375" height="85" class="node-card"/>
+  <text x="623" y="259" class="node-title">🌐 API REST OpenAPI (/api/v1/)</text>
+  <text x="623" y="277" class="node-body">Django Ninja — Endpoints Síncronos y Esquemas Tipados</text>
+  <text x="623" y="293" class="node-sub">Operaciones CRUD para proyectos, pasos, matrices y revisiones</text>
+  <rect x="623" y="299" width="165" height="15" class="badge-bg"/>
+  <text x="705" y="310" class="badge-text">Validación Esquemas OpenAPI</text>
+
+  <!-- ==================================================================== -->
+  <!-- CONECTORES FILA 2 -> FILA 3 (y: 320 a 380) -->
+  <!-- ==================================================================== -->
+  <!-- MCP -> Puente MCP -->
+  <path d="M 387 320 L 387 380" class="connector" marker-end="url(#arrow)"/>
+  <rect x="317" y="338" width="140" height="22" class="pill-bg"/>
+  <text x="387" y="353" class="pill-text">Llamada a Herramienta</text>
+
+  <!-- REST -> Servicios de Dominio -->
+  <path d="M 792 320 L 792 380" class="connector" marker-end="url(#arrow)"/>
+  <rect x="727" y="338" width="130" height="22" class="pill-bg"/>
+  <text x="792" y="353" class="pill-text">Payload Validado</text>
+
+  <!-- ==================================================================== -->
+  <!-- FILA 3: NÚCLEO TRANSACCIONAL Y DOMINIO (y: 380 a 560) -->
+  <!-- ==================================================================== -->
+  <!-- Nodo 3.1: Puente MCP & Seguridad -->
+  <rect x="200" y="380" width="375" height="60" class="node-card"/>
+  <text x="218" y="403" class="node-title">🛡️ Puente MCP y Capa de Seguridad</text>
+  <text x="218" y="420" class="node-body">django_bridge.py (async_to_sync) + mcp_auth.py (Tokens SHA-256)</text>
+  <text x="218" y="433" class="node-sub">Aislamiento de contexto y verificación estricta de identidades</text>
+
+  <!-- Flecha Puente -> Servicios -->
+  <path d="M 387 440 L 387 460" class="connector" marker-end="url(#arrow)"/>
+
+  <!-- Flecha REST directa hacia Servicios -->
+  <path d="M 792 380 L 792 460" class="connector"/>
+  <path d="M 792 460 L 690 460" class="connector" marker-end="url(#arrow)"/>
+
+  <!-- Nodo 3.2: Servicios de Dominio -->
+  <rect x="200" y="460" width="485" height="100" class="node-card"/>
+  <text x="218" y="482" class="node-title">⚙️ Servicios de Dominio (thesis.services)</text>
+  <text x="218" y="500" class="node-body">• Contratos Pydantic SalidaEstricta (extra='forbid') para pasos P01 a P12</text>
+  <text x="218" y="516" class="node-body">• Sincronización Matriz de Consistencia y Operacionalización (consistency.py)</text>
+  <text x="218" y="532" class="node-body">• Máquina de estados de revisión y observaciones ancladas (reviews.py)</text>
+  <rect x="218" y="539" width="235" height="16" class="badge-bg"/>
+  <text x="335" y="551" class="badge-text">Control Concurrencia Optimista: lock_version</text>
+
+  <!-- Flecha Servicios -> Exploración Científica -->
+  <path d="M 685 510 L 715 510" class="connector" marker-end="url(#arrow)"/>
+
+  <!-- Nodo 3.3: Exploración Científica Externa -->
+  <rect x="715" y="460" width="265" height="100" class="node-card"/>
+  <text x="730" y="482" class="node-title">🔍 Exploración Científica</text>
+  <text x="730" y="500" class="node-body">Integración con APIs Externas:</text>
+  <text x="730" y="516" class="node-body">• OpenAlex (Literatura global)</text>
+  <text x="730" y="532" class="node-body">• Semantic Scholar + ALICIA Perú</text>
+  <rect x="730" y="539" width="165" height="16" class="badge-bg"/>
+  <text x="812" y="551" class="badge-text">Clientes Resilientes HTTPX</text>
+
+  <!-- ==================================================================== -->
+  <!-- CONECTOR FILA 3 -> FILA 4 (y: 560 a 625) -->
+  <!-- ==================================================================== -->
+  <path d="M 442 560 L 442 625" class="connector" marker-end="url(#arrow)"/>
+  <rect x="307" y="581" width="270" height="24" class="pill-bg" stroke-width="1.4"/>
+  <text x="442" y="597" class="pill-text">Transacciones ACID Aisladas (lock_version)</text>
+
+  <!-- ==================================================================== -->
+  <!-- FILA 4: PERSISTENCIA RELACIONAL (y: 625 a 790) -->
+  <!-- ==================================================================== -->
+  <!-- Nodo 4.1: PostgreSQL 16 (Tarjeta Completa Centrada) -->
+  <rect x="200" y="625" width="780" height="165" class="node-card-highlight"/>
+  <text x="220" y="650" class="node-title">🐘 PostgreSQL 16 (Base de Datos Relacional: tesismcp_reducido_docente)</text>
+  <text x="220" y="670" class="node-body">15 Modelos Django ORM / 17 Tablas Físicas con Prefijo tesis_* Íntegramente en Español</text>
+  <text x="220" y="688" class="node-sub">Estructuras Normalizadas en 3NF: Perfil, Proyecto, Pasos Metodológicos (P01–P12), Matriz de Consistencia y Operacionalización</text>
+
+  <!-- Badges Técnicos de PostgreSQL -->
+  <rect x="220" y="704" width="280" height="22" class="badge-bg"/>
+  <text x="360" y="719" class="badge-text">Triggers PL/pgSQL Append-Only (Historial Inmutable)</text>
+
+  <rect x="515" y="704" width="250" height="22" class="badge-bg"/>
+  <text x="640" y="719" class="badge-text">Restricciones Check y Unique en Motor BD</text>
+
+  <rect x="780" y="704" width="180" height="22" class="badge-bg"/>
+  <text x="870" y="719" class="badge-text">Aislamiento Transaccional ACID</text>
+
+  <!-- Lista de Tablas Físicas -->
+  <text x="220" y="750" class="node-sub">Tablas Físicas: tesis_perfil, tesis_proyecto, tesis_capitulo, tesis_paso, tesis_progreso, tesis_consistencia, tesis_variable,</text>
+  <text x="220" y="765" class="node-sub">tesis_dimension, tesis_indicador, tesis_revision_capitulo, tesis_comentario_revision, tesis_evento_revision...</text>
+</svg>
