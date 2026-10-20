@@ -558,36 +558,19 @@ Un rechazo no borra el avance anterior. La transacción se cancela y el usuario 
 
 #### 6.4.1 Guardar un paso
 
-```mermaid
-sequenceDiagram
-    actor Tesista
-    participant Cliente as Cliente MCP/API
-    participant Servicio as Servicio de pasos
-    participant BD as PostgreSQL
-    Tesista->>Cliente: Confirma la salida del paso
-    Cliente->>Servicio: Envía paso, contrato y versión esperada
-    Servicio->>Servicio: Comprueba identidad, permisos y Pydantic
-    Servicio->>BD: Bloquea el proyecto y compara lock_version
-    alt Versión desactualizada
-        Servicio-->>Cliente: VERSION_CONFLICT
-    else Datos válidos
-        Servicio->>BD: Materializa entidades y crea revisión
-        Servicio->>BD: Incrementa lock_version
-        Servicio-->>Cliente: Devuelve revisión y nueva versión
-    end
-```
+El proceso de persistencia transaccional y control de concurrencia optimista se ilustra en el Diagrama de Secuencia de la Figura 6.3:
+
+![Diagrama de Secuencia UML Guardado de un Paso](./diagramas/08_secuencia_guardar_paso.png)
+
+*Figura 6.3: Diagrama de Secuencia UML — Guardado de un Paso y Concurrencia Optimista (lock_version).*
 
 #### 6.4.2 Revisar un capítulo
 
-```mermaid
-stateDiagram-v2
-    [*] --> DRAFT
-    DRAFT --> READY: tesista envía
-    READY --> CHANGES_REQUESTED: asesor solicita cambios
-    CHANGES_REQUESTED --> DRAFT: tesista crea nueva revisión
-    READY --> APPROVED: sin observaciones abiertas
-    APPROVED --> DRAFT: asesor reabre con motivo
-```
+El ciclo de vida del capítulo y las transiciones del estado de revisión docente se modelan en el Diagrama de Estados de la Figura 6.4:
+
+![Diagrama de Estados UML Revisión Docente](./diagramas/09_estados_revision_capitulo.png)
+
+*Figura 6.4: Diagrama de Estados UML — Ciclo de Revisión Docente (Capitulo.status).*
 
 Las observaciones se vinculan con una revisión y una posición del texto. El servicio impide aprobar mientras exista una observación abierta. Los eventos de revisión se conservan como historial de solo anexado.
 
@@ -597,21 +580,21 @@ Las observaciones se vinculan con una revisión y una posición del texto. El se
 
 El modelo conceptual captura las entidades sustantivas del dominio de investigación formativa y revisión metodológica en TesisMCP, abstrayendo detalles de implementación y motores de persistencia. Define las relaciones de negocio entre el tesista, el docente asesor, el perfil del proyecto, la formulación de la matriz de consistencia, la operacionalización de variables y el ciclo inmutable de versiones de capítulos y revisiones.
 
-El esquema conceptual del dominio se presenta en la Figura 6.3:
+El esquema conceptual del dominio se presenta en la Figura 6.5:
 
 ![Modelo Conceptual Entidad-Relación](./diagramas/05_modelo_conceptual_er.png)
 
-*Figura 6.3: Modelo Conceptual Entidad-Relación (ER) — Dominio Metodológico de TesisMCP.*
+*Figura 6.5: Modelo Conceptual Entidad-Relación (ER) — Dominio Metodológico de TesisMCP.*
 
 #### 6.5.2 Modelo Lógico Relacional (3NF)
 
 El modelo lógico traduce las entidades de negocio a una estructura relacional rigurosamente normalizada en Tercera Forma Normal (3NF). En esta etapa se resuelven las cardinalidades muchos a muchos ($N:M$) mediante las entidades asociativas `PARTICIPANTE_PROYECTO` (relacionando usuarios con proyectos y roles) y `VARIABLE_FILA_CONSISTENCIA` (vinculando variables con filas de consistencia). Asimismo, se establecen las claves primarias (`PK`), claves foráneas (`FK`) de integridad referencial y el tipado de datos conceptual abstracto (`UUID`, `Entero`, `Cadena`, `Texto`, `Booleano`, `Estructura JSON`).
 
-La estructura lógica normalizada se ilustra en la Figura 6.4:
+La estructura lógica normalizada se ilustra en la Figura 6.6:
 
 ![Modelo Lógico Relacional 3NF](./diagramas/06_modelo_logico_relacional.png)
 
-*Figura 6.4: Modelo Lógico Relacional (3NF) — Normalización y Claves de Entidad.*
+*Figura 6.6: Modelo Lógico Relacional (3NF) — Normalización y Claves de Entidad.*
 
 #### 6.5.3 Modelo Físico en PostgreSQL 16 y Catálogo de Tablas
 
@@ -647,11 +630,11 @@ El esquema se despliega mediante dos migraciones Django: una consolidada inicial
 | `tesis_usuario_grupo` | Relación intermedia de grupos de autenticación. |
 | `tesis_usuario_permiso` | Relación intermedia de permisos de autenticación. |
 
-El esquema físico relacional de las 17 tablas se ilustra en la Figura 6.5:
+El esquema físico relacional de las 17 tablas se ilustra en la Figura 6.7:
 
 ![Diagrama Entidad-Relación Físico de 17 Tablas](./diagramas/07_der_modelo_fisico_17_tablas.png)
 
-*Figura 6.5: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*
+*Figura 6.7: Diagrama Entidad-Relación Físico — 17 Tablas en PostgreSQL 16 (Prefijo tesis_).*
 
 No todas las tablas se llenan al crear el proyecto. Los capítulos y avances aparecen conforme el estudiante trabaja. Esto evita generar contenido ficticio o revisiones vacías solo para completar registros.
 
@@ -757,17 +740,11 @@ La selección no significa que MCP sea mejor para cualquier sistema. Se eligió 
 
 #### 6.7.1 Arquitectura implementada
 
-```mermaid
-flowchart TD
-    T["Tesista"] --> C["Cliente MCP o API REST"]
-    A["Asesor"] --> W["Django Admin / API / cliente MCP"]
-    C --> M["MCPServer / Django Ninja"]
-    W --> S["Servicios de dominio"]
-    M --> S
-    S --> V["Contratos Pydantic y reglas"]
-    S --> I["Adaptadores OpenAlex, Semantic Scholar y ALICIA"]
-    V --> P[("PostgreSQL 16")]
-```
+La arquitectura integral desacoplada del sistema TesisMCP se ilustra en la Figura 6.8:
+
+![Arquitectura de la Solución TesisMCP](./diagramas/00_arquitectura_sistema.png)
+
+*Figura 6.8: Arquitectura de la Solución TesisMCP — Backend Metodológico y Servidor MCP.*
 
 La API REST y el servidor MCP no implementan reglas académicas por separado. Ambos delegan en los mismos servicios. Así se evita que guardar desde MCP tenga reglas diferentes a guardar desde HTTP.
 

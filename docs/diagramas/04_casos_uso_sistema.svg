@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 850" width="1600" height="850">
+  <defs>
+    <marker id="arrow-open" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 7 5 L 0 8" fill="none" stroke="#000000" stroke-width="1.5"/>
+    </marker>
+    <style>
+      .sys-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #000000; letter-spacing: 0.05em; }
+      .actor-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #000000; text-anchor: middle; }
+      .actor-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10px; fill: #000000; text-anchor: middle; }
+      .uc-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #000000; text-anchor: middle; }
+      .uc-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10px; fill: #000000; text-anchor: middle; }
+      .rel-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 9.5px; font-style: italic; font-weight: bold; fill: #000000; text-anchor: middle; }
+      .line { stroke: #000000; stroke-width: 1.5; fill: none; }
+      .dashed-line { stroke: #000000; stroke-width: 1.2; stroke-dasharray: 5,4; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Fondo Blanco -->
+  <rect x="0" y="0" width="1600" height="850" fill="#ffffff"/>
+
+  <!-- ==================================================================== -->
+  <!-- LÍMITE DEL SISTEMA (System Boundary) -->
+  <!-- ==================================================================== -->
+  <rect x="260" y="30" width="1080" height="790" rx="4" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <text x="285" y="60" class="sys-title">SISTEMA TESISMCP (BACKEND DJANGO + SERVIDOR MCP + POSTGRESQL 16)</text>
+
+  <!-- ==================================================================== -->
+  <!-- ACTOR 1: TESISTA (Izquierda, centro en x=120) -->
+  <!-- ==================================================================== -->
+  <circle cx="120" cy="370" r="22" stroke="#000000" stroke-width="2.2" fill="#ffffff"/>
+  <line x1="120" y1="392" x2="120" y2="445" stroke="#000000" stroke-width="2.2"/>
+  <line x1="85" y1="412" x2="155" y2="412" stroke="#000000" stroke-width="2.2"/>
+  <line x1="120" y1="445" x2="90" y2="495" stroke="#000000" stroke-width="2.2"/>
+  <line x1="120" y1="445" x2="150" y2="495" stroke="#000000" stroke-width="2.2"/>
+
+  <rect x="50" y="515" width="140" height="26" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="120" y="533" class="actor-label">TESISTA</text>
+  <text x="120" y="555" class="actor-sub">Estudiante investigador</text>
+  <text x="120" y="568" class="actor-sub">Token MCP de redacción</text>
+
+  <!-- ==================================================================== -->
+  <!-- ACTOR 2: DOCENTE ASESOR (Derecha, centro en x=1480) -->
+  <!-- ==================================================================== -->
+  <circle cx="1480" cy="370" r="22" stroke="#000000" stroke-width="2.2" fill="#ffffff"/>
+  <line x1="1480" y1="392" x2="1480" y2="445" stroke="#000000" stroke-width="2.2"/>
+  <line x1="1445" y1="412" x2="1515" y2="412" stroke="#000000" stroke-width="2.2"/>
+  <line x1="1480" y1="445" x2="1450" y2="495" stroke="#000000" stroke-width="2.2"/>
+  <line x1="1480" y1="445" x2="1510" y2="495" stroke="#000000" stroke-width="2.2"/>
+
+  <rect x="1400" y="515" width="160" height="26" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="1480" y="533" class="actor-label">DOCENTE ASESOR</text>
+  <text x="1480" y="555" class="actor-sub">Profesor revisor metodológico</text>
+  <text x="1480" y="568" class="actor-sub">Token MCP de revisión y firma</text>
+
+  <!-- ==================================================================== -->
+  <!-- COLUMNA 1 (IZQUIERDA): CASOS DE USO DEL TESISTA (x=300 a 760, w=460) -->
+  <!-- ==================================================================== -->
+  <!-- CU01: Registrar Idea (Fila 1, y=85, h=105, centro y=137) -->
+  <rect x="300" y="85" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="530" y="130" class="uc-title">CU01: Registrar y Explorar Idea</text>
+  <text x="530" y="152" class="uc-desc">Herramientas MCP: registrar_idea, explorar_idea (P01)</text>
+
+  <!-- CU02: Consultar Literatura Científica (Fila 2, y=225, h=105, centro y=277) -->
+  <rect x="300" y="225" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="530" y="270" class="uc-title">CU02: Consultar Literatura Científica Externa</text>
+  <text x="530" y="292" class="uc-desc">OpenAlex, Semantic Scholar y ALICIA (Metadatos)</text>
+
+  <!-- CU03: Guardar Paso Metodológico (Fila 3, y=365, h=105, centro y=417) -->
+  <rect x="300" y="365" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="530" y="410" class="uc-title">CU03: Guardar Paso Metodológico (P01–P12)</text>
+  <text x="530" y="432" class="uc-desc">Validación SalidaEstricta + Concurrencia lock_version</text>
+
+  <!-- CU04: Enviar Capítulo a Revisión (Fila 4, y=505, h=105, centro y=557) -->
+  <rect x="300" y="505" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="530" y="550" class="uc-title">CU04: Enviar Capítulo a Revisión (READY)</text>
+  <text x="530" y="572" class="uc-desc">Guarda de dominio: requiere 100% de pasos completados</text>
+
+  <!-- CU05: Exportar Borrador Editable (Fila 5, y=645, h=105, centro y=697) -->
+  <rect x="300" y="645" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="530" y="690" class="uc-title">CU05: Exportar Borrador Editable (.docx)</text>
+  <text x="530" y="712" class="uc-desc">API REST /api/v1/projects/{id}/export/docx</text>
+
+  <!-- ==================================================================== -->
+  <!-- COLUMNA 2 (DERECHA): CASOS DE USO DEL ASESOR / REVISIÓN (x=840 a 1300, w=460) -->
+  <!-- ==================================================================== -->
+  <!-- CU06: Asignar Asesor (Fila 1, y=85, h=105, centro y=137) -->
+  <rect x="840" y="85" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="1070" y="130" class="uc-title">CU06: Asignar Asesor al Proyecto</text>
+  <text x="1070" y="152" class="uc-desc">Vínculo institucional entre docente y proyecto</text>
+
+  <!-- CU07: Observar Fragmento (Fila 2, y=225, h=105, centro y=277) -->
+  <rect x="840" y="225" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="1070" y="270" class="uc-title">CU07: Observar Fragmento de Texto</text>
+  <text x="1070" y="292" class="uc-desc">Comentarios anclados a revisión con start_cp y end_cp</text>
+
+  <!-- CU08: Resolver Observación (Fila 3, y=365, h=105, centro y=417) -->
+  <rect x="840" y="365" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="1070" y="410" class="uc-title">CU08: Resolver Observación (RESOLVED)</text>
+  <text x="1070" y="432" class="uc-desc">Subsanación por tesista y verificación por asesor</text>
+
+  <!-- CU09: Decidir Capítulo (Fila 4, y=505, h=105, centro y=557) -->
+  <rect x="840" y="505" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="1070" y="550" class="uc-title">CU09: Decidir Capítulo (Aprobar / Reabrir)</text>
+  <text x="1070" y="572" class="uc-desc">Aprobación (0 obs. abiertas) | Reabrir con motivo</text>
+
+  <!-- CU10: Consultar Estado y Matriz (Fila 5, y=645, h=105, centro y=697) -->
+  <rect x="840" y="645" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="1070" y="690" class="uc-title">CU10: Consultar Estado y Matriz de Consistencia</text>
+  <text x="1070" y="712" class="uc-desc">MCP: obtener_estado | Matriz relacional sincronizada</text>
+
+  <!-- ==================================================================== -->
+  <!-- LÍNEAS DE ASOCIACIÓN DEL TESISTA (DIRECTAS AL BORDE IZQUIERDO x=300) -->
+  <!-- Origen: Manos del Tesista en (155, 412) -->
+  <!-- ==================================================================== -->
+  <!-- Tesista -> CU01 -->
+  <line x1="155" y1="412" x2="300" y2="137" class="line"/>
+  <!-- Tesista -> CU02 -->
+  <line x1="155" y1="412" x2="300" y2="277" class="line"/>
+  <!-- Tesista -> CU03 -->
+  <line x1="155" y1="412" x2="300" y2="417" class="line"/>
+  <!-- Tesista -> CU04 -->
+  <line x1="155" y1="412" x2="300" y2="557" class="line"/>
+  <!-- Tesista -> CU05 -->
+  <line x1="155" y1="412" x2="300" y2="697" class="line"/>
+
+  <!-- ==================================================================== -->
+  <!-- LÍNEAS DE ASOCIACIÓN DEL DOCENTE ASESOR (DIRECTAS AL BORDE DERECHO x=1300) -->
+  <!-- Origen: Manos del Asesor en (1445, 412) -->
+  <!-- ==================================================================== -->
+  <!-- Asesor -> CU06 -->
+  <line x1="1445" y1="412" x2="1300" y2="137" class="line"/>
+  <!-- Asesor -> CU07 -->
+  <line x1="1445" y1="412" x2="1300" y2="277" class="line"/>
+  <!-- Asesor -> CU08 -->
+  <line x1="1445" y1="412" x2="1300" y2="417" class="line"/>
+  <!-- Asesor -> CU09 -->
+  <line x1="1445" y1="412" x2="1300" y2="557" class="line"/>
+  <!-- Asesor -> CU10 -->
+  <line x1="1445" y1="412" x2="1300" y2="697" class="line"/>
+
+  <!-- ==================================================================== -->
+  <!-- RELACIONES ENTRE CASOS DE USO (INTER-USE CASE EN EL ESPACIO CENTRAL) -->
+  <!-- ==================================================================== -->
+  <!-- CU03 (Guardar Paso) -> CU08 (Resolver Observación): <<extend>> -->
+  <line x1="760" y1="417" x2="838" y2="417" class="dashed-line" marker-end="url(#arrow-open)"/>
+  <rect x="768" y="398" width="64" height="16" fill="#ffffff"/>
+  <text x="800" y="410" class="rel-label">&lt;&lt;extend&gt;&gt;</text>
+
+  <!-- CU04 (Enviar Capítulo) -> CU09 (Decidir Capítulo): <<include>> -->
+  <line x1="760" y1="557" x2="838" y2="557" class="dashed-line" marker-end="url(#arrow-open)"/>
+  <rect x="766" y="538" width="68" height="16" fill="#ffffff"/>
+  <text x="800" y="550" class="rel-label">&lt;&lt;include&gt;&gt;</text>
+
+  <!-- CU07 (Observar Fragmento) -> CU08 (Resolver Observación): flujo hacia resolución -->
+  <path d="M 1070 330 L 1070 363" class="dashed-line" marker-end="url(#arrow-open)"/>
+  <rect x="1035" y="337" width="70" height="16" fill="#ffffff"/>
+  <text x="1070" y="349" class="rel-label">&lt;&lt;include&gt;&gt;</text>
+
+</svg>

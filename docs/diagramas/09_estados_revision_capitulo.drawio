@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_state" name="Estados_Revision_Capitulo_UML">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1150" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="s_draft" parent="1" value="&lt;b&gt;BORRADOR (DRAFT)&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;entry / habilitar_escritura_pasos()&lt;br/&gt;do / tesista_guarda_pasos(P01..P12)" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.8;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=10;fontColor=#000000;fontFamily=Arial;">
+          <mxGeometry x="120" y="130" width="230" height="100" as_="geometry" />
+        </mxCell>
+        <mxCell id="s_ready" parent="1" value="&lt;b&gt;ENVIADO (READY)&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;entry / bloquear_edicion_tesista()&lt;br/&gt;do / asesor_examina_capitulo()" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.8;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=10;fontColor=#000000;fontFamily=Arial;">
+          <mxGeometry x="490" y="130" width="240" height="100" as_="geometry" />
+        </mxCell>
+        <mxCell id="s_appr" parent="1" value="&lt;b&gt;APROBADO (APPROVED)&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;entry / registrar_aprobacion()&lt;br/&gt;do / congelar_version_oficial()" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.8;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=10;fontColor=#000000;fontFamily=Arial;">
+          <mxGeometry x="860" y="130" width="220" height="100" as_="geometry" />
+        </mxCell>
+        <mxCell id="s_chg" parent="1" value="&lt;b&gt;CAMBIOS SOLICITADOS&lt;/b&gt;&lt;br/&gt;&lt;hr/&gt;entry / listar_observaciones_abiertas()&lt;br/&gt;do / tesista_corrige_texto()" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.8;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=10;fontColor=#000000;fontFamily=Arial;">
+          <mxGeometry x="340" y="380" width="270" height="100" as_="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

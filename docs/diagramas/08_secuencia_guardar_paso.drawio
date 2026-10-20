@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="Antigravity" version="21.6.8" type="device">
+  <diagram id="diag_seq" name="Secuencia_Guardar_Paso_UML">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1150" pageHeight="780" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l1" parent="1" value=":Tesista&lt;br/&gt;(Cliente MCP/API)" vertex="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontSize=11;fontFamily=Arial;fontStyle=1;">
+          <mxGeometry x="60" y="50" width="160" height="620" as_="geometry" />
+        </mxCell>
+        <mxCell id="l2" parent="1" value=":ServicioPasos&lt;br/&gt;thesis.services" vertex="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontSize=11;fontFamily=Arial;fontStyle=1;">
+          <mxGeometry x="330" y="50" width="170" height="620" as_="geometry" />
+        </mxCell>
+        <mxCell id="l3" parent="1" value=":ContratosPydantic&lt;br/&gt;SalidaEstricta" vertex="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontSize=11;fontFamily=Arial;fontStyle=1;">
+          <mxGeometry x="610" y="50" width="170" height="620" as_="geometry" />
+        </mxCell>
+        <mxCell id="l4" parent="1" value=":PostgreSQL 16&lt;br/&gt;tesismcp_reducido" vertex="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontSize=11;fontFamily=Arial;fontStyle=1;">
+          <mxGeometry x="890" y="50" width="160" height="620" as_="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

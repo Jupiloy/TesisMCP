@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 740" width="1120" height="740">
+  <defs>
+    <marker id="arrow-solid" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#000000"/>
+    </marker>
+    <marker id="arrow-open" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 7 5 L 0 8" fill="none" stroke="#000000" stroke-width="1.5"/>
+    </marker>
+    <style>
+      .life-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #000000; text-anchor: middle; }
+      .life-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 9.5px; fill: #000000; text-anchor: middle; }
+      .msg-txt { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #000000; }
+      .frame-lbl { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10px; font-weight: bold; fill: #000000; }
+      .guard-txt { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10px; font-style: italic; fill: #000000; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1120" height="740" fill="#ffffff"/>
+
+  <!-- Encabezado del Diagrama -->
+  <text x="35" y="32" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#000000">DIAGRAMA DE SECUENCIA UML — GUARDADO DE UN PASO Y CONTROL DE CONCURRENCIA</text>
+  <line x1="35" y1="42" x2="1085" y2="42" stroke="#000000" stroke-width="1"/>
+
+  <!-- ==================================================================== -->
+  <!-- PARTICIPANTES / LÍNEAS DE VIDA -->
+  <!-- ==================================================================== -->
+  <!-- Participante 1: Tesista -->
+  <rect x="60" y="55" width="160" height="45" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="140" y="73" class="life-title">:Tesista</text>
+  <text x="140" y="88" class="life-sub">Cliente MCP / API REST</text>
+  <line x1="140" y1="100" x2="140" y2="690" stroke="#000000" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- Participante 2: StepService -->
+  <rect x="330" y="55" width="170" height="45" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="415" y="73" class="life-title">:ServicioPasos</text>
+  <text x="415" y="88" class="life-sub">thesis.services (Dominio)</text>
+  <line x1="415" y1="100" x2="415" y2="690" stroke="#000000" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- Participante 3: Contratos Pydantic -->
+  <rect x="610" y="55" width="170" height="45" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="695" y="73" class="life-title">:ContratosPydantic</text>
+  <text x="695" y="88" class="life-sub">SalidaEstricta (extra='forbid')</text>
+  <line x1="695" y1="100" x2="695" y2="690" stroke="#000000" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- Participante 4: PostgreSQL 16 -->
+  <rect x="890" y="55" width="160" height="45" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="970" y="73" class="life-title">:PostgreSQL 16</text>
+  <text x="970" y="88" class="life-sub">tesismcp_reducido_docente</text>
+  <line x1="970" y1="100" x2="970" y2="690" stroke="#000000" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- ==================================================================== -->
+  <!-- BARRAS DE ACTIVACIÓN -->
+  <!-- ==================================================================== -->
+  <rect x="134" y="115" width="12" height="550" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <rect x="409" y="125" width="12" height="530" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <rect x="689" y="160" width="12" height="60" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <rect x="964" y="275" width="12" height="185" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+  <rect x="964" y="550" width="12" height="40" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+
+  <!-- ==================================================================== -->
+  <!-- FLUJO DE MENSAJES SÍNCRONOS Y ASÍNCRONOS -->
+  <!-- ==================================================================== -->
+  <!-- Mensaje 1: Tesista -> ServicioPasos -->
+  <line x1="146" y1="130" x2="407" y2="130" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+  <text x="155" y="123" class="msg-txt">1: guardar_paso_servicio(id_proyecto, paso_codigo, salida_json, lock_version_esperada)</text>
+
+  <!-- Mensaje 2: ServicioPasos -> Contratos Pydantic -->
+  <line x1="421" y1="165" x2="687" y2="165" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+  <text x="430" y="158" class="msg-txt">2: validar_contrato(SalidaEstricta, extra="forbid")</text>
+
+  <!-- Mensaje 3: Contratos -> ServicioPasos (retorno) -->
+  <line x1="689" y1="210" x2="421" y2="210" stroke="#000000" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-open)"/>
+  <text x="470" y="203" class="msg-txt">3: contrato_valido(datos_tipados)</text>
+
+  <!-- Mensaje 4: ServicioPasos -> PostgreSQL (bloqueo y lectura concurrente) -->
+  <line x1="421" y1="260" x2="962" y2="260" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+  <text x="430" y="253" class="msg-txt">4: BEGIN &amp; SELECT FOR UPDATE lock_version FROM tesis_proyecto</text>
+
+  <!-- ==================================================================== -->
+  <!-- FRAGMENTO CONDICIONAL ALT (Concurrencia Optimista) -->
+  <!-- ==================================================================== -->
+  <rect x="75" y="285" width="990" height="360" fill="none" stroke="#000000" stroke-width="1.5"/>
+  <rect x="75" y="285" width="55" height="22" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+  <text x="102" y="300" text-anchor="middle" class="frame-lbl">alt</text>
+
+  <!-- Caso 1: Versión Válida -->
+  <text x="145" y="310" class="guard-txt">[lock_version_bd == lock_version_esperada: Versión vigente]</text>
+
+  <!-- Mensaje 5: Materialización en BD -->
+  <line x1="421" y1="335" x2="962" y2="335" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+  <text x="430" y="328" class="msg-txt">5: INSERT / UPDATE entidades (tesis_progreso, tesis_consistencia, tesis_variable)</text>
+
+  <!-- Mensaje 6: Creación de Revisión Inmutable -->
+  <line x1="421" y1="375" x2="962" y2="375" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+  <text x="430" y="368" class="msg-txt">6: INSERT tesis_revision_capitulo (historial append-only auditado)</text>
+
+  <!-- Mensaje 7: Incremento de Versión y Commit -->
+  <line x1="421" y1="415" x2="962" y2="415" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+  <text x="430" y="408" class="msg-txt">7: lock_version += 1 &amp; COMMIT TRANSACTION</text>
+
+  <!-- Mensaje 8: Retorno exitoso a Tesista -->
+  <line x1="409" y1="445" x2="148" y2="445" stroke="#000000" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-open)"/>
+  <text x="175" y="438" class="msg-txt">8: return PasoGuardadoDTO(id_revision, nueva_lock_version, status="COMPLETED")</text>
+
+  <!-- Línea divisoria del ALT -->
+  <line x1="75" y1="475" x2="1065" y2="475" stroke="#000000" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- Caso 2: Conflicto Concurrente -->
+  <text x="145" y="495" class="guard-txt">[lock_version_bd != lock_version_esperada: Conflicto detectado]</text>
+
+  <!-- Mensaje 9: Rollback en PostgreSQL -->
+  <line x1="421" y1="535" x2="962" y2="535" stroke="#000000" stroke-width="1.5" marker-end="url(#arrow-solid)"/>
+  <text x="430" y="528" class="msg-txt">9: ROLLBACK TRANSACTION (Cero modificaciones persistidas)</text>
+
+  <!-- Mensaje 10: Error devuelto al Tesista -->
+  <line x1="409" y1="575" x2="148" y2="575" stroke="#000000" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-open)"/>
+  <text x="175" y="568" class="msg-txt">10: raise VersionConflictException("VERSION_CONFLICT: Estado desactualizado")</text>
+
+  <rect x="175" y="595" width="460" height="24" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  <text x="405" y="611" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.5" fill="#000000">Garantía: La base de datos rechaza escrituras con versiones obsoletas de forma determinista.</text>
+</svg>
