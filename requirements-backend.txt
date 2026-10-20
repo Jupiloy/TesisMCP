@@ -1,3 +1,4 @@
+# TesisMCP — Dependencias de Backend y Protocolo MCP
 Django>=5.2,<5.3
 django-fsm>=3.0,<3.1
 django-ninja>=1.5,<1.6

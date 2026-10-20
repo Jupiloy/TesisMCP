@@ -18,10 +18,10 @@ Bienvenido a la documentación técnica en profundidad de **TesisMCP — Edició
    * Desglose de las 32 pruebas automatizadas, la puerta `verify_project.py` y un banco de preguntas y respuestas técnicas para sustentar el avance frente al docente.
 6. [**06. Evaluación Técnica Imparcial: PostgreSQL vs. NoSQL (`06_EVALUACION_POSTGRESQL_VS_NOSQL.md`)**](./06_EVALUACION_POSTGRESQL_VS_NOSQL.md)
    * Análisis neutral de arquitectura de datos (Relacional vs. Documental vs. Grafos vs. Clave-Valor), matriz de decisión ponderada, enfoque multimodelo (`JSONB`) y guía de defensa ante el profesor.
-7. [**07. Informe Base del Proyecto — Corte de Semana 10 (`07_INFORME_BASE_SEMANA_10.md`)**](./07_INFORME_BASE_SEMANA_10.md)
-   * Informe académico y técnico formal redactado para la entrega de Semana 10, con detalle de arquitectura, catálogo metodológico y justificaciones.
-8. [**Diagramas Oficiales en Blanco y Negro (`docs/diagramas/`)**](./diagramas/01_ishikawa_situacion_problematica.png)
-   * Los 7 diagramas oficiales del avance (`01` a `07`) en formato monocromático de alta resolución y archivos editables `.drawio` compatibles con [diagrams.net](https://app.diagrams.net/): Ishikawa, Lean Canvas, FODA, Casos de Uso UML, Modelo Conceptual ER, Modelo Lógico 3NF y DER Físico de 17 Tablas.
+7. [**07. Informe Base del Proyecto (Capítulos 1 al 3: `07_INFORME_BASE_SEMANA_10.md`)**](./07_INFORME_BASE_SEMANA_10.md)
+   * Informe académico y técnico formal del proyecto, con detalle de arquitectura, catálogo metodológico y justificaciones.
+8. [**Diagramas Oficiales en Blanco y Negro (`docs/diagramas/`)**](./diagramas/00_arquitectura_sistema.png)
+   * Diagrama general de Arquitectura del Sistema + los 7 diagramas metodológicos (`01` a `07`) en formato monocromático de alta resolución y archivos editables `.drawio` compatibles con [diagrams.net](https://app.diagrams.net/): Arquitectura, Ishikawa, Lean Canvas, FODA, Casos de Uso UML, Modelo Conceptual ER, Modelo Lógico 3NF y DER Físico de 17 Tablas.
 
 ---
 

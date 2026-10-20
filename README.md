@@ -1,8 +1,8 @@
-# TesisMCP — Avance de Semana 10 (Capítulos 1 al 3: P01 a P12)
+# TesisMCP — Plataforma de Formulación y Supervisión Metodológica de Tesis (Capítulos 1 al 3: P01 a P12)
 
-Esta carpeta contiene una implementación funcional y didáctica de **TesisMCP** acotada al **Avance de Semana 10 (Capítulos 1 al 3)** del Curso Integrador I: Sistemas - Software.
+Este repositorio contiene una implementación funcional y robusta de **TesisMCP** orientada a la formulación metodológica y supervisión de proyectos de grado en ingeniería de sistemas y software (Capítulos 1 al 3: P01 a P12). Es un proyecto de software en desarrollo y actualización continua.
 
-Conserva la arquitectura desacoplada real del proyecto (servidor MCP sobre `MCPServer` del SDK oficial `mcp`, API REST con Django Ninja, validación estricta con contratos Pydantic `SalidaEstricta` (`extra="forbid"`), control de concurrencia optimista `lock_version`, Matriz de Consistencia relacional, Matriz de Operacionalización de variables y máquina de estados de revisión del asesor con historial inmutable *append-only* mediante triggers PL/pgSQL y tokens SHA-256), delimitando el alcance a los primeros tres capítulos metodológicos.
+Conserva la arquitectura desacoplada real del proyecto (servidor MCP sobre `MCPServer` del SDK oficial `mcp`, API REST con Django Ninja, validación estricta con contratos Pydantic `SalidaEstricta` (`extra="forbid"`), control de concurrencia optimista `lock_version`, Matriz de Consistencia relacional, Matriz de Operacionalización de variables y máquina de estados de revisión del asesor con historial inmutable *append-only* mediante triggers PL/pgSQL y tokens SHA-256), delimitando el alcance inicial a los primeros tres capítulos metodológicos.
 
 Los servicios, contratos, alias públicos, tablas y columnas físicas están expresados en español. Algunas clases y atributos internos del ORM conservan su identidad inglesa para mantener compatibilidad de migraciones con el proyecto completo y con convenciones de Django; [`backend/thesis/models/__init__.py`](./backend/thesis/models/__init__.py) expone sus alias españoles y documenta la traducción física.
 
@@ -10,7 +10,7 @@ Los servicios, contratos, alias públicos, tablas y columnas físicas están exp
 
 ## 📚 Documentación Técnica en Profundidad (`docs/`)
 
-Para estudiar a fondo cómo está programado cada módulo, patrón de diseño y tabla de este avance, revisa la subcarpeta [`docs/`](./docs/00_INDICE_GUIA_ESTUDIO.md):
+Para estudiar a fondo cómo está programado cada módulo, patrón de diseño y tabla de este sistema, revisa la subcarpeta [`docs/`](./docs/00_INDICE_GUIA_ESTUDIO.md):
 
 1. [**00. Índice Maestro y Mapa Completo del Código**](./docs/00_INDICE_GUIA_ESTUDIO.md)
 2. [**01. Arquitectura en Capas y Patrones de Diseño Senior**](./docs/01_ARQUITECTURA_Y_PATRONES_DISENO.md)
@@ -19,14 +19,14 @@ Para estudiar a fondo cómo está programado cada módulo, patrón de diseño y 
 5. [**04. Servidor MCP (`MCPServer`), Prompts Hidratados e Integraciones Científicas**](./docs/04_SERVIDOR_MCP_E_INTEGRACIONES.md)
 6. [**05. Suite de Pruebas, Puerta DoD y Guía de Defensa Docente**](./docs/05_PRUEBAS_AUDITORIA_Y_DEFENSA_DOCENTE.md)
 7. [**06. Evaluación Técnica Imparcial: PostgreSQL vs. NoSQL**](./docs/06_EVALUACION_POSTGRESQL_VS_NOSQL.md)
-8. [**07. Informe Base del Proyecto — Corte de Semana 10**](./docs/07_INFORME_BASE_SEMANA_10.md)
-9. [**Diagramas Oficiales en Blanco y Negro (`docs/diagramas/`)**](./docs/diagramas/01_ishikawa_situacion_problematica.png) (7 diagramas con PNG y `.drawio` editable)
+8. [**07. Informe Base del Proyecto (Capítulos 1 al 3)**](./docs/07_INFORME_BASE_SEMANA_10.md)
+9. [**Diagramas Oficiales en Blanco y Negro (`docs/diagramas/`)**](./docs/diagramas/00_arquitectura_sistema.png) (Arquitectura + 7 diagramas con PNG y `.drawio` editable)
 
 ---
 
 ## 📌 Alcance Funcional Implementado (Capítulos 1 al 3)
 
-| Dimensión | Implementado en este Avance | Planificado para Siguientes Entregas (Cap. 4–7) |
+| Dimensión | Implementado Actualmente (Fase 1: Cap. 1–3) | Planificado para Siguientes Módulos (Cap. 4–7) |
 | :--- | :--- | :--- |
 | **Capítulos habilitados** | **Capítulos 1, 2 y 3** (`CheckConstraint 1..3`) | Capítulos 4 (Literatura), 5 (Marco Teórico), 6 (Metodología) y 7 (Instrumentos) |
 | **Pasos metodológicos** | **12 pasos (`P01` a `P12`)** con contratos Pydantic estrictos | Pasos `P13` a `P32` (PRISMA, marco conceptual, diseño e instrumentos) |
@@ -55,39 +55,13 @@ Para estudiar a fondo cómo está programado cada módulo, patrón de diseño y 
 
 ---
 
-## 🏗️ Arquitectura del Avance
+## 🏗️ Arquitectura del Sistema
 
-```mermaid
-flowchart TD
-    subgraph Clientes["Capas de Cliente"]
-        WebUI["💻 Panel Admin y Clientes HTTP<br>(Django Admin - 15 modelos)"]
-        AIClient["🤖 Cliente LLM Asistido<br>(Claude Desktop / Cursor IDE)"]
-    end
+![Arquitectura del Sistema](./docs/diagramas/00_arquitectura_sistema.png)
 
-    subgraph Protocolo["Capa de Comunicación"]
-        MCP["🔌 Servidor MCP (MCPServer)<br>17 herramientas + 15 prompts (P01-P12 + 3 roles)"]
-        REST["🌐 API REST OpenAPI<br>/api/v1/ (Django Ninja)"]
-    end
+*Figura 0.1: Arquitectura del Sistema TesisMCP — Capas de Cliente, Comunicación MCP/REST, Núcleo Transaccional y Persistencia Relacional.*
 
-    subgraph Backend["Núcleo Transaccional (Capítulos 1 al 3)"]
-        Bridge["django_bridge.py + mcp_auth.py<br>(Token SHA-256)"]
-        Services["thesis.services<br>(Contratos P01-P12 + consistency.py + reviews.py)"]
-        Discovery["Integradores de Exploración<br>(OpenAlex, Semantic Scholar, ALICIA Perú)"]
-    end
-
-    subgraph Persistencia["PostgreSQL 16 (tesismcp_reducido_docente)"]
-        DB[("📦 15 Modelos / 17 Tablas Físicas en Español<br>Matriz de Consistencia + Variables + Capítulos 1..3")]
-    end
-
-    AIClient <-->|JSON-RPC stdio| MCP
-    MCP --> Bridge
-    Bridge --> Services
-    WebUI --> Services
-    AIClient <-->|HTTP JSON| REST
-    REST --> Services
-    Services --> Discovery
-    Services --> DB
-```
+> 💡 **Nota de Edición:** El archivo editable de este diagrama se encuentra disponible en formato Draw.io en [`docs/diagramas/00_arquitectura_sistema.drawio`](./docs/diagramas/00_arquitectura_sistema.drawio).
 
 ---
 

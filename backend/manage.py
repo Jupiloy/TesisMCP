@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# TesisMCP — Interfaz de Línea de Comandos Django
 import os
 import sys
 

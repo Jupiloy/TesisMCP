@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 scripts/verify_project.py - Barrera Automática Determinista de Finalización (DoD Gate)
-para TesisMCP (Edición Avance Capítulos 1 al 3: P01 a P12).
+para TesisMCP (Plataforma Metodológica: Capítulos 1 al 3: P01 a P12).
 
 Comprobaciones ejecutadas:
 1. Integridad del Sistema Django: manage.py check sin errores.

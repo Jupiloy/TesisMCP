@@ -1,3 +1,4 @@
+# TesisMCP — Orquestación de Servicios (PostgreSQL 16, Backend API y Servidor MCP)
 services:
   postgres:
     image: postgres:16

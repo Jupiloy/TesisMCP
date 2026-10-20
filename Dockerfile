@@ -1,3 +1,4 @@
+# TesisMCP — Imagen de Contenedor para Backend y Servidor MCP
 FROM python:3.14-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1

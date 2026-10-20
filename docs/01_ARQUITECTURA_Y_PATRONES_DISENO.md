@@ -6,6 +6,10 @@ Este documento explica cómo está estructurada la ingeniería interna de `versi
 
 ## 1. Diagrama General de Arquitectura en 5 Capas
 
+![Arquitectura del Sistema](./diagramas/00_arquitectura_sistema.png)
+
+*Figura 0.1: Arquitectura del Sistema TesisMCP — Capas de Cliente, Comunicación MCP/REST, Núcleo Transaccional y Persistencia Relacional.*
+
 El sistema sigue una **Arquitectura Limpia / En Capas (*Layered Architecture*)** con **Doble Puerta de Entrada (API REST + Protocolo MCP)**. Ningún controlador web ni herramienta MCP escribe directamente en la base de datos: ambos convergen en la misma **Capa de Servicios de Dominio**.
 
 ```mermaid
