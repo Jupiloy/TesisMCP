@@ -10,7 +10,7 @@ Modela el ciclo de vida, avance de pasos y la supervisión docente del trabajo d
 
 ## 2. Justificación Técnica y ¿Por qué lo hace?
 * **Inmutabilidad y Trazabilidad:** Las evaluaciones académicas exigen que ni el estudiante ni el docente puedan alterar el texto de una entrega pasada ni borrar los comentarios realizados.
-* **Protección contra Alucinaciones de Alcance:** La restricción `CheckConstraint(check=Q(numero__gte=1, numero__lte=3))` garantiza en el motor PostgreSQL que ningún proceso pueda crear capítulos 4 al 7 en la versión reducida V1.
+* **Protección del alcance vigente:** La restricción `CheckConstraint(check=Q(numero__gte=1, numero__lte=3))` garantiza en PostgreSQL que ningún proceso pueda crear capítulos 4 al 7 antes de que esos incrementos se implementen formalmente.
 * **Observaciones Ancladas:** A diferencia de comentarios genéricos de fin de documento, el modelo ancla las observaciones al fragmento exacto del manuscrito, calculando rangos positivos.
 
 ## 3. Mecanismo Interno y ¿Cómo lo hace?
@@ -29,5 +29,5 @@ Modela el ciclo de vida, avance de pasos y la supervisión docente del trabajo d
 
 ## 5. Relaciones con Otras Capas y Tablas
 * **Tablas Físicas en PostgreSQL:** `tesis_progreso_paso`, `tesis_capitulo`, `tesis_revision_capitulo`, `tesis_comentario_revision`, `tesis_evento_revision`.
-* **Triggers PL/pgSQL:** `tesis_revision_capitulo` y `tesis_evento_revision` están protegidas contra `UPDATE` y `DELETE` por los disparadores instalados en [`0002_inmutabilidad_espanol.py`](../../backend/thesis/migrations/0002_inmutabilidad_espanol.py).
-* **Máquina de Estados:** Operado por [`backend/thesis/services/reviews.py`](../../backend/thesis/services/reviews.py).
+* **Triggers PL/pgSQL:** `tesis_revision_capitulo` y `tesis_evento_revision` están protegidas contra `UPDATE` y `DELETE` por los disparadores instalados en [`0002_integridad_esquema.py`](../../backend/thesis/migrations/0002_integridad_esquema.py).
+* **Máquina de Estados:** Operado por [`backend/thesis/services/revisiones.py`](../../backend/thesis/services/revisiones.py).

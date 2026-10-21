@@ -13,7 +13,7 @@ Es el **punto de entrada principal del Servidor Model Context Protocol (MCP)** d
    - `estado_servidor()`: Devuelve estado `ACTIVO`, versión `0.1.0`, capítulos disponibles `[1, 2, 3]`, total de pasos (`12`) y prompts (`15`).
    - `listar_pasos_mvp()`: Consulta `CATALOGO_PASOS` y retorna la lista ordenada de `P01` a `P12`.
    - `consultar_detalle_paso(codigo_paso)`: Devuelve la definición completa del paso; si se consulta `P13` o superior, devuelve un error controlado de alcance.
-3. Invoca `registrar_herramientas_proyecto(app)` para anexar las 14 herramientas de `project_tools.py`.
+3. Invoca `registrar_herramientas_proyecto(app)` para anexar las 14 herramientas de `herramientas_proyecto.py`.
 4. Invoca `registrar_prompts(app)` para montar los 15 prompts dinámicos.
 5. Provee el bloque `if __name__ == '__main__': app.run()` usando transporte `stdio`.
 
@@ -24,6 +24,6 @@ Es el **punto de entrada principal del Servidor Model Context Protocol (MCP)** d
 * `consultar_detalle_paso(...)`: Herramienta de detalle metodológico.
 
 ## 5. Relaciones con Otras Capas y Tablas
-* **Catálogo:** Lee [`backend/thesis/step_catalogue.py`](../../backend/thesis/step_catalogue.py).
-* **Módulos MCP:** Agrupa [`project_tools.py`](./project_tools.md) y [`prompts/catalog.py`](./prompts/catalog.md).
-* **Simulación:** Ejecutado por [`mcp_server/test_local.py`](./test_local.md).
+* **Catálogo:** Lee [`backend/thesis/catalogo_pasos.py`](../../backend/thesis/catalogo_pasos.py).
+* **Módulos MCP:** Agrupa [`herramientas_proyecto.py`](./herramientas_proyecto.md) y [`prompts/catalogo.py`](./prompts/catalogo.md).
+* **Simulación:** Ejecutado por [`mcp_server/prueba_local.py`](./prueba_local.md).

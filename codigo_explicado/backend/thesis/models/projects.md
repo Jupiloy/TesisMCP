@@ -30,4 +30,4 @@ Modela la entidad central del sistema: el `Proyecto` de tesis (`tesis_proyecto`)
 ## 5. Relaciones con Otras Capas y Tablas
 * **Tablas Físicas:** `tesis_proyecto` y `tesis_participante_proyecto`.
 * **Relaciones 1:1 y 1:N:** El proyecto es propietario de [`PerfilInvestigacion`](../../backend/thesis/models/research.py), [`FilaConsistencia`](../../backend/thesis/models/research.py), [`Capitulo`](../../backend/thesis/models/chapters.py) y [`ProgresoPaso`](../../backend/thesis/models/chapters.py).
-* **Control de Acceso:** Validado en cada petición por [`backend/thesis/services/access.py`](../../backend/thesis/services/access.py).
+* **Control de Acceso:** Validado en cada petición por [`backend/thesis/services/acceso.py`](../../backend/thesis/services/acceso.py).

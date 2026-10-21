@@ -27,5 +27,5 @@ Contiene los modelos del **núcleo metodológico y científico** de la tesis par
 
 ## 5. Relaciones con Otras Capas y Tablas
 * **Tablas Físicas en PostgreSQL:** `tesis_perfil_investigacion`, `tesis_fila_consistencia`, `tesis_variable_investigacion`, `tesis_variable_fila_consistencia`, `tesis_dimension_variable`, `tesis_indicador`.
-* **Materialización:** Poblado atómicamente por [`backend/thesis/services/step_materializers/consistency.py`](../../backend/thesis/services/step_materializers/consistency.py) al ejecutar `P06`, `P09`, `P10`, `P11` y `P12`.
-* **Hidratación de Prompts:** Leído en vivo por [`mcp_server/prompts/hydration.py`](../../mcp_server/prompts/hydration.py) para inyectar contexto real en los prompts del LLM.
+* **Materialización:** Poblado atómicamente por [`backend/thesis/services/materializadores_pasos/consistencia.py`](../../backend/thesis/services/materializadores_pasos/consistencia.py) al ejecutar `P06`, `P09`, `P10`, `P11` y `P12`.
+* **Hidratación de Prompts:** Leído en vivo por [`mcp_server/prompts/hidratacion.py`](../../mcp_server/prompts/hidratacion.py) para inyectar contexto real en los prompts del LLM.

@@ -20,21 +20,21 @@ from thesis.models import (
     Usuario,
     DimensionVariable,
 )
-from thesis.services.errors import ErrorDominio
-from thesis.services.reviews import decidir_capitulo_servicio
+from thesis.services.errores import ErrorDominio
+from thesis.services.revisiones import decidir_capitulo_servicio
 
 
 class AdminLimitadoAsesor:
-    project_lookup = "project"
+    consulta_proyecto = "project"
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         if request.user.is_superuser:
             return queryset
         return queryset.filter(**{
-            f"{self.project_lookup}__participants__user": request.user,
-            f"{self.project_lookup}__participants__role": ParticipanteProyecto.Role.ADVISOR,
-            f"{self.project_lookup}__participants__active": True,
+            f"{self.consulta_proyecto}__participants__user": request.user,
+            f"{self.consulta_proyecto}__participants__role": ParticipanteProyecto.Role.ASESOR,
+            f"{self.consulta_proyecto}__participants__active": True,
         }).distinct()
 
 
@@ -99,14 +99,14 @@ class AdminVariableInvestigacion(AdminLimitadoAsesor, SoloLecturaParaAsesores, M
 
 @admin.register(DimensionVariable)
 class AdminDimensionVariable(AdminLimitadoAsesor, SoloLecturaParaAsesores, ModelAdmin):
-    project_lookup = "variable__project"
+    consulta_proyecto = "variable__project"
     list_display = ("variable", "ordinal", "name")
     search_fields = ("variable__name", "name")
 
 
 @admin.register(Indicador)
 class AdminIndicador(AdminLimitadoAsesor, SoloLecturaParaAsesores, ModelAdmin):
-    project_lookup = "dimension__variable__project"
+    consulta_proyecto = "dimension__variable__project"
     list_display = ("dimension", "ordinal", "name", "measurement_scale")
     list_filter = ("measurement_scale",)
     search_fields = ("dimension__name", "name")
@@ -135,19 +135,24 @@ class AdminCapitulo(AdminLimitadoAsesor, ModelAdmin):
 
     @admin.action(description="Aprobar capítulos seleccionados sin observaciones abiertas")
     def aprobar_seleccionados(self, request, queryset):
-        for chapter in queryset:
+        for capitulo in queryset:
             try:
-                decidir_capitulo_servicio(request.user, chapter.project_id, chapter.number, EventoRevision.Action.APPROVE)
+                decidir_capitulo_servicio(request.user, capitulo.project_id, capitulo.number, EventoRevision.Action.APROBAR)
             except ErrorDominio as exc:
-                self.message_user(request, f"{chapter}: {exc.message}", level=messages.ERROR)
+                self.message_user(request, f"{capitulo}: {exc.mensaje}", level=messages.ERROR)
 
     @admin.action(description="Solicitar cambios en capítulos con observaciones abiertas")
     def solicitar_cambios_seleccionados(self, request, queryset):
-        for chapter in queryset:
+        for capitulo in queryset:
             try:
-                decidir_capitulo_servicio(request.user, chapter.project_id, chapter.number, EventoRevision.Action.REQUEST_CHANGES)
+                decidir_capitulo_servicio(
+                    request.user,
+                    capitulo.project_id,
+                    capitulo.number,
+                    EventoRevision.Action.SOLICITAR_CAMBIOS,
+                )
             except ErrorDominio as exc:
-                self.message_user(request, f"{chapter}: {exc.message}", level=messages.ERROR)
+                self.message_user(request, f"{capitulo}: {exc.mensaje}", level=messages.ERROR)
 
     def has_add_permission(self, request):
         return False
@@ -158,7 +163,7 @@ class AdminCapitulo(AdminLimitadoAsesor, ModelAdmin):
 
 @admin.register(RevisionCapitulo)
 class AdminRevisionCapitulo(AdminLimitadoAsesor, ModelAdmin):
-    project_lookup = "chapter__project"
+    consulta_proyecto = "chapter__project"
     list_display = ("chapter", "revision_no", "step_code", "created_by", "created_at")
     readonly_fields = ("chapter", "revision_no", "step_code", "idempotency_key", "content_md",
                        "content_sha256", "created_by", "created_at")
@@ -172,7 +177,7 @@ class AdminRevisionCapitulo(AdminLimitadoAsesor, ModelAdmin):
 
 @admin.register(ComentarioRevision)
 class AdminComentarioRevision(AdminLimitadoAsesor, ModelAdmin):
-    project_lookup = "revision__chapter__project"
+    consulta_proyecto = "revision__chapter__project"
     list_display = ("revision", "author", "status", "created_at")
     list_filter = ("status",)
     readonly_fields = ("revision", "author", "start_cp", "end_cp", "selected_text", "body",
@@ -187,7 +192,7 @@ class AdminComentarioRevision(AdminLimitadoAsesor, ModelAdmin):
 
 @admin.register(EventoRevision)
 class AdminEventoRevision(AdminLimitadoAsesor, ModelAdmin):
-    project_lookup = "chapter__project"
+    consulta_proyecto = "chapter__project"
     list_display = ("chapter", "action", "actor", "created_at")
     readonly_fields = ("chapter", "revision", "actor", "action", "reason", "created_at")
 

@@ -20,4 +20,4 @@ En una plataforma académica donde se evalúan tesis universitarias, las actas d
 
 ## 5. Relaciones con Otras Capas y Tablas
 * **Modelos:** Protege [`RevisionCapitulo`](../../backend/thesis/models/chapters.py) (`tesis_revision_capitulo`) y [`EventoRevision`](../../backend/thesis/models/chapters.py) (`tesis_evento_revision`).
-* **Base de Datos:** Se alinea con los triggers instalados en [`0002_inmutabilidad_espanol.py`](../../backend/thesis/migrations/0002_inmutabilidad_espanol.py).
+* **Base de Datos:** Se alinea con los triggers instalados en [`0002_integridad_esquema.py`](../../backend/thesis/migrations/0002_integridad_esquema.py).

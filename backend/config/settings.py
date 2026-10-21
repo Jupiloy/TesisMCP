@@ -75,10 +75,10 @@ def configuracion_postgres(url: str) -> dict:
 
 DATABASES = {"default": configuracion_postgres(os.getenv(
     "DATABASE_URL",
-    "postgresql://tesismcp:tesismcp_local@127.0.0.1:5434/tesismcp_reducido_docente",
+    "postgresql://tesismcp:tesismcp_local@127.0.0.1:5434/tesismcp",
 ))}
 DATABASES["default"]["TEST"] = {
-    "NAME": os.getenv("POSTGRES_TEST_DB", "test_tesismcp_reducido_docente"),
+    "NAME": os.getenv("POSTGRES_TEST_DB", "test_tesismcp"),
 }
 
 LANGUAGE_CODE = "es-pe"
@@ -95,6 +95,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
+CSRF_FAILURE_VIEW = "config.api.respuesta_error_csrf"
 SECURE_SSL_REDIRECT = not DEBUG
 if os.getenv("DJANGO_TRUST_PROXY_SSL", "0") == "1":
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

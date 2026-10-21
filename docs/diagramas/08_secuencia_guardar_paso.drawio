@@ -14,7 +14,7 @@
         <mxCell id="l3" parent="1" value=":ContratosPydantic&lt;br/&gt;SalidaEstricta" vertex="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontSize=11;fontFamily=Arial;fontStyle=1;">
           <mxGeometry x="610" y="50" width="170" height="620" as_="geometry" />
         </mxCell>
-        <mxCell id="l4" parent="1" value=":PostgreSQL 16&lt;br/&gt;tesismcp_reducido" vertex="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontSize=11;fontFamily=Arial;fontStyle=1;">
+        <mxCell id="l4" parent="1" value=":PostgreSQL 16&lt;br/&gt;tesismcp" vertex="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;fontSize=11;fontFamily=Arial;fontStyle=1;">
           <mxGeometry x="890" y="50" width="160" height="620" as_="geometry" />
         </mxCell>
       </root>

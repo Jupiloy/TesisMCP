@@ -12,11 +12,11 @@ def salud(request):
             cursor.execute("SELECT 1")
             cursor.fetchone()
     except Exception:
-        return JsonResponse({"status": "unavailable"}, status=503)
-    return JsonResponse({"status": "ok"})
+        return JsonResponse({"estado": "NO_DISPONIBLE"}, status=503)
+    return JsonResponse({"estado": "DISPONIBLE"})
 
 urlpatterns = [
-    path("health/", salud),
+    path("salud/", salud),
     path("admin/", admin.site.urls),
     path("api/v1/", api.urls),
 ]

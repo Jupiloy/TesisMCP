@@ -15,5 +15,5 @@ Semantic Scholar destaca en el área de ingeniería de software e inteligencia a
 * `buscar_articulos_semantic_scholar(query: str, limit: int = 10, year_range: str = None) -> list[dict]`.
 
 ## 5. Relaciones con Otras Capas y Tablas
-* **Servicios:** Consumido por [`backend/thesis/services/discovery.py`](../../backend/thesis/services/discovery.py).
-* **Herramienta MCP:** Invocado por `buscar_semantic_scholar` en [`mcp_server/project_tools.py`](../../mcp_server/project_tools.py).
+* **Servicios:** Consumido por [`backend/thesis/services/descubrimiento.py`](../../backend/thesis/services/descubrimiento.py).
+* **Herramienta MCP:** Invocado por `buscar_semantic_scholar` en [`mcp_server/herramientas_proyecto.py`](../../mcp_server/herramientas_proyecto.py).

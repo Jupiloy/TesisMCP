@@ -16,9 +16,9 @@ Al responder a esta solicitud, debes estructurar tu pensamiento e interacción e
 * Solicita evidencia documental con páginas físicas; la coincidencia literal no sustituye la revisión crítica del significado.
 
 ### 3️⃣ Fase 3: Revisor de Contratos (Preformateo y Persistencia Determinista)
-* Una vez que el tesista dé su conformidad al texto redactado (`content_md`), estructura el objeto JSON de salida (`output_data`).
+* Una vez que el tesista dé su conformidad al texto redactado (`contenido_md`), estructura el objeto JSON de salida (`datos_salida`).
 * Verifica que cumpla estrictamente con el esquema Pydantic correspondiente del paso, sin campos adicionales (`extra="forbid"`).
-* Proporciona la llamada exacta a la herramienta MCP `guardar_paso` utilizando el `expected_version` actual de la base de datos para garantizar la inmutabilidad y evitar conflictos de concurrencia.
+* Proporciona la llamada exacta a la herramienta MCP `guardar_paso` utilizando la `version_esperada` actual para garantizar la inmutabilidad y evitar conflictos de concurrencia.
 """
 
 ROLES_DIRECTIVAS = {
@@ -46,9 +46,9 @@ Tus responsabilidades son:
 ### Rol: Revisor de Contratos y Esquemas Pydantic
 Eres el auditor de integridad de datos del circuito cerrado Zero-LLM de TesisMCP.
 Tus responsabilidades son:
-1. Garantizar que la salida estructurada (`output_data`) encaje con precisión milimétrica en el contrato Pydantic del paso.
+1. Garantizar que la salida estructurada (`datos_salida`) encaje con precisión milimétrica en el contrato Pydantic del paso.
 2. Validar que no existan atributos inexistentes (configuración `extra="forbid"` activa en el backend).
 3. Asegurar que los conteos de caracteres y palabras no excedan los límites institucionales.
-4. Instruir la llamada a la herramienta MCP `guardar_paso` con un `idempotency_key` tipo UUIDv4 y el `expected_version` correspondiente al `lock_version` de PostgreSQL.
+4. Instruir la llamada a la herramienta MCP `guardar_paso` con una `clave_idempotencia` tipo UUIDv4 y la `version_esperada` correspondiente a la `version_estado` actual.
 """
 }

@@ -4,7 +4,7 @@
 Es el script ejecutable de administración por línea de comandos para el backend Django. Configura el entorno de ejecución, define la variable de entorno `DJANGO_SETTINGS_MODULE` apuntando a `config.settings` y delega la ejecución de comandos (migraciones, pruebas, chequeos de salud y comandos personalizados) en `execute_from_command_line` de Django.
 
 ## 2. Justificación Técnica y ¿Por qué lo hace?
-En proyectos Django desacoplados de gran escala, el punto de entrada administrativo no debe contener lógica de negocio ni código espurio. Permite a desarrolladores, contenedores Docker y scripts de verificación automatizada invocar utilidades del sistema (`check`, `migrate`, `makemigrations`, `issue_mcp_token`) manteniendo consistencia en la carga de módulos.
+En proyectos Django desacoplados de gran escala, el punto de entrada administrativo no debe contener lógica de negocio ni código espurio. Permite a desarrolladores, contenedores Docker y scripts de verificación automatizada invocar utilidades del sistema (`check`, `migrate`, `makemigrations`, `emitir_token_mcp`) manteniendo consistencia en la carga de módulos.
 
 ## 3. Mecanismo Interno y ¿Cómo lo hace?
 1. Define la función principal `main()`.
@@ -19,5 +19,5 @@ En proyectos Django desacoplados de gran escala, el punto de entrada administrat
 
 ## 5. Relaciones con Otras Capas y Tablas
 * **Configuración:** Carga directamente [`backend/config/settings.py`](../../backend/config/settings.py).
-* **Comandos personalizados:** Descubre automáticamente comandos en `backend/thesis/management/commands/` como [`issue_mcp_token.py`](../../backend/thesis/management/commands/issue_mcp_token.py).
+* **Comandos personalizados:** Descubre automáticamente comandos en `backend/thesis/management/commands/` como [`emitir_token_mcp.py`](../../backend/thesis/management/commands/emitir_token_mcp.py).
 * **Automatización:** Es invocado por la puerta determinista [`scripts/verify_project.py`](../../scripts/verify_project.py) para auditar `check` y `makemigrations`.

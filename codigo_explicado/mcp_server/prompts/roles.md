@@ -18,4 +18,4 @@ Provee cadenas de texto formateadas con directrices operativas, límites deontol
 * `TEXTO_REVISOR_CONTRATOS`: Instrucciones de validación de contratos JSON.
 
 ## 5. Relaciones con Otras Capas y Tablas
-* **Catálogo:** Registrado en [`mcp_server/prompts/catalog.py`](./catalog.md).
+* **Catálogo:** Registrado en [`mcp_server/prompts/catalogo.py`](./catalogo.md).

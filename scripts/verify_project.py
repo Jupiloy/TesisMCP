@@ -12,7 +12,7 @@ Comprobaciones ejecutadas:
 5. Higiene de Repositorio: sin archivos sobredimensionados ni temporales.
 6. Consistencia Código vs. Documentación:
    - Modelos Django exactos (15)
-   - Migraciones activas (2)
+   - Migraciones activas (3)
    - Pasos metodológicos P01-P12 (12, Capítulos 1 al 3)
    - Herramientas MCP (17) y Prompts MCP (15)
    - Enlaces internos en Markdown 100% válidos (0 rotos)
@@ -113,7 +113,7 @@ class SuiteVerificacion:
         details = "0 discrepancias entre modelos y archivos de migración" if passed else (err or out).strip()[:200]
         self.registrar_resultado("Integridad Django", "makemigrations --check --dry-run", passed, details, elapsed)
 
-    def verificar_esquema_fisico_espanol(self):
+    def verificar_esquema_fisico(self):
         t0 = time.time()
         errors = []
 
@@ -132,11 +132,11 @@ class SuiteVerificacion:
                 errors.append(
                     f"Contrato ORM inesperado: {len(tablas_esperadas)} tablas, esperadas 17"
                 )
-            tablas_no_espanolas = sorted(
+            tablas_no_canonicas = sorted(
                 tabla for tabla in tablas_esperadas if not tabla.startswith("tesis_")
             )
-            if tablas_no_espanolas:
-                errors.append(f"Tablas ORM sin prefijo español: {tablas_no_espanolas}")
+            if tablas_no_canonicas:
+                errors.append(f"Tablas ORM sin prefijo español: {tablas_no_canonicas}")
 
             columnas_esperadas = {
                 modelo._meta.db_table: {campo.column for campo in modelo._meta.local_fields}
@@ -187,11 +187,11 @@ class SuiteVerificacion:
                       AND NOT starts_with(con.conname, 'tesis_')
                     """
                 )
-                restricciones_no_espanolas = [fila[0] for fila in cursor.fetchall()]
-                if restricciones_no_espanolas:
+                restricciones_no_canonicas = [fila[0] for fila in cursor.fetchall()]
+                if restricciones_no_canonicas:
                     errors.append(
                         "Restricciones propias sin nombre español: "
-                        f"{restricciones_no_espanolas[:5]}"
+                        f"{restricciones_no_canonicas[:5]}"
                     )
 
                 cursor.execute(
@@ -203,10 +203,10 @@ class SuiteVerificacion:
                       AND NOT starts_with(indexname, 'tesis_')
                     """
                 )
-                indices_no_espanoles = [fila[0] for fila in cursor.fetchall()]
-                if indices_no_espanoles:
+                indices_no_canonicos = [fila[0] for fila in cursor.fetchall()]
+                if indices_no_canonicos:
                     errors.append(
-                        f"Índices propios sin nombre español: {indices_no_espanoles[:5]}"
+                        f"Índices propios sin nombre español: {indices_no_canonicos[:5]}"
                     )
 
                 cursor.execute(
@@ -222,13 +222,13 @@ class SuiteVerificacion:
                     """
                 )
                 disparadores = dict(cursor.fetchall())
-                disparadores_no_espanoles = [
+                disparadores_no_canonicos = [
                     nombre for nombre in disparadores if not nombre.startswith("tesis_")
                 ]
-                if disparadores_no_espanoles:
+                if disparadores_no_canonicos:
                     errors.append(
                         "Disparadores propios sin nombre español: "
-                        f"{disparadores_no_espanoles}"
+                        f"{disparadores_no_canonicos}"
                     )
 
                 disparadores_esperados = {
@@ -284,12 +284,12 @@ class SuiteVerificacion:
         passed = (
             code == 0
             and "failed" not in out.lower()
-            and cantidad == 32
+            and cantidad == 34
         )
         details = (
-            "Suite de pruebas superada al 100% (32 pruebas en verde)"
+            "Suite de pruebas superada al 100% (34 pruebas en verde)"
             if passed
-            else f"Se esperaban 32 pruebas aprobadas; detectadas={cantidad}; {(err or out).strip()[:160]}"
+            else f"Se esperaban 34 pruebas aprobadas; detectadas={cantidad}; {(err or out).strip()[:160]}"
         )
         self.registrar_resultado("Pruebas Unitarias/Integración", "Pytest Suite Completa", passed, details, elapsed)
 
@@ -393,11 +393,11 @@ class SuiteVerificacion:
             errors.append(f"Error importando modelos Django: {e}")
 
         mig_files = list((ROOT_DIR / "backend" / "thesis" / "migrations").glob("0*.py"))
-        if len(mig_files) != 2:
-            errors.append(f"Migraciones discrepantes: encontradas {len(mig_files)}, esperadas 2")
+        if len(mig_files) != 3:
+            errors.append(f"Migraciones discrepantes: encontradas {len(mig_files)}, esperadas 3")
 
         try:
-            import thesis.step_catalogue as sc
+            import thesis.catalogo_pasos as sc
             steps_count = len(sc.CATALOGO_PASOS)
             chapters = sorted({info["capitulo"] for info in sc.CATALOGO_PASOS.values()})
             if steps_count != 12 or chapters != [1, 2, 3]:
@@ -457,10 +457,10 @@ class SuiteVerificacion:
 
         settings_text = (ROOT_DIR / "backend" / "config" / "settings.py").read_text(encoding="utf-8")
         compose_text = (ROOT_DIR / "compose.yaml").read_text(encoding="utf-8")
-        if "127.0.0.1:5434/tesismcp_reducido_docente" not in settings_text:
+        if "127.0.0.1:5434/tesismcp" not in settings_text:
             errors.append("settings.py no usa por defecto el PostgreSQL aislado del puerto 5434")
         if '"127.0.0.1:5434:5432"' not in compose_text:
-            errors.append("compose.yaml no publica PostgreSQL reducido en 127.0.0.1:5434")
+            errors.append("compose.yaml no publica PostgreSQL de V1 en 127.0.0.1:5434")
         for servicio in ["postgres:", "backend:", "mcp:"]:
             if servicio not in compose_text:
                 errors.append(f"compose.yaml no declara el servicio {servicio.rstrip(':')}")
@@ -468,7 +468,7 @@ class SuiteVerificacion:
         elapsed = time.time() - t0
         passed = len(errors) == 0
         details = (
-            "15 modelos, 2 migraciones, 12 pasos (Cap. 1-3), 17 herramientas MCP, 15 prompts, "
+            "15 modelos, 3 migraciones, 12 pasos (Cap. 1-3), 17 herramientas MCP, 15 prompts, "
             f"{len(docs_to_check)} docs Markdown con 0 links rotos"
         ) if passed else "; ".join(errors)
         self.registrar_resultado("Consistencia Doc-Código", "Sincronización de Cifras y Enlaces", passed, details, elapsed)
@@ -478,7 +478,21 @@ class SuiteVerificacion:
         errors = []
 
         try:
-            from thesis.services.step_contracts import SalidaP01
+            from thesis.services.contratos_pasos import SalidaP01
+            from thesis.api.proyectos import EntradaGuardarPaso
+
+            campos_guardado = set(EntradaGuardarPaso.model_json_schema()["properties"])
+            campos_esperados = {
+                "contenido_md",
+                "datos_salida",
+                "version_esperada",
+                "clave_idempotencia",
+            }
+            if campos_guardado != campos_esperados:
+                errors.append(
+                    "EntradaGuardarPaso no coincide con el contrato español: "
+                    f"{sorted(campos_guardado)}"
+                )
             try:
                 SalidaP01.model_validate({
                     "temas_propuestos": [
@@ -516,6 +530,52 @@ class SuiteVerificacion:
         except Exception as e:
             errors.append(f"Fallo importando/validando contratos Pydantic: {e}")
 
+        rutas_api = (ROOT_DIR / "backend" / "thesis" / "api" / "proyectos.py").read_text(encoding="utf-8")
+        configuracion_api = (ROOT_DIR / "backend" / "config" / "api.py").read_text(encoding="utf-8")
+        configuracion_urls = (ROOT_DIR / "backend" / "config" / "urls.py").read_text(encoding="utf-8")
+        rutas_canonicas = [
+            '"salud/"',
+            '"/sesion/actual"',
+            '"/metodologia/catalogo"',
+            '"/asesor/panel"',
+            '"/{id_proyecto}/pasos/{codigo_paso}"',
+            '"/{id_proyecto}/capitulos/{numero_capitulo}"',
+            '"/{id_proyecto}/capitulos/{numero_capitulo}/enviar"',
+            '"/{id_proyecto}/capitulos/{numero_capitulo}/comentarios"',
+        ]
+        fuentes_rutas = configuracion_urls + configuracion_api + rutas_api
+        rutas_faltantes = [ruta for ruta in rutas_canonicas if ruta not in fuentes_rutas]
+        if rutas_faltantes:
+            errors.append(f"Faltan rutas canónicas españolas: {rutas_faltantes}")
+
+        fuentes_contrato = [
+            ROOT_DIR / "backend" / "config" / "api.py",
+            ROOT_DIR / "backend" / "config" / "urls.py",
+            ROOT_DIR / "backend" / "thesis" / "api" / "proyectos.py",
+            ROOT_DIR / "backend" / "thesis" / "services" / "proyectos.py",
+            ROOT_DIR / "backend" / "thesis" / "services" / "pasos.py",
+            ROOT_DIR / "backend" / "thesis" / "services" / "revisiones.py",
+            ROOT_DIR / "mcp_server" / "herramientas_proyecto.py",
+        ]
+        texto_contrato = "\n".join(
+            fuente.read_text(encoding="utf-8") for fuente in fuentes_contrato
+        )
+        residuos_publicos_ingles = [
+            residuo for residuo in [
+                '"health/"', '"/projects"', '"/session/me"', '"/methodology/catalog"',
+                '"project_id":', '"step_code":', '"chapter_no":',
+                '"content_md":', '"output_data":', '"expected_version":',
+                '"idempotency_key":', '"state_version":', '"allowed_actions":',
+                '"VERSION_CONFLICT"', '"VALIDATION_ERROR"', '"NOT_FOUND"',
+            ]
+            if residuo in texto_contrato
+        ]
+        if residuos_publicos_ingles:
+            errors.append(
+                "Residuos de contrato público inglés: "
+                f"{residuos_publicos_ingles}"
+            )
+
         service_mocks = []
         marcadores_ficticios = [
             "2501.00001", "mock_data_dummy", "example.invalid",
@@ -529,7 +589,7 @@ class SuiteVerificacion:
         for production_root in production_roots:
             for pyfile in production_root.rglob("*.py"):
                 relative_parts = pyfile.relative_to(ROOT_DIR).parts
-                if "demo" in relative_parts or "tests" in relative_parts or pyfile.name.startswith("test_"):
+                if "demostracion" in relative_parts or "tests" in relative_parts or pyfile.name.startswith("test_"):
                     continue
                 content = pyfile.read_text(encoding="utf-8").lower()
                 if any(marker in content for marker in marcadores_ficticios):
@@ -539,7 +599,10 @@ class SuiteVerificacion:
 
         elapsed = time.time() - t0
         passed = len(errors) == 0
-        details = "Contratos Pydantic estrictos (extra='forbid') y 0 marcadores ficticios en producción" if passed else "; ".join(errors)
+        details = (
+            "Contratos Pydantic estrictos, contrato público español y 0 marcadores ficticios en producción"
+            if passed else "; ".join(errors)
+        )
         self.registrar_resultado("Auditoría Adversaria", "Validación de Contratos y Cero Mocks", passed, details, elapsed)
 
     def ejecutar_todo(self) -> int:
@@ -551,7 +614,7 @@ class SuiteVerificacion:
 
         self.verificar_salud_django()
         self.verificar_migraciones_django()
-        self.verificar_esquema_fisico_espanol()
+        self.verificar_esquema_fisico()
         self.verificar_suite_pytest()
         self.verificar_higiene_repositorio()
         self.verificar_consistencia_documentacion_codigo()

@@ -8,9 +8,9 @@ from .projects import Project
 
 class ResearchProfile(models.Model):
     class Approach(models.TextChoices):
-        QUANTITATIVE = "QUANTITATIVE", "Cuantitativo"
-        QUALITATIVE = "QUALITATIVE", "Cualitativo"
-        MIXED = "MIXED", "Mixto"
+        CUANTITATIVO = "CUANTITATIVO", "Cuantitativo"
+        CUALITATIVO = "CUALITATIVO", "Cualitativo"
+        MIXTO = "MIXTO", "Mixto"
 
     project = models.OneToOneField(Project, on_delete=models.PROTECT, primary_key=True, related_name="profile")
     approach = models.CharField(max_length=16, choices=Approach.choices, null=True, blank=True)
@@ -29,7 +29,7 @@ class ResearchProfile(models.Model):
         constraints = [
             models.CheckConstraint(condition=Q(schema_version__gte=1), name="tesis_perfil_version_esquema_positiva"),
             models.CheckConstraint(
-                condition=Q(approach__isnull=True) | Q(approach__in=["QUANTITATIVE", "QUALITATIVE", "MIXED"]),
+                condition=Q(approach__isnull=True) | Q(approach__in=["CUANTITATIVO", "CUALITATIVO", "MIXTO"]),
                 name="tesis_perfil_enfoque_valido",
             ),
         ]
@@ -54,9 +54,9 @@ class ConsistencyRow(models.Model):
 
 class ResearchVariable(models.Model):
     class Role(models.TextChoices):
-        INDEPENDENT = "INDEPENDENT", "Variable Independiente"
-        DEPENDENT = "DEPENDENT", "Variable Dependiente"
-        OTHER = "OTHER", "Otra / Constructo"
+        INDEPENDIENTE = "INDEPENDIENTE", "Variable Independiente"
+        DEPENDIENTE = "DEPENDIENTE", "Variable Dependiente"
+        OTRA = "OTRA", "Otra / Constructo"
 
     project = models.ForeignKey(Project, on_delete=models.PROTECT, related_name="variables")
     role = models.CharField(max_length=16, choices=Role.choices)
@@ -74,7 +74,7 @@ class ResearchVariable(models.Model):
             models.UniqueConstraint(fields=["project", "ordinal"], name="tesis_variable_proyecto_orden_unico"),
             models.CheckConstraint(condition=Q(ordinal__gte=1), name="tesis_variable_orden_positivo"),
             models.CheckConstraint(
-                condition=Q(role__in=["INDEPENDENT", "DEPENDENT", "OTHER"]),
+                condition=Q(role__in=["INDEPENDIENTE", "DEPENDIENTE", "OTRA"]),
                 name="tesis_variable_rol_valido",
             ),
         ]

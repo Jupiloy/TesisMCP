@@ -131,7 +131,7 @@
   <!-- Nodo 3.1: Puente MCP & Seguridad -->
   <rect x="200" y="380" width="375" height="60" class="node-card"/>
   <text x="218" y="403" class="node-title">🛡️ Puente MCP y Capa de Seguridad</text>
-  <text x="218" y="420" class="node-body">django_bridge.py (async_to_sync) + mcp_auth.py (Tokens SHA-256)</text>
+  <text x="218" y="420" class="node-body">puente_django.py (async_to_sync) + mcp_auth.py (Tokens SHA-256)</text>
   <text x="218" y="433" class="node-sub">Aislamiento de contexto y verificación estricta de identidades</text>
 
   <!-- Flecha Puente -> Servicios -->
@@ -146,7 +146,7 @@
   <text x="218" y="482" class="node-title">⚙️ Servicios de Dominio (thesis.services)</text>
   <text x="218" y="500" class="node-body">• Contratos Pydantic SalidaEstricta (extra='forbid') para pasos P01 a P12</text>
   <text x="218" y="516" class="node-body">• Sincronización Matriz de Consistencia y Operacionalización (consistency.py)</text>
-  <text x="218" y="532" class="node-body">• Máquina de estados de revisión y observaciones ancladas (reviews.py)</text>
+  <text x="218" y="532" class="node-body">• Máquina de estados de revisión y observaciones ancladas (revisiones.py)</text>
   <rect x="218" y="539" width="235" height="16" class="badge-bg"/>
   <text x="335" y="551" class="badge-text">Control Concurrencia Optimista: lock_version</text>
 
@@ -174,7 +174,7 @@
   <!-- ==================================================================== -->
   <!-- Nodo 4.1: PostgreSQL 16 (Tarjeta Completa Centrada) -->
   <rect x="200" y="625" width="780" height="165" class="node-card-highlight"/>
-  <text x="220" y="650" class="node-title">🐘 PostgreSQL 16 (Base de Datos Relacional: tesismcp_reducido_docente)</text>
+  <text x="220" y="650" class="node-title">🐘 PostgreSQL 16 (Base de Datos Relacional: tesismcp)</text>
   <text x="220" y="670" class="node-body">15 Modelos Django ORM / 17 Tablas Físicas con Prefijo tesis_* Íntegramente en Español</text>
   <text x="220" y="688" class="node-sub">Estructuras Normalizadas en 3NF: Perfil, Proyecto, Pasos Metodológicos (P01–P12), Matriz de Consistencia y Operacionalización</text>
 

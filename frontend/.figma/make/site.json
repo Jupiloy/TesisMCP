@@ -1,0 +1,11 @@
+{
+  "title": "TesisMCP · Recorrido P01",
+  "description": "Formulación metodológica de tesis con persistencia y validación determinista.",
+  "language": "es",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": true
+  }
+}

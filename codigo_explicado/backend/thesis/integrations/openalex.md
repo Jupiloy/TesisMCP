@@ -17,5 +17,5 @@ A diferencia de servicios comerciales con claves cerradas y costos por consulta,
 * `reconstruir_resumen_invertido(abstract_inverted_index: dict) -> str`: Algoritmo que reconstruye el texto del resumen a partir del mapa de posiciones de OpenAlex.
 
 ## 5. Relaciones con Otras Capas y Tablas
-* **Servicios:** Consumido por [`backend/thesis/services/exploration.py`](../../backend/thesis/services/exploration.py).
-* **Herramienta MCP:** Invocado por `explorar_idea` en [`mcp_server/project_tools.py`](../../mcp_server/project_tools.py).
+* **Servicios:** Consumido por [`backend/thesis/services/exploracion.py`](../../backend/thesis/services/exploracion.py).
+* **Herramienta MCP:** Invocado por `explorar_idea` en [`mcp_server/herramientas_proyecto.py`](../../mcp_server/herramientas_proyecto.py).

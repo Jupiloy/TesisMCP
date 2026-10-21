@@ -17,5 +17,5 @@ ALICIA es el repositorio oficial estatal que indexa la producción académica na
 * Manejo seguro de timeouts y errores de conexión con backoff preventivo.
 
 ## 5. Relaciones con Otras Capas y Tablas
-* **Servicio:** Consumido por [`backend/thesis/services/discovery_peru.py`](../../backend/thesis/services/discovery_peru.py).
+* **Servicio:** Consumido por [`backend/thesis/services/descubrimiento_peru.py`](../../backend/thesis/services/descubrimiento_peru.py).
 * **Herramienta MCP:** Llamado indirectamente desde `buscar_antecedentes_peru`.

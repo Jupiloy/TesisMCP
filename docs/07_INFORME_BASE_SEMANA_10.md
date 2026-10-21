@@ -29,7 +29,7 @@ TesisMCP es una herramienta que acompaña al estudiante mientras arma su proyect
 
 Al corte de Semana 10 se dispone de un núcleo funcional para los capítulos 1, 2 y 3, organizado en doce pasos metodológicos (`P01` a `P12`). El estudiante puede crear un proyecto, desarrollar cada paso mediante un cliente compatible con MCP o mediante la API REST, conservar el estado metodológico en PostgreSQL y enviar capítulos a revisión. El asesor puede registrar observaciones ancladas al texto, resolverlas, solicitar cambios, aprobar una revisión concreta o reabrir un capítulo.
 
-La solución actual usa Django, Django Ninja, Pydantic, el SDK oficial de MCP y PostgreSQL 16. Su estructura contiene 15 modelos Django, 17 tablas físicas propias con nombres en español, 2 migraciones, 17 herramientas MCP, 15 prompts MCP y 32 pruebas automatizadas. Estos números describen lo que existe en el corte actual; no representan todavía el alcance final pensado para el proyecto.
+La solución actual usa Django, Django Ninja, Pydantic, el SDK oficial de MCP y PostgreSQL 16. Su estructura contiene 15 modelos Django, 17 tablas físicas propias con nombres en español, 3 migraciones, 17 herramientas MCP, 15 prompts MCP y 34 pruebas automatizadas. Estos números describen lo que existe en el corte actual; no representan todavía el alcance final pensado para el proyecto.
 
 En los siguientes incrementos se prevé ampliar el recorrido hasta `P32` y los capítulos 4 al 7, incorporar procesamiento de documentos PDF a texto completo, trazabilidad de citas hasta la página física, una interfaz web propia para el estudiante, exportación institucional y pruebas de usabilidad con participantes reales. Mientras esas capacidades no se incorporen, los resultados provenientes de OpenAlex, Semantic Scholar y ALICIA deben tratarse como metadatos para exploración, no como evidencia textual ya comprobada.
 
@@ -348,7 +348,7 @@ La propuesta de valor no es “hacer la tesis automáticamente”. La utilidad e
 | Código | Riesgo | Efecto posible | Tratamiento planteado |
 | :---: | :--- | :--- | :--- |
 | R01 | Referencias o afirmaciones inventadas por el modelo | Contenido académico no verificable | Mantener advertencias en búsquedas por metadatos e incorporar evidencia a página física en un incremento posterior. |
-| R02 | Sobrescritura de avances concurrentes | Pérdida silenciosa de cambios | Comparar `expected_version` con `lock_version` dentro de una transacción. |
+| R02 | Sobrescritura de avances concurrentes | Pérdida silenciosa de cambios | Comparar `version_esperada` con la versión persistida dentro de una transacción. |
 | R03 | Aprobación con observaciones abiertas | Cierre inconsistente de un capítulo | Bloquear la aprobación hasta resolver las observaciones vigentes. |
 | R04 | Caída de un buscador externo | La exploración bibliográfica no responde | Mantener las integraciones separadas del núcleo y devolver el error sin inventar resultados. |
 | R05 | Confusión entre metadatos y evidencia textual | Uso incorrecto de una referencia | Mostrar el nivel de verificación y añadir después la extracción de PDF con páginas. |
@@ -364,7 +364,7 @@ El desarrollo del proyecto se organiza en 16 semanas académicas. La siguiente t
 | **Fase 1: Diagnóstico y Alcance** | Semanas 1 – 3 | Matriz CA-S-P-CO-CC-PC, problema, objetivos preliminares y Lean Canvas. | **Completado** |
 | **Fase 2: Arquitectura y Datos** | Semanas 4 – 6 | Modelo relacional, 17 tablas en PostgreSQL 16 y disparadores de inmutabilidad. | **Completado** |
 | **Fase 3: Servidor MCP y Pasos** | Semanas 7 – 9 | 17 herramientas MCP, 15 prompts y contratos Pydantic para pasos `P01` a `P12`. | **Completado** |
-| **Fase 4: Módulo de Supervisión** | Semanas 9 – 10 | Máquina de estados FSM, comentarios anclados (`start_cp:end_cp`) y 32 pruebas. | **Completado** |
+| **Fase 4: Módulo de Supervisión** | Semanas 9 – 10 | Máquina de estados FSM, comentarios anclados (`inicio_caracter:fin_caracter`) y 34 pruebas. | **Completado** |
 | **HITO ACTUAL: Corte Semana 10** | **Semana 10** | **Capítulos 1 al 3 operativos, API REST, Django Admin y Definition of Done.** | **ENTREGADO** |
 | **Fase 5: Extensión Metodológica** | Semanas 11 – 12 | Implementación de catálogo `P13` a `P32` para los Capítulos 4 al 7. | *Previsto* |
 | **Fase 6: Evidencia Documental** | Semanas 13 – 14 | Ingesta controlada de PDFs, comprobación física de páginas y OCR. | *Previsto* |
@@ -522,7 +522,7 @@ Finalmente, `P05` recibe el contenido en Markdown. El contrato compara el númer
 
 `P07` separa la justificación en cuatro partes: teórica, práctica, metodológica y social. El contrato exige las cuatro dimensiones sin repetirlas. Esta separación ayuda a no convertir la justificación en un único párrafo genérico.
 
-`P08` registra la brecha detectada y el aporte que propone la investigación. Su estado queda como `PENDING_EVIDENCE`. Esa marca es intencional: permite avanzar con la idea sin fingir que la literatura ya fue revisada a texto completo.
+`P08` registra la brecha detectada y el aporte que propone la investigación. Su estado queda como `EVIDENCIA_PENDIENTE`. Esa marca es intencional: permite avanzar con la idea sin fingir que la literatura ya fue revisada a texto completo.
 
 ##### Capítulo 3: alinear objetivos, preguntas, hipótesis y variables
 
@@ -549,8 +549,8 @@ El sistema devuelve errores distintos según el problema:
 | `RULE_QUESTION_FORMAT` | Una pregunta no tiene la forma esperada. |
 | `RULE_CONSISTENCY_MISMATCH` | Preguntas, objetivos, hipótesis o variables no coinciden. |
 | `PREREQUISITE_LOCKED` | Falta completar un paso anterior. |
-| `VERSION_CONFLICT` | Otra operación cambió el proyecto o el capítulo no está en un estado editable. |
-| `ADVISOR_UNRESOLVED_COMMENTS` | El asesor intenta aprobar mientras quedan observaciones abiertas. |
+| `CONFLICTO_VERSION` | Otra operación cambió el proyecto o el capítulo no está en un estado editable. |
+| `OBSERVACIONES_ASESOR_SIN_RESOLVER` | El asesor intenta aprobar mientras quedan observaciones abiertas. |
 
 Un rechazo no borra el avance anterior. La transacción se cancela y el usuario puede corregir la entrada.
 
@@ -608,7 +608,7 @@ Los grupos principales son:
 - **variables:** variables, relación con filas, dimensiones e indicadores (`tesis_variable_investigacion`, `tesis_variable_fila_consistencia`, `tesis_dimension_variable`, `tesis_indicador`);
 - **revisión:** capítulos, revisiones, comentarios y eventos (`tesis_capitulo`, `tesis_revision_capitulo`, `tesis_comentario_revision`, `tesis_evento_revision`).
 
-El esquema se despliega mediante dos migraciones Django: una consolidada inicial y una de nombres físicos e inmutabilidad con triggers nativos PostgreSQL.
+El esquema se despliega mediante tres migraciones Django: una consolidada inicial, una de integridad física e inmutabilidad con disparadores nativos PostgreSQL y una normalización reversible de estados persistidos.
 
 | Tabla física | Información principal |
 | :--- | :--- |
@@ -684,13 +684,13 @@ Los comentarios ya tienen lógica y persistencia, pero no una presentación visu
 ```text
 1. El tesista completa todos los pasos del capítulo.
 2. El tesista ejecuta enviar_capitulo.
-3. El capítulo cambia de DRAFT a READY.
+3. El capítulo cambia de `BORRADOR` a `EN_REVISION`.
 4. El asesor consulta la revisión vigente.
 5. El asesor indica posición inicial, posición final y texto seleccionado.
 6. El backend comprueba que ese fragmento coincida exactamente.
-7. La observación se guarda con estado OPEN.
+7. La observación se guarda con estado `ABIERTA`.
 8. El tesista la consulta y prepara una corrección.
-9. El asesor revisa el cambio y marca la observación RESOLVED.
+9. El asesor revisa el cambio y marca la observación `RESUELTA`.
 10. Si no quedan observaciones abiertas, el asesor puede aprobar.
 ```
 
@@ -779,13 +779,13 @@ El inventario se obtiene del código y de la puerta automática:
 | Pasos metodológicos | 12 (`P01`–`P12`) |
 | Modelos Django | 15 |
 | Tablas físicas propias | 17 |
-| Migraciones | 2 |
+| Migraciones | 3 |
 | Herramientas MCP | 17 |
 | Prompts MCP | 15 (12 de pasos y 3 de roles) |
-| Pruebas automatizadas | 32 |
+| Pruebas automatizadas | 34 |
 | Motor de datos | PostgreSQL 16 |
 | API | Django Ninja bajo `/api/v1/` |
-| Salud del backend | `/health/` |
+| Salud del backend | `/salud/` |
 
 #### 6.7.5 Recorrido de demostración
 
@@ -807,14 +807,14 @@ Durante la demostración conviene mostrar no solo el mensaje final, sino tambié
 | Momento | Qué se debe observar |
 | :--- | :--- |
 | Inicio | Servidor MCP activo, 12 pasos y 15 prompts. |
-| Creación | UUID del proyecto y `state_version` inicial. |
+| Creación | UUID del proyecto y `version_estado` inicial. |
 | Guardado | Nueva revisión y aumento de la versión. |
 | Capítulo 3 | Filas de consistencia, variables, dimensiones e indicadores. |
 | Intento de `P13` | Mensaje indicando que no está en el catálogo actual. |
-| Envío | Cambio del capítulo a `READY`. |
-| Observación | Fragmento, comentario y estado `OPEN`. |
+| Envío | Cambio del capítulo a `EN_REVISION`. |
+| Observación | Fragmento, comentario y estado `ABIERTA`. |
 | Aprobación anticipada | Error por observaciones sin resolver. |
-| Cierre | Observación `RESOLVED` y capítulo `APPROVED`. |
+| Cierre | Observación `RESUELTA` y capítulo `APROBADO`. |
 
 Esta demostración prueba el comportamiento programado con un caso preparado. No demuestra todavía que estudiantes reales entiendan la interfaz, que el sistema reduzca el tiempo de redacción ni que mejore una calificación.
 
@@ -826,7 +826,7 @@ La puerta `scripts/verify_project.py` comprueba de forma conjunta:
 - ausencia de cambios de modelos sin migración;
 - existencia exacta de las 17 tablas físicas y sus nombres en español;
 - restricciones, índices, función y disparadores esperados en PostgreSQL;
-- aprobación de las 32 pruebas;
+- aprobación de las 34 pruebas;
 - higiene del repositorio;
 - concordancia entre código y documentación;
 - rechazo de campos ajenos a los contratos Pydantic.

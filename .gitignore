@@ -7,6 +7,10 @@ __pycache__/
 !.env.example
 var/
 
+# Respaldos locales de PostgreSQL: conservar fuera del control de versiones.
+respaldos/*.dump
+respaldos/*.sha256
+
 # Graphify temporales y regenerables
 graphify-out/cache/
 graphify-out/converted/
@@ -15,3 +19,12 @@ graphify-out/obsidian/
 # Documentos compilados locales
 *.docx
 *.pdf
+
+# Dependencias y compilados de Frontend
+node_modules/
+dist/
+.vite/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+

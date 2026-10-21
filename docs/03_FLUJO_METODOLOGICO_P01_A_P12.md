@@ -1,10 +1,10 @@
 # 03. Flujo Metodológico Paso a Paso: Capítulos 1 al 3 (`P01` a `P12`)
 
-Este documento describe el comportamiento literal de [`step_contracts.py`](../backend/thesis/services/step_contracts.py), [`steps.py`](../backend/thesis/services/steps.py) y los materializadores registrados en [`step_materializers/`](../backend/thesis/services/step_materializers/).
+Este documento describe el comportamiento literal de [`contratos_pasos.py`](../backend/thesis/services/contratos_pasos.py), [`pasos.py`](../backend/thesis/services/pasos.py) y los materializadores registrados en [`materializadores_pasos/`](../backend/thesis/services/materializadores_pasos/).
 
 ## 1. Secuencia interna de `guardar_paso_servicio`
 
-La herramienta MCP `guardar_paso` y el endpoint REST `PUT /api/v1/projects/{project_id}/steps/{step_code}` delegan en la misma función.
+La herramienta MCP `guardar_paso` y el endpoint REST `PUT /api/v1/proyectos/{id_proyecto}/pasos/{codigo_paso}` delegan en la misma función.
 
 ```mermaid
 sequenceDiagram
@@ -23,13 +23,13 @@ sequenceDiagram
     S->>M: ejecutar_materializador_paso(...)
     M->>DB: Actualizaciones relacionales específicas del paso
     S->>DB: INSERT RevisionCapitulo con SHA-256
-    S->>DB: UPSERT ProgresoPaso como COMPLETED
+    S->>DB: UPSERT ProgresoPaso como COMPLETADO
     S->>DB: Incrementa PerfilInvestigacion.lock_version
     S->>DB: COMMIT
     S-->>C: revisión, versión nueva e indicador de idempotencia
 ```
 
-El servicio exige orden secuencial: salvo `P01`, cada paso requiere que el anterior esté `COMPLETED`. El contenido Markdown lo entrega el cliente y se guarda tal cual, con límite de 200 000 caracteres y resumen SHA-256; el backend no inventa ni renderiza contenido académico adicional.
+El servicio exige orden secuencial: salvo `P01`, cada paso requiere que el anterior esté `COMPLETADO`. El contenido Markdown lo entrega el cliente y se guarda tal cual, con límite de 200 000 caracteres y resumen SHA-256; el backend no inventa ni renderiza contenido académico adicional.
 
 ## 2. Contratos reales de los pasos
 
@@ -44,7 +44,7 @@ Todos heredan de `SalidaEstricta`, que usa `ConfigDict(extra="forbid", str_strip
 | `P05` | 1 | Markdown de al menos 500 caracteres, 3 párrafos y entre 250 y 1200 palabras; los conteos declarados deben coincidir. | Salida JSON y nueva revisión del capítulo 1. |
 | `P06` | 2 | Problema central, 2 a 5 causas, 2 a 5 efectos, pregunta general con signos `¿?` y 2 a 4 preguntas específicas (esquema `CA-S-P-CO-CC-PC`, ver [`01_ishikawa_situacion_problematica.png`](./diagramas/01_ishikawa_situacion_problematica.png)). | Actualiza el planteamiento y crea las preguntas general (`orden=0`) y específicas en `tesis_fila_consistencia`. |
 | `P07` | 2 | Exactamente cuatro justificaciones: `TEORICA`, `PRACTICA`, `METODOLOGICA` y `SOCIAL`, sin duplicados. | Salida JSON y nueva revisión del capítulo 2. |
-| `P08` | 2 | Brecha detectada, aporte propuesto y estado fijo `PENDING_EVIDENCE`. | Salida JSON y nueva revisión del capítulo 2. |
+| `P08` | 2 | Brecha detectada, aporte propuesto y estado fijo `EVIDENCIA_PENDIENTE`. | Salida JSON y nueva revisión del capítulo 2. |
 | `P09` | 3 | Objetivo general y 2 a 4 objetivos específicos iniciados con verbos de Bloom permitidos. | Completa los objetivos de las filas de consistencia y exige igual cantidad que las preguntas de `P06`. |
 | `P10` | 3 | Pregunta general y 2 a 4 preguntas específicas, todas con signos `¿?`. | Sincroniza las preguntas de la matriz y exige igual cantidad que los objetivos de `P09`. |
 | `P11` | 3 | Tipo de investigación, hipótesis general y específicas, variable independiente y dependiente. | Completa hipótesis, crea dos variables (`INDEPENDENT` y `DEPENDENT`) y las vincula con todas las filas de consistencia (ver [`05_modelo_conceptual_er.png`](./diagramas/05_modelo_conceptual_er.png)). |
@@ -56,4 +56,4 @@ Todos heredan de `SalidaEstricta`, que usa `ConfigDict(extra="forbid", str_strip
 - PostgreSQL impide `UPDATE` y `DELETE` sobre revisiones y eventos mediante la función `tesis_rechazar_cambio_historial` y dos triggers.
 - Un capítulo solo puede enviarse cuando todos sus pasos están completados.
 - El asesor no puede aprobar mientras existan observaciones abiertas.
-- Un capítulo aprobado vuelve a `DRAFT` cuando el asesor ejecuta `REOPEN` con un motivo.
+- Un capítulo aprobado vuelve a `BORRADOR` cuando el asesor ejecuta `REABRIR` con un motivo.

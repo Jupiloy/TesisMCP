@@ -3,15 +3,15 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_DB: tesismcp_reducido_docente
+      POSTGRES_DB: tesismcp
       POSTGRES_USER: tesismcp
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tesismcp_local}
     ports:
       - "127.0.0.1:5434:5432"
     volumes:
-      - postgres_reducido_data:/var/lib/postgresql/data
+      - postgres_datos:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tesismcp -d tesismcp_reducido_docente"]
+      test: ["CMD-SHELL", "pg_isready -U tesismcp -d tesismcp"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -19,7 +19,7 @@ services:
   backend:
     build: .
     environment:
-      DATABASE_URL: postgresql://tesismcp:${POSTGRES_PASSWORD:-tesismcp_local}@postgres:5432/tesismcp_reducido_docente
+      DATABASE_URL: postgresql://tesismcp:${POSTGRES_PASSWORD:-tesismcp_local}@postgres:5432/tesismcp
       DJANGO_DEBUG: "1"
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-solo-desarrollo-docente-cambiar}
       DJANGO_ALLOWED_HOSTS: 127.0.0.1,localhost,backend
@@ -33,7 +33,7 @@ services:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=3)"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/salud/', timeout=3)"]
       interval: 5s
       timeout: 5s
       retries: 12
@@ -41,7 +41,7 @@ services:
   mcp:
     build: .
     environment:
-      DATABASE_URL: postgresql://tesismcp:${POSTGRES_PASSWORD:-tesismcp_local}@postgres:5432/tesismcp_reducido_docente
+      DATABASE_URL: postgresql://tesismcp:${POSTGRES_PASSWORD:-tesismcp_local}@postgres:5432/tesismcp
       DJANGO_DEBUG: "1"
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-solo-desarrollo-docente-cambiar}
     command: ["python", "-m", "mcp_server.server"]
@@ -53,4 +53,4 @@ services:
     profiles: ["mcp"]
 
 volumes:
-  postgres_reducido_data:
+  postgres_datos:

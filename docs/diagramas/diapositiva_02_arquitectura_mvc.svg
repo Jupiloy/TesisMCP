@@ -235,7 +235,7 @@
     <!-- Card 3 -->
     <rect x="900" y="28" width="420" height="52" rx="6" fill="#1e293b" stroke="#334155"/>
     <text x="915" y="50" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">3. TDD con Pytest (100% Verde):</text>
-    <text x="915" y="68" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">32 pruebas de integración garantizan cero regresiones en cada avance entregado.</text>
+    <text x="915" y="68" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">34 pruebas de integración verifican regresiones en cada avance entregado.</text>
 
     <!-- Card 4 -->
     <rect x="1350" y="28" width="420" height="52" rx="6" fill="#1e293b" stroke="#334155"/>

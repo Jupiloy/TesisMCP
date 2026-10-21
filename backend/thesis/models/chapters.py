@@ -10,12 +10,12 @@ from .projects import Project
 
 class StepProgress(models.Model):
     class Status(models.TextChoices):
-        IN_PROGRESS = "IN_PROGRESS", "En curso"
-        COMPLETED = "COMPLETED", "Completado"
+        EN_CURSO = "EN_CURSO", "En curso"
+        COMPLETADO = "COMPLETADO", "Completado"
 
     project = models.ForeignKey(Project, on_delete=models.PROTECT, related_name="steps")
     step_code = models.CharField(max_length=3)
-    status = models.CharField(max_length=16, choices=Status.choices, default=Status.IN_PROGRESS)
+    status = models.CharField(max_length=16, choices=Status.choices, default=Status.EN_CURSO)
     output_json = models.JSONField(default=dict)
     completed_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -27,37 +27,37 @@ class StepProgress(models.Model):
 
 class Chapter(FSMModelMixin, models.Model):
     class Status(models.TextChoices):
-        DRAFT = "DRAFT", "Borrador"
-        READY = "READY", "En revisión"
-        CHANGES_REQUESTED = "CHANGES_REQUESTED", "Con observaciones"
-        APPROVED = "APPROVED", "Aprobado"
+        BORRADOR = "BORRADOR", "Borrador"
+        EN_REVISION = "EN_REVISION", "En revisión"
+        CON_OBSERVACIONES = "CON_OBSERVACIONES", "Con observaciones"
+        APROBADO = "APROBADO", "Aprobado"
 
     project = models.ForeignKey(Project, on_delete=models.PROTECT, related_name="chapters")
     number = models.PositiveSmallIntegerField()
-    status = FSMField(default=Status.DRAFT, protected=True, choices=Status.choices)
+    status = FSMField(max_length=18, default=Status.BORRADOR, protected=True, choices=Status.choices)
     approved_revision = models.ForeignKey("ChapterRevision", on_delete=models.PROTECT, null=True, blank=True, related_name="approving_chapters")
     approved_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    @transition(field=status, source=[Status.DRAFT, Status.CHANGES_REQUESTED], target=Status.READY)
-    def submit(self):
+    @transition(field=status, source=[Status.BORRADOR, Status.CON_OBSERVACIONES], target=Status.EN_REVISION)
+    def enviar(self):
         pass
 
-    @transition(field=status, source=Status.READY, target=Status.CHANGES_REQUESTED)
-    def request_changes(self):
+    @transition(field=status, source=Status.EN_REVISION, target=Status.CON_OBSERVACIONES)
+    def solicitar_cambios(self):
         pass
 
-    @transition(field=status, source=Status.READY, target=Status.APPROVED)
-    def approve(self):
+    @transition(field=status, source=Status.EN_REVISION, target=Status.APROBADO)
+    def aprobar(self):
         pass
 
-    @transition(field=status, source=Status.APPROVED, target=Status.DRAFT)
-    def reopen(self):
+    @transition(field=status, source=Status.APROBADO, target=Status.BORRADOR)
+    def reabrir(self):
         pass
 
-    @transition(field=status, source=Status.CHANGES_REQUESTED, target=Status.DRAFT)
-    def resume_editing(self):
+    @transition(field=status, source=Status.CON_OBSERVACIONES, target=Status.BORRADOR)
+    def reanudar_edicion(self):
         pass
 
     class Meta:
@@ -90,8 +90,8 @@ class ChapterRevision(models.Model):
 
 class ReviewComment(models.Model):
     class Status(models.TextChoices):
-        OPEN = "OPEN", "Abierta"
-        RESOLVED = "RESOLVED", "Resuelta"
+        ABIERTA = "ABIERTA", "Abierta"
+        RESUELTA = "RESUELTA", "Resuelta"
 
     revision = models.ForeignKey(ChapterRevision, on_delete=models.PROTECT, related_name="comments")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="authored_comments")
@@ -99,7 +99,7 @@ class ReviewComment(models.Model):
     end_cp = models.PositiveIntegerField()
     selected_text = models.TextField()
     body = models.TextField()
-    status = models.CharField(max_length=10, choices=Status.choices, default=Status.OPEN)
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.ABIERTA)
     resolved_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name="resolved_comments")
     resolved_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -112,10 +112,10 @@ class ReviewComment(models.Model):
 
 class ReviewEvent(models.Model):
     class Action(models.TextChoices):
-        SUBMIT = "SUBMIT", "Enviado"
-        REQUEST_CHANGES = "REQUEST_CHANGES", "Observado"
-        APPROVE = "APPROVE", "Aprobado"
-        REOPEN = "REOPEN", "Reabierto"
+        ENVIAR = "ENVIAR", "Enviado"
+        SOLICITAR_CAMBIOS = "SOLICITAR_CAMBIOS", "Observado"
+        APROBAR = "APROBAR", "Aprobado"
+        REABRIR = "REABRIR", "Reabierto"
 
     chapter = models.ForeignKey(Chapter, on_delete=models.PROTECT, related_name="review_events")
     revision = models.ForeignKey(ChapterRevision, on_delete=models.PROTECT, null=True, blank=True)

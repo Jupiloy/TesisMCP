@@ -9,13 +9,13 @@ from django.db.models import Q
 
 class Project(models.Model):
     class Status(models.TextChoices):
-        ACTIVE = "ACTIVE", "Activo"
-        ARCHIVED = "ARCHIVED", "Archivado"
+        ACTIVO = "ACTIVO", "Activo"
+        ARCHIVADO = "ARCHIVADO", "Archivado"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=160)
     title = models.CharField(max_length=300)
-    status = models.CharField(max_length=12, choices=Status.choices, default=Status.ACTIVE)
+    status = models.CharField(max_length=12, choices=Status.choices, default=Status.ACTIVO)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -29,8 +29,8 @@ class Project(models.Model):
 
 class ProjectParticipant(models.Model):
     class Role(models.TextChoices):
-        OWNER = "OWNER", "Tesista"
-        ADVISOR = "ADVISOR", "Asesor"
+        TESISTA = "TESISTA", "Tesista"
+        ASESOR = "ASESOR", "Asesor"
 
     project = models.ForeignKey(Project, on_delete=models.PROTECT, related_name="participants")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
@@ -43,8 +43,8 @@ class ProjectParticipant(models.Model):
         db_table = "tesis_participante_proyecto"
         constraints = [
             models.UniqueConstraint(fields=["project", "user"], name="tesis_participante_proyecto_usuario_unico"),
-            models.UniqueConstraint(fields=["project"], condition=Q(role="OWNER", active=True), name="tesis_participante_un_propietario_activo"),
-            models.UniqueConstraint(fields=["project"], condition=Q(role="ADVISOR", active=True), name="tesis_participante_un_asesor_activo"),
+            models.UniqueConstraint(fields=["project"], condition=Q(role="TESISTA", active=True), name="tesis_participante_un_propietario_activo"),
+            models.UniqueConstraint(fields=["project"], condition=Q(role="ASESOR", active=True), name="tesis_participante_un_asesor_activo"),
             models.CheckConstraint(condition=Q(active=True, left_at__isnull=True) | Q(active=False, left_at__isnull=False), name="tesis_participante_fechas_activas_coinciden"),
         ]
         indexes = [models.Index(fields=["user", "active", "role"], name="tesis_part_usuario_rol_idx")]

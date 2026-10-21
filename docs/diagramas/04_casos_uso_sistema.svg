@@ -91,7 +91,7 @@
   <!-- CU07: Observar Fragmento (Fila 2, y=225, h=105, centro y=277) -->
   <rect x="840" y="225" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
   <text x="1070" y="270" class="uc-title">CU07: Observar Fragmento de Texto</text>
-  <text x="1070" y="292" class="uc-desc">Comentarios anclados a revisión con start_cp y end_cp</text>
+  <text x="1070" y="292" class="uc-desc">Comentarios anclados con inicio_caracter y fin_caracter</text>
 
   <!-- CU08: Resolver Observación (Fila 3, y=365, h=105, centro y=417) -->
   <rect x="840" y="365" width="460" height="105" rx="52" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>

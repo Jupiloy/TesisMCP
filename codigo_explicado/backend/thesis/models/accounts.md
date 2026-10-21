@@ -30,4 +30,4 @@ Define los modelos de seguridad e identidad del sistema:
   - `tesis_usuario`: Almacena las cuentas.
   - `tesis_usuario_grupo` y `tesis_usuario_permiso`: Tablas M2M de autorización.
   - `tesis_token_acceso_mcp`: Almacena los hashes de tokens.
-* **Servicios:** Consumido por [`backend/thesis/services/mcp_auth.py`](../../backend/thesis/services/mcp_auth.py) y [`mcp_server/django_bridge.py`](../../mcp_server/django_bridge.py).
+* **Servicios:** Consumido por [`backend/thesis/services/autenticacion_mcp.py`](../../backend/thesis/services/autenticacion_mcp.py) y [`mcp_server/puente_django.py`](../../mcp_server/puente_django.py).

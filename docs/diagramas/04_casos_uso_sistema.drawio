@@ -32,7 +32,7 @@
         <mxCell id="cu_06" parent="sys_box" value="&lt;b&gt;CU06: Asignar Asesor al Proyecto&lt;/b&gt;&lt;br/&gt;Vínculo institucional docente" vertex="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=center;verticalAlign=middle;fontSize=11;fontColor=#000000;fontFamily=Arial;">
           <mxGeometry x="580" y="55" width="460" height="105" as_="geometry" />
         </mxCell>
-        <mxCell id="cu_07" parent="sys_box" value="&lt;b&gt;CU07: Observar Fragmento de Texto&lt;/b&gt;&lt;br/&gt;start_cp, end_cp anclados a revisión" vertex="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=center;verticalAlign=middle;fontSize=11;fontColor=#000000;fontFamily=Arial;">
+        <mxCell id="cu_07" parent="sys_box" value="&lt;b&gt;CU07: Observar Fragmento de Texto&lt;/b&gt;&lt;br/&gt;inicio_caracter, fin_caracter anclados a revisión" vertex="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=center;verticalAlign=middle;fontSize=11;fontColor=#000000;fontFamily=Arial;">
           <mxGeometry x="580" y="195" width="460" height="105" as_="geometry" />
         </mxCell>
         <mxCell id="cu_08" parent="sys_box" value="&lt;b&gt;CU08: Resolver Observación&lt;/b&gt;&lt;br/&gt;Subsanación y verificación (RESOLVED)" vertex="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;fillColor=#ffffff;align=center;verticalAlign=middle;fontSize=11;fontColor=#000000;fontFamily=Arial;">
